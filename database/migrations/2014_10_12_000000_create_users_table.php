@@ -23,9 +23,9 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('zipcode', 50)->nullable();
             $table->string('address')->nullable();
-            $table->foreignId('city_id')->constrained()->onDelete('cascade');
-            $table->foreignId('state_id')->constrained()->onDelete('cascade');
-            $table->foreignId('country_id')->constrained()->onDelete('cascade');
+            $table->foreignId('city_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('state_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('country_id')->nullable()->constrained()->onDelete('cascade');
             $table->text('note')->nullable();
             $table->string('password');
             $table->rememberToken();
