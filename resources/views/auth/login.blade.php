@@ -6,7 +6,6 @@
         <div id="loading-center">
         </div>
     </div> --}}
-    
 
     <div class="wrapper">
         <section class="login-content">
@@ -17,20 +16,23 @@
                             <div class="col-lg-6">
                                 <h2 class="mb-2">Sign In</h2>
                                 <p>To Keep connected with us please login with your personal info.</p>
-                                <form>
-                                    <div class="row">
+                                <form method="POST" action="{{ route('login') }}">
+                                    @csrf
+                                    <div class="row" bis_skin_checked="1">
+                                        <!-- Email Address -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group">
-                                                <input class="floating-input form-control" type="email"
-                                                    placeholder=" ">
-                                                <label>Email</label>
+                                                <x-text-input id="email" class="floating-input form-control" type="email" name="email" :value="old('email')" required autofocus autocomplete="username" />
+                                                <x-input-label for="email" :value="__('Email')"/>
+                                                <x-input-error :messages="$errors->get('email')" class="text text-danger" />
                                             </div>
                                         </div>
+                                        <!-- Password -->
                                         <div class="col-lg-12">
                                             <div class="floating-label form-group">
-                                                <input class="floating-input form-control" type="password"
-                                                    placeholder=" ">
-                                                <label>Password</label>
+                                                <x-text-input id="password" class="floating-input form-control" type="password" name="password" required autocomplete="current-password" />
+                                                <x-input-label for="password" :value="__('Password')" />
+                                                <x-input-error :messages="$errors->get('password')"/>
                                             </div>
                                         </div>
                                         <div class="col-lg-6">
@@ -47,13 +49,15 @@
                                     </div>
                                     <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
                                     <p class="mt-3">
-                                        Create an Account <a href="auth-sign-up.html" class="text-primary">{{ __('Sign Up') }}</a>
+                                        
+                                        @if (Route::has('register'))    
+                                            Create an Account <a href="{{ route('register') }}" class="text-primary">{{ __('Sign Up') }}</a>
+                                        @endif
                                     </p>
                                 </form>
                             </div>
                             <div class="col-lg-6 mb-lg-0 mb-4 mt-lg-0 mt-4">
-                                <img src="{{ asset('admin/images/login/01.png') }}" class="img-fluid w-80"
-                                    alt="">
+                                <img src="{{ asset('admin/images/login/01.png') }}" class="img-fluid w-80" alt="Floating image">
                             </div>
                         </div>
                     </div>
