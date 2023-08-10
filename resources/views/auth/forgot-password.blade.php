@@ -1,15 +1,15 @@
 <x-guest-layout>
-    <!-- Session Status -->
     <!-- loader -->
     {{-- <div id="loading">
         <div id="loading-center">
         </div>
     </div> --}}
-  
+    
     <div class="wrapper">
         <section class="login-content">
-        <div class="container h-100">
-            <div class="row align-items-center justify-content-center h-100">
+            <div class="container h-100">
+                <div class="row align-items-center justify-content-center h-100">
+                <!-- Session Status -->
                 {{-- <x-auth-session-status class="alert alert-success" :status="session('status')" /> --}}
                 <div class="col-12">
                     <div class="row align-items-center">
