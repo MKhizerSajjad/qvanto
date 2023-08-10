@@ -1,7 +1,4 @@
-<x-guest-layout>
-    <!-- Session Status -->
-    <x-auth-session-status class="mb-4" :status="session('status')" />
-    
+<x-guest-layout>    
     {{-- <div id="loading">
         <div id="loading-center">
         </div>
@@ -13,6 +10,8 @@
                 <div class="row align-items-center justify-content-center h-100">
                     <div class="col-12">
                         <div class="row align-items-center">
+                            <!-- Session Status -->
+                            <x-auth-session-status class="alert alert-success" :status="session('status')" />
                             <div class="col-lg-6">
                                 <h2 class="mb-2">Sign In</h2>
                                 <p>To Keep connected with us please login with your personal info.</p>

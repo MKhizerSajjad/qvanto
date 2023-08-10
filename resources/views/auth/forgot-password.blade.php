@@ -26,7 +26,7 @@
                             <a class="btn btn-primary d-inline-flex align-items-center mt-3" href="index.html"><i class="ri-home-4-line rtl-ml-1"></i>Back to Home</a>
                             </div>
                         @else
-                            <h2 class="mb-2">Reset Password</h2>
+                            <h2 class="mb-2">{{ __('Reset Password') }}</h2>
                             {{-- {{ __('Forgot your password? No problem. Just let us know your email address and we will email you a password reset link that will allow you to choose a new one.') }} --}}
                             <p>
                                 {{ __('Enter your email address and we\'ll send you an email with instructions to reset your password') }}
