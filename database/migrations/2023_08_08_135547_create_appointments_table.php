@@ -17,10 +17,10 @@ return new class extends Migration
             $table->boolean('is_accepted')->default(false);
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->unsignedBigInteger('employe_id')->nullable();
-            $table->foreign('employe_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->unsignedBigInteger('employee_id')->nullable();
+            $table->foreign('employee_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->tinyInteger('case_type_id')->unsigned()->indexed();
-            $table->date('dated')->nullable();
+            $table->datetime('dated')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

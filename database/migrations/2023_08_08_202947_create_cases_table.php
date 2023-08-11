@@ -20,11 +20,12 @@ return new class extends Migration
             // $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('CASCADE');
             $table->unsignedBigInteger('customer_id');
             $table->foreign('customer_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->unsignedBigInteger('employe_id');
-            $table->foreign('employe_id')->references('id')->on('users')->onDelete('CASCADE');
+            $table->unsignedBigInteger('employee_id');
+            $table->foreign('employee_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->decimal('total_amount',20,2);
             $table->decimal('paid_amount',20,2);
             $table->decimal('discount',20,2);
+            $table->decimal('commission_percentage',20,2);
             $table->text('note')->nullable();
             $table->timestamps();
         });
