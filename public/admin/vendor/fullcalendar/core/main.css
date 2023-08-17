@@ -1051,3 +1051,24 @@ Lots taken from Flatly (MIT): https://bootswatch.com/4/flatly/bootstrap.css
     /* don't display any button-related controls */
   }
 }
+
+
+.pagination-wrap {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+.pagination-wrap a {
+  text-decoration: none;
+  display: inline-block;
+}
+.pagination-wrap svg {
+  font-size: 10px;
+}
