@@ -35,7 +35,6 @@ class EmployeeController extends Controller
     {
         $this->validate($request, [
             'picture' => 'file|mimes:jpeg,jpg,gif,png|max:2048',
-            'title' => 'required',
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
@@ -67,6 +66,7 @@ class EmployeeController extends Controller
         
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
+        $data['user_type'] = 2;
         $user = Employee::create($data);
 
         return redirect()->route('employee.index')

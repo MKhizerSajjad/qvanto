@@ -9,7 +9,8 @@
                             <div class="iq-header-title">
                                 <h4 class="card-title mb-0">Employees List</h4>
                             </div>
-                            <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addContact">Add New</a>
+                            <a href="{{route('employee.create')}}" class="btn btn-primary">Add New</a>
+                            {{-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addContact">Add New</a> --}}
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -18,22 +19,26 @@
                                     {{-- data-tables  --}}
                                     <thead>
                                         <tr>
+                                            <th>Sr#</th>
                                             <th>Photo</th>
                                             <th>Name</th>
                                             <th>Email</th>
                                             <th>Phone No.</th>
+                                            <th>Status</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($data as $key => $employee)
                                             <tr>
+                                                <td>{{++$key}}</td>
                                                 <td>
                                                     <img src="{{ asset('images/admin/'.$employee->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $employee->first_name }}"  class="rounded avatar-40 img-fluid" >
                                                 </td>
                                                 <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                                                 <td>{{$employee->email}}</td>
                                                 <td>{{$employee->mobile_number}}</td>
+                                                <td>{!! getGeneralStatus($employee->status, 'badge') !!}</td>
                                                 <td>
                                                     <div class="d-flex align-items-center list-action">
                                                         <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
