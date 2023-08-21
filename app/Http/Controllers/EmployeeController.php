@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Hash;
 use App\Models\Employee;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
 class EmployeeController extends Controller
@@ -50,16 +51,11 @@ class EmployeeController extends Controller
             $imageStorage = public_path('images/users');
             $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
             $picture = $request->picture;
-            $extension = 'png';
-            // $extension = $picture->getClientOriginalExtension();
+            $extension = $picture->getClientOriginalExtension();
 
             if(in_array($extension, $imageExt)) {
-                // $name = preg_replace('/\s+/', '', $request->first_name);
-                // $frontNewName = $name.'-'.$user->id.$extension;
-                
-                $uniqueIdentifier = uniqid();
-
-                $data['picture'] = $image = $uniqueIdentifier.'.'.$extension;
+                $sluggedName = Str::slug($request->first_name).'-'.Str::slug($request->last_name);
+                $data['picture'] = $image = $sluggedName.'.'.$extension;
                 $picture->move($imageStorage, $image); // Move File
             }
         }
