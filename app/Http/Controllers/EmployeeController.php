@@ -94,7 +94,7 @@ class EmployeeController extends Controller
 
         // Picture
         if (isset($data['picture'])) {
-            $imageStorage = public_path('images/users');
+            $imageStorage = public_path('images/employees');
             $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
             $picture = $request->picture;
             $extension = $picture->getClientOriginalExtension();
@@ -139,22 +139,21 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-
         $this->validate($request, [
             'picture' => 'file|mimes:jpeg,jpg,gif,png|max:2048',
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255|unique:users',
-            'mobile_number' => 'min:12|max:18|unique:users',
+            'email' => 'required|email|max:255|unique:users,email,'.$employee->id,
+            'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$employee->id,
             'status' => 'required',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = $request->all();
 
         // Picture
         if (isset($data['picture'])) {
-            $imageStorage = public_path('images/users');
+            $imageStorage = public_path('images/employees');
             $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
             $picture = $request->picture;
             $extension = $picture->getClientOriginalExtension();
@@ -168,7 +167,7 @@ class EmployeeController extends Controller
 
         if(!empty($data['password'])){
             $data['password'] = Hash::make($data['password']);
-            // unset($data['password_confirmation']);
+            unset($data['password_confirmation']);
         }else{
             $data = Arr::except($data,array('password'));
             $data = Arr::except($data,array('password_confirmation'));
