@@ -18,7 +18,7 @@ class CustomerController extends Controller
     {
         $data = Customer::orderBy('first_name', 'DESC')->paginate(1);
 
-        $users = Customer::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
+        $users = Customer::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 3)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
             $first_name = $request->first_name;
