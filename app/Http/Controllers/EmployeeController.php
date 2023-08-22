@@ -18,7 +18,6 @@ class EmployeeController extends Controller
     {
         $data = Employee::orderBy('first_name', 'DESC')->paginate(1);
 
-
         $users = Employee::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
@@ -39,6 +38,11 @@ class EmployeeController extends Controller
         if ($request->has('mobile_number') && $request->mobile_number != '') {
             $mobile_number = $request->mobile_number;
             $users = $users->where('mobile_number', 'LIKE', $mobile_number.'%');
+        }
+
+        if ($request->has('basic_salary') && $request->basic_salary != '') {
+            $basic_salary = $request->basic_salary;
+            $users = $users->where('basic_salary', 'LIKE', $basic_salary.'%');
         }
 
         if ($request->has('status') && $request->status != '') {
@@ -81,6 +85,7 @@ class EmployeeController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
             'mobile_number' => 'min:12|max:18|unique:users',
+            'basic_salary' => 'numeric|min:0',
             'status' => 'required',
             'password' => 'required|string|min:8|confirmed',
         ]);
