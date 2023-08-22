@@ -32,6 +32,7 @@
 
                         <div class="new-user-info" bis_skin_checked="1">
                             <form method="POST" action="{{ route('employee.update', $employee->id) }}" enctype="multipart/form-data">
+                                @method('PUT')
                                 @csrf
                                 <div class="row" bis_skin_checked="1">
                                     <div class="form-group col-md-4" bis_skin_checked="1">
@@ -68,11 +69,12 @@
                                     </div>
                                     <div class="form-group col-sm-4" bis_skin_checked="1">
                                         <label>Status <span class="text text-danger">*</span></label>
-                                        <div class="dropdown form-control" bis_skin_checked="1">
+                                        <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
                                                 <option>Select Status</option>
                                                 @foreach (getGeneralStatus() as $statusKey => $statusLabel)
-                                                    <option {{ (old('status', $employee->status) == $statusKey) ? 'selected="selected"' : '' }} value="{{ ++$statusKey }}">{{ $statusLabel }}</option>
+                                                    @php $key = ++$statusKey @endphp
+                                                    <option {{ (old('status', $employee->status) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $statusLabel }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -94,7 +96,7 @@
                                         <input type="password" class="form-control" id="rpass" name="password_confirmation" placeholder="Repeat Password ">
                                     </div>
                                 </div>
-                                <button type="submit" class="btn btn-primary float-right">Add</button>
+                                <button type="submit" class="btn btn-primary float-right">Update</button>
                                 <a href="{{route('employee.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
                             </form>
                         </div>
