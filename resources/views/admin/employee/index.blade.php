@@ -1,6 +1,20 @@
 <x-app-layout>
     <div class="content-page rtl-page">
         <div class="container-fluid">
+            
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
+                    {{-- <div class="iq-alert-icon"> --}}
+                        <i class="ri-check-double-line"></i>
+                    {{-- </div> --}}
+                    <div class="iq-alert-text" bis_skin_checked="1">
+                        <b>Success!</b> {{ $message }}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+            @endif
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
@@ -33,7 +47,7 @@
                                             <tr>
                                                 <td>{{++$key}}</td>
                                                 <td>
-                                                    <img src="{{ asset('images/admin/'.$employee->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $employee->first_name }}"  class="rounded avatar-40 img-fluid" >
+                                                    <img src="{{ asset('images/employees/'.$employee->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $employee->first_name }}"  class="rounded avatar-40 img-fluid" >
                                                 </td>
                                                 <td>{{$employee->first_name}} {{$employee->last_name}}</td>
                                                 <td>{{$employee->email}}</td>
@@ -42,12 +56,15 @@
                                                 <td>
                                                     <div class="d-flex align-items-center list-action">
                                                         <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
-                                                            data-placement="top" title="" data-original-title="Rating"
-                                                            href="#"><i class="far fa-star"></i></a>
-                                                        <a class="badge bg-success-light mr-2 rtl-ml-2" data-toggle="tooltip"
-                                                            data-placement="top" title="" data-original-title="View"
-                                                            href="#"><i class="lar la-eye"></i></a>
-                                                        <span class="badge bg-primary-light" data-toggle="tooltip"
+                                                            data-placement="top" title="" data-original-title="Edit"
+                                                            href="{{ route('employee.edit', $employee->id) }}">
+                                                            <i class="far fa-star"></i>
+                                                        </a>
+                                                        <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="tooltip"
+                                                            data-placement="top" title="" data-original-title="Delete"
+                                                            href="#"><i class="lar la-eye"></i>
+                                                        </a>
+                                                        {{-- <span class="badge bg-primary-light" data-toggle="tooltip"
                                                             data-placement="top" title="" data-original-title="Action"
                                                             href="#">
                                                             <div class="dropdown">
@@ -59,11 +76,10 @@
                                                                 <div class="dropdown-menu" aria-labelledby="moreOptions1">
                                                                     <a class="dropdown-item" href="#">Edit</a>
                                                                     <a class="dropdown-item" href="#">Delete</a>
-                                                                    <a class="dropdown-item" href="#">Hide from
-                                                                        Contacts</a>
+                                                                    <a class="dropdown-item" href="#">Hide from Contacts</a>
                                                                 </div>
                                                             </div>
-                                                        </span>
+                                                        </span> --}}
                                                     </div>
                                                 </td>
                                             </tr>
