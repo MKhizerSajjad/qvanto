@@ -10,14 +10,14 @@
                         </div>
                     </div>
                     <div class="card-body" bis_skin_checked="1">
-                    
+
                         @if (count($errors) > 0)
                             <div class="alert alert-danger" role="alert" bis_skin_checked="1">
                                 <div class="iq-alert-icon" bis_skin_checked="1">
                                     <i class="ri-information-line"></i>
                                 </div>
                                 <div class="iq-alert-text" bis_skin_checked="1">
-                                    <b>Whoops!</b> There were some problems with your input
+                                    <b>Whoops!</b> There were some problems with your inputs
                                     <ul>
                                         @foreach ($errors->all() as $error)
                                             <li>{{ $error }}</li>
@@ -29,7 +29,7 @@
                                 </button>
                             </div>
                         @endif
-                    
+
                         <div class="new-user-info" bis_skin_checked="1">
                             <form method="POST" action="{{ route('employee.store') }}" enctype="multipart/form-data">
                                 @csrf
@@ -64,7 +64,7 @@
                                     </div>
                                     <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="zipcode">Zip Code</label>
-                                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code">
+                                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code" value="{{ old('zipcode') }}">
                                     </div>
                                     <div class="form-group col-sm-4" bis_skin_checked="1">
                                         <label>Status <span class="text text-danger">*</span></label>
@@ -72,7 +72,7 @@
                                             <select class="form-control" id="status" name="status">
                                                 <option>Select Status</option>
                                                 @foreach (getGeneralStatus() as $statusKey => $statusLabel)
-                                                    <option value="{{ ++$statusKey }}">{{ $statusLabel }}</option>
+                                                    <option {{ (old('status') == $statusKey) ? 'selected="selected"' : '' }} value="{{ ++$statusKey }}">{{ $statusLabel }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
