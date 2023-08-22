@@ -60,10 +60,12 @@
                                                             href="{{ route('employee.edit', $employee->id) }}">
                                                             <i class="far fa-star"></i>
                                                         </a>
-                                                        <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="tooltip"
-                                                            data-placement="top" title="" data-original-title="Delete"
-                                                            href="#"><i class="lar la-eye"></i>
+                                                        <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="modal tooltip"
+                                                            data-target=".deleteModal" data-placement="top" title="" 
+                                                            data-original-title="Delete" href="#deleteRecord{{$employee->id}}">
+                                                                <i class="lar la-eye"></i>
                                                         </a>
+
                                                         {{-- <span class="badge bg-primary-light" data-toggle="tooltip"
                                                             data-placement="top" title="" data-original-title="Action"
                                                             href="#">
@@ -80,6 +82,36 @@
                                                                 </div>
                                                             </div>
                                                         </span> --}}
+
+                                                                            
+                                                        <!-- Delete Modal -->  
+                                                        {{-- show --}}
+                                                        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" bis_skin_checked="1" style="padding-right: 4px; display: block;" aria-modal="true">
+                                                            <div class="modal-dialog modal-sm" bis_skin_checked="1">
+                                                                <div class="modal-content" bis_skin_checked="1">
+                                                                    <div class="modal-header" bis_skin_checked="1">
+                                                                    <h5 class="modal-title">Modal title</h5>
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                    <span aria-hidden="true">×</span>
+                                                                    </button>
+                                                                    </div>
+                                                                    <div class="modal-body" bis_skin_checked="1">
+                                                                        <h4>You are about to delete a record ?</h4>
+                                                                        <p class="text-muted fs-14 mb-4">By deleting, this record will remove permanently.</p>
+                                                                    </div>
+                                                                    <div class="modal-footer" bis_skin_checked="1">
+                                                                        <form method="POST" action="{{ route('employee.destroy', ['employee' => $employee->id]) }}">
+                                                                            @method('DELETE')
+                                                                            @csrf
+                                                                            <button type="submit" class="btn btn-danger float-right">Yes, Delete It</button>
+                                                                            <a href="{{ route('employee.index') }}" class="btn btn-secondary float-right mr-1">Cancel</a>
+                                                                            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <button type="button" class="btn btn-primary">Save changes</button> --}}
+                                                                        </form>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
                                                     </div>
                                                 </td>
                                             </tr>
