@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Hash;
+use Auth;
 use App\Models\Employee;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -14,8 +15,47 @@ class EmployeeController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Employee::orderBy('first_name', 'DESC')
-        ->paginate(1);
+        $data = Employee::orderBy('first_name', 'DESC')->paginate(1);
+
+
+        $users = Employee::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
+
+        if ($request->has('first_name') && $request->first_name != '') {
+            $first_name = $request->first_name;
+            $users = $users->where('first_name', 'LIKE', $first_name.'%');
+        }
+
+        if ($request->has('last_name') && $request->last_name != '') {
+            $last_name = $request->last_name;
+            $users = $users->where('last_name', 'LIKE', $last_name.'%');
+        }
+
+        if ($request->has('email') && $request->email != '') {
+            $email = $request->email;
+            $users = $users->where('email', 'LIKE', $email.'%');
+        }
+
+        if ($request->has('mobile_number') && $request->mobile_number != '') {
+            $mobile_number = $request->mobile_number;
+            $users = $users->where('mobile_number', 'LIKE', $mobile_number.'%');
+        }
+
+        if ($request->has('status') && $request->status != '') {
+            $status = $request->status;
+            $users = $users->where('status', $status);
+        }
+
+        if ($request->has('address') && $request->address != '') {
+            $address = $request->address;
+            $users = $users->where('address', 'LIKE', '%'.$address.'%');
+        }
+
+        if ($request->has('zipcode') && $request->zipcode != '') {
+            $zipcode = $request->zipcode;
+            $users = $users->where('zipcode', 'LIKE', '%'.$zipcode.'%');
+        }
+
+        $data = $users->paginate(10);
 
         return view('admin.employee.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 1);
@@ -59,7 +99,7 @@ class EmployeeController extends Controller
                 $picture->move($imageStorage, $image); // Move File
             }
         }
-        
+
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
         $data['user_type'] = 2;
