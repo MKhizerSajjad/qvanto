@@ -92,5 +92,16 @@
         
         <!-- app JavaScript -->
         <script src="{{ asset('admin/js/app.js') }}"></script>
+
+        
+        {{-- auto close alerts --}}
+        <script>
+            setTimeout(function() {
+                $(".auto-colse-3").slideUp(500);
+            }, 3000); // after 3secs
+            setTimeout(function() {
+                $(".auto-colse-10").slideUp(500);
+            }, 10000); // after 10secs
+        </script>
     </body>
 </html>
