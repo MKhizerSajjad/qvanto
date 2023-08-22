@@ -68,7 +68,7 @@
                                     </div>
                                     <div class="form-group col-sm-4" bis_skin_checked="1">
                                         <label>Status <span class="text text-danger">*</span></label>
-                                        <div class="dropdown form-control" bis_skin_checked="1">
+                                        <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
                                                 <option>Select Status</option>
                                                 @foreach (getGeneralStatus() as $statusKey => $statusLabel)
