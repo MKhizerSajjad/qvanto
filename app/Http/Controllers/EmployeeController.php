@@ -18,7 +18,7 @@ class EmployeeController extends Controller
     {
         $data = Employee::orderBy('first_name', 'DESC')->paginate(1);
 
-        $users = Employee::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
+        $users = Employee::where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
             $first_name = $request->first_name;
@@ -60,7 +60,7 @@ class EmployeeController extends Controller
             $users = $users->where('zipcode', 'LIKE', '%'.$zipcode.'%');
         }
 
-        $data = $users->paginate(10);
+        $data = $users->paginate(100);
 
         return view('admin.employee.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 1);
