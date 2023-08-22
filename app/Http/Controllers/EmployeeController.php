@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Hash;
 use Auth;
 use App\Models\Employee;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -105,8 +106,7 @@ class EmployeeController extends Controller
         $data['user_type'] = 2;
         $user = Employee::create($data);
 
-        return redirect()->route('employee.index')
-                        ->with('success','User created successfully');
+        return redirect()->route('employee.index')->with('success','Employee created successfully');
     }
 
     /**
@@ -114,7 +114,10 @@ class EmployeeController extends Controller
      */
     public function show(Employee $employee)
     {
-        //
+        $data = [
+            'employee' => $employee,
+        ];
+        return view('admin.employee.show', compact($data));
     }
 
     /**
@@ -123,7 +126,6 @@ class EmployeeController extends Controller
     public function edit(Employee $employee)
     {
         $employee = Employee::find($employee->id);
-
         return view('admin.employee.edit',compact('employee'));
     }
 
@@ -132,7 +134,45 @@ class EmployeeController extends Controller
      */
     public function update(Request $request, Employee $employee)
     {
-        //
+
+        $this->validate($request, [
+            'picture' => 'file|mimes:jpeg,jpg,gif,png|max:2048',
+            'first_name' => 'required|regex:/^[\pL\s]+$/u',
+            'last_name' => 'required|regex:/^[\pL\s]+$/u',
+            'email' => 'required|email|max:255|unique:users',
+            'mobile_number' => 'min:12|max:18|unique:users',
+            'status' => 'required',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $data = $request->all();
+
+        // Picture
+        if (isset($data['picture'])) {
+            $imageStorage = public_path('images/users');
+            $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
+            $picture = $request->picture;
+            $extension = $picture->getClientOriginalExtension();
+
+            if(in_array($extension, $imageExt)) {
+                $sluggedName = Str::slug($request->first_name).'-'.Str::slug($request->last_name);
+                $data['picture'] = $image = $sluggedName.'.'.$extension;
+                $picture->move($imageStorage, $image); // Move File
+            }
+        }
+
+        if(!empty($data['password'])){
+            $data['password'] = Hash::make($data['password']);
+            // unset($data['password_confirmation']);
+        }else{
+            $data = Arr::except($data,array('password'));
+            $data = Arr::except($data,array('password_confirmation'));
+        }
+
+        $user = Employee::find($employee->id);
+        $user->update($data);
+
+        return redirect()->route('employee.index')->with('success','Employee updated successfully');
     }
 
     /**
@@ -140,8 +180,7 @@ class EmployeeController extends Controller
      */
     public function destroy(Employee $employee)
     {
-        $route = Route::current()->uri();
-        $user->delete();
-        return redirect()->route('users.index')->with('success','User deleted successfully');
+        $employee->delete();
+        return redirect()->route('employee.index')->with('success','Employee deleted successfully');
     }
 }
