@@ -12,14 +12,14 @@
 
                 </a>
             </div>
-            <div class="iq-search-bar device-search">
+            {{-- <div class="iq-search-bar device-search">
                 <form action="#" class="searchbox">
                     <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                     <input type="text" class="text search-input" placeholder="Search here...">
                 </form>
-            </div>
+            </div> --}}
             <div class="d-flex align-items-center">
-                <div class="change-mode">
+                {{-- <div class="change-mode">
                     <div class="custom-control custom-switch custom-switch-icon custom-control-inline">
                         <div class="custom-switch-inner">
                             <p class="mb-0"> </p>
@@ -32,7 +32,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div> --}}
                 <button class="navbar-toggler" type="button" data-toggle="collapse"
                     data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-label="Toggle navigation">
@@ -40,7 +40,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ml-auto navbar-list align-items-center">
-                        <li class="nav-item nav-icon search-content">
+                        {{-- <li class="nav-item nav-icon search-content">
                             <a href="#" class="search-toggle rounded" id="dropdownSearch"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-search-line"></i>
@@ -56,8 +56,8 @@
                                     </div>
                                 </form>
                             </div>
-                        </li>
-                        <li class="nav-item nav-icon dropdown">
+                        </li> --}}
+                        {{-- <li class="nav-item nav-icon dropdown">
                             <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton2"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-mail-line  bg-orange p-2 rounded-small"></i>
@@ -146,8 +146,8 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="nav-item nav-icon dropdown">
+                        </li> --}}
+                        {{-- <li class="nav-item nav-icon dropdown">
                             <a href="#" class="search-toggle dropdown-toggle" id="dropdownMenuButton"
                                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class="ri-notification-line bg-info p-2 rounded-small"></i>
@@ -221,13 +221,19 @@
                                     </div>
                                 </div>
                             </div>
-                        </li>
-                        <li class="nav-item iq-full-screen"><a href="#" class=""
-                                id="btnFullscreen"><i class="ri-fullscreen-line"></i></a></li>
+                        </li> --}}
+                        <li class="nav-item iq-full-screen"><a href="#" class="" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a></li>
+                        
+                        @php
+                            $type = Auth::user() ? getUserType(Auth::user()->user_type) : '';
+                        @endphp
+
                         <li class="caption-content">
                             <a href="#" class="iq-user-toggle">
-                                <img src="{{ asset('admin/images/user/1.jpg') }}" class="img-fluid rounded"
-                                    alt="user">
+                                <img src="{{ asset('images/'.$type.'s/'.Auth::user()->picture) }}"
+                                    onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';"
+                                    class="img-fluid rounded"
+                                    alt="{{Auth::user()->first_name}}">
                             </a>
                             <div class="iq-user-dropdown">
                                 <div class="card">
@@ -244,23 +250,32 @@
                                             <div class="profile-header">
                                                 <div class="cover-container ">
                                                     <div class="media align-items-center mb-4">
-                                                        <img src="{{ asset('admin/images/user/1.jpg') }}"
-                                                            alt="profile-bg"
+                                                        <img src="{{ asset('images/'.$type.'s/'.Auth::user()->picture) }}"
+                                                            onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';"
+                                                            alt="{{Auth::user()->first_name}}"
                                                             class="rounded img-fluid avatar-80">
                                                         <div
                                                             class="media-body profile-detail ml-3 rtl-mr-3 rtl-ml-0">
-                                                            <h3>Bill Yerds</h3>
+                                                            <h3>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
                                                             <div class="d-flex flex-wrap">
-                                                                <p class="mb-1">Web designer</p><a
-                                                                    href="auth-sign-in.html"
-                                                                    class=" ml-3 rtl-mr-3 rtl-ml-0">Sign
-                                                                    Out</a>
+                                                                <p class="mb-1">{{getUserType(Auth::user()->user_type)}}</p>
+                                                                
+                                                                <a class="dropdown-item" href="{{ route('index') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                    <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> 
+                                                                    <span class="align-middle" data-key="t-logout">Logout</span>
+                                                                </a>
+                                                                {{-- <a href="auth-sign-in.html" class=" ml-3 rtl-mr-3 rtl-ml-0">
+                                                                    Sign Out
+                                                                </a> --}}
+                                                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                                                    @csrf
+                                                                </form>
                                                             </div>
                                                         </div>
                                                     </div>
 
                                                 </div>
-                                                <div class="row">
+                                                {{-- <div class="row">
                                                     <div class="col-lg-6 col-md-6  col-6 pr-0">
                                                         <div class="profile-details text-center">
                                                             <a href="https://templates.iqonic.design/instadash/html/app/user-profile.html"
@@ -356,7 +371,7 @@
                                                             <p class="mb-0">@Barry_Tech</p>
                                                         </div>
                                                     </div>
-                                                </div>
+                                                </div> --}}
                                             </div>
                                             <div class="p-3"></div>
                                         </div>
