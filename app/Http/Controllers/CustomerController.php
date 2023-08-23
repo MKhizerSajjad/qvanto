@@ -18,7 +18,7 @@ class CustomerController extends Controller
     {
         $data = Customer::orderBy('first_name', 'DESC')->paginate(1);
 
-        $users = Customer::with('countries:id,name')->where('id', '!=', Auth::user()->id)->where('user_type', 3)->orderBy('first_name','DESC');
+        $users = Customer::where('id', '!=', Auth::user()->id)->where('user_type', 3)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
             $first_name = $request->first_name;
@@ -55,7 +55,7 @@ class CustomerController extends Controller
             $users = $users->where('zipcode', 'LIKE', '%'.$zipcode.'%');
         }
 
-        $data = $users->paginate(10);
+        $data = $users->paginate(100);
 
         return view('admin.customer.index',compact('data'))
             ->with('i', ($request->input('page', 1) - 1) * 1);
@@ -88,7 +88,7 @@ class CustomerController extends Controller
 
         // Picture
         if (isset($data['picture'])) {
-            $imageStorage = public_path('images/users');
+            $imageStorage = public_path('images/customers');
             $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
             $picture = $request->picture;
             $extension = $picture->getClientOriginalExtension();
@@ -102,7 +102,7 @@ class CustomerController extends Controller
 
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
-        $data['user_type'] = 2;
+        $data['user_type'] = 3;
         $user = Customer::create($data);
 
         return redirect()->route('customer.index')->with('success','Customer created successfully');
@@ -111,7 +111,7 @@ class CustomerController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Customer $customer)
+    public function show(customer $customer)
     {
         $data = [
             'customer' => $customer,
@@ -133,22 +133,21 @@ class CustomerController extends Controller
      */
     public function update(Request $request, Customer $customer)
     {
-
         $this->validate($request, [
             'picture' => 'file|mimes:jpeg,jpg,gif,png|max:2048',
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
-            'email' => 'required|email|max:255|unique:users',
-            'mobile_number' => 'min:12|max:18|unique:users',
+            'email' => 'required|email|max:255|unique:users,email,'.$customer->id,
+            'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$customer->id,
             'status' => 'required',
-            'password' => 'required|string|min:8|confirmed',
+            'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = $request->all();
 
         // Picture
         if (isset($data['picture'])) {
-            $imageStorage = public_path('images/users');
+            $imageStorage = public_path('images/customers');
             $imageExt = array('jpeg', 'gif', 'png', 'jpg', 'webp');
             $picture = $request->picture;
             $extension = $picture->getClientOriginalExtension();
@@ -162,7 +161,7 @@ class CustomerController extends Controller
 
         if(!empty($data['password'])){
             $data['password'] = Hash::make($data['password']);
-            // unset($data['password_confirmation']);
+            unset($data['password_confirmation']);
         }else{
             $data = Arr::except($data,array('password'));
             $data = Arr::except($data,array('password_confirmation'));
