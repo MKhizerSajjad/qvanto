@@ -18,16 +18,18 @@
         <link rel="shortcut icon" href="https://templates.iqonic.design/instadash/html/assets/images/favicon.ico" />
         <link rel="stylesheet" href="{{ asset('admin/css/backend-plugin.min28b5.css?v=2.0.0') }}">
         <link rel="stylesheet" href="{{ asset('admin/css/backend28b5.css?v=2.0.0') }}">
-        <link rel="stylesheet" href="{{ asset('admin/vendor/%40fortawesome/fontawesome-free/css/all.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('admin/vendor/fortawesome/fontawesome-free/css/all.min.css') }}">
         <link rel="stylesheet" href="{{ asset('admin/vendor/line-awesome/dist/line-awesome/css/line-awesome.min.css') }}">
         <link rel="stylesheet" href="{{ asset('admin/vendor/remixicon/fonts/remixicon.css') }}">
-        <link rel="stylesheet" href="{{ asset('admin/vendor/%40icon/dripicons/dripicons.css') }}">
+        <link rel="stylesheet" href="{{ asset('admin/vendor/icon/dripicons/dripicons.css') }}">
         
         <link rel='stylesheet' href="{{ asset('admin/vendor/fullcalendar/core/main.css') }}"/>
         <link rel='stylesheet' href="{{ asset('admin/vendor/fullcalendar/daygrid/main.css') }}"/>
         <link rel='stylesheet' href="{{ asset('admin/vendor/fullcalendar/timegrid/main.css') }}"/>
         <link rel='stylesheet' href="{{ asset('admin/vendor/fullcalendar/list/main.css') }}"/>
-        <link rel="stylesheet" href="{{ asset('admin/vendor/mapbox/mapbox-gl.css') }}">  </head>
+        <link rel="stylesheet" href="{{ asset('admin/vendor/mapbox/mapbox-gl.css') }}">
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+
     </head>
     <body class="font-sans antialiased">
         <div class="min-h-screen bg-gray-100 dark:bg-gray-900">
