@@ -58,13 +58,15 @@
                                                         <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
                                                             data-placement="top" title="" data-original-title="Edit"
                                                             href="{{ route('employee.edit', $employee->id) }}">
-                                                            <i class="far fa-star"></i>
+                                                            <i class="fa fa-pen"></i>
                                                         </a>
-                                                        <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="modal tooltip"
+                                                        {{-- <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="modal tooltip"
                                                             data-target=".deleteModal" data-placement="top" title="" 
-                                                            data-original-title="Delete" href="#deleteRecord{{$employee->id}}">
+                                                            data-original-title="Delete" 
+                                                            href="#deleteRecord{{$employee->id}}"
+                                                            href="#" id="deleteOrder" delete-id="{{$employee->id}}">
                                                                 <i class="lar la-eye"></i>
-                                                        </a>
+                                                        </a> --}}
 
                                                         {{-- <span class="badge bg-primary-light" data-toggle="tooltip"
                                                             data-placement="top" title="" data-original-title="Action"
@@ -86,7 +88,7 @@
                                                                             
                                                         <!-- Delete Modal -->  
                                                         {{-- show --}}
-                                                        <div class="modal fade bd-example-modal-sm" tabindex="-1" role="dialog" bis_skin_checked="1" style="padding-right: 4px; display: block;" aria-modal="true">
+                                                        {{-- <div class="modal fade bd-example-modal-sm" id="deleteOrder" tabindex="-1" role="dialog" bis_skin_checked="1" style="padding-right: 4px; display: block;" aria-modal="true">
                                                             <div class="modal-dialog modal-sm" bis_skin_checked="1">
                                                                 <div class="modal-content" bis_skin_checked="1">
                                                                     <div class="modal-header" bis_skin_checked="1">
@@ -105,13 +107,13 @@
                                                                             @csrf
                                                                             <button type="submit" class="btn btn-danger float-right">Yes, Delete It</button>
                                                                             <a href="{{ route('employee.index') }}" class="btn btn-secondary float-right mr-1">Cancel</a>
-                                                                            {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                            <button type="button" class="btn btn-primary">Save changes</button> --}}
+                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                            <button type="button" class="btn btn-primary">Save changes</button>
                                                                         </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
+                                                        </div> --}}
                                                     </div>
                                                 </td>
                                             </tr>
@@ -137,3 +139,16 @@
         </div>
     </div>
 </x-app-layout>
+
+
+@push('script')
+    <script>
+        $(document).ready(function(){
+            $(document).on('click', '#deleteOrder', function(){
+                let deleteId = $(this).attr('delete-id');
+                let id = $(this).attr('id');
+                $(id).modal('show');
+            })
+        })
+    </script>
+@endpush
