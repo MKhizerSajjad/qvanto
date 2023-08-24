@@ -1,6 +1,6 @@
 <div class="iq-sidebar  rtl-iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
-        <a href="index.html" class="header-logo">
+        <a href="{{route('index')}}" class="header-logo">
             <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
                 alt="logo">
             <img src="{{ asset('admin/images/logo-white.png') }}" class="img-fluid rounded-normal darkmode-logo"
@@ -38,19 +38,32 @@
                         </li>
                     </ul>
                 </li> --}}
+                @if(Auth::user()->user_type == 1)
+                    <li class="">
+                        <a href="{{route('admins.index')}}">
+                            <i class="fa fa-users"></i><span>Admins</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('employee.index')}}">
+                            <i class="fa fa-users"></i><span>Employees</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('customer.index')}}">
+                            <i class="fa fa-users"></i><span>Customers</span>
+                        </a>
+                    </li>
+                @elseif(Auth::user()->user_type == 2)
+                    <li class="">
+                        <a href="{{route('customer.index')}}">
+                            <i class="fa fa-users"></i><span>Customers</span>
+                        </a>
+                    </li>
+                @endif
                 <li class="">
-                    <a href="{{route('admins.index')}}">
-                        <i class="fa fa-users"></i><span>Admins</span>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{route('employee.index')}}">
-                        <i class="fa fa-users"></i><span>Employees</span>
-                    </a>
-                </li>
-                <li class="">
-                    <a href="{{route('customer.index')}}">
-                        <i class="fa fa-users"></i><span>Customers</span>
+                    <a href="{{route('appointment.index')}}">
+                        <i class="fa fa-calendar"></i><span>Appointment</span>
                     </a>
                 </li>
             </ul>
