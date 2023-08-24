@@ -2,9 +2,10 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\AdminController;
+use App\Http\Controllers\AppointmentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::middleware('auth')->group(function () {
     Route::resource('admins', AdminController::class);
     Route::resource('employee', EmployeeController::class);
     Route::resource('customer', CustomerController::class);
+    Route::resource('appointment', AppointmentController::class);
 
 });
 
