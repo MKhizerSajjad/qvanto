@@ -16,8 +16,6 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Customer::orderBy('first_name', 'DESC')->paginate(1);
-
         $users = Customer::where('id', '!=', Auth::user()->id)->where('user_type', 3)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
@@ -80,6 +78,7 @@ class CustomerController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
             'mobile_number' => 'min:12|max:18|unique:users',
+            'nic' => 'unique:users',
             'status' => 'required',
             'password' => 'required|string|min:8|confirmed',
         ]);
@@ -103,6 +102,7 @@ class CustomerController extends Controller
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
         $data['user_type'] = 3;
+        $data['status'] = 1;
         $user = Customer::create($data);
 
         return redirect()->route('customer.index')->with('success','Customer created successfully');
@@ -139,6 +139,7 @@ class CustomerController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email,'.$customer->id,
             'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$customer->id,
+            'nic' => 'unique:users,nic,'.$customer->nic,
             'status' => 'required',
             'password' => 'nullable|string|min:8|confirmed',
         ]);

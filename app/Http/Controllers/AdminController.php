@@ -16,8 +16,6 @@ class AdminController extends Controller
      */
     public function index(Request $request)
     {
-        $data = Admin::orderBy('first_name', 'DESC')->paginate(1);
-
         $users = Admin::where('id', '!=', Auth::user()->id)->where('user_type', 1)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
@@ -85,6 +83,7 @@ class AdminController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
             'mobile_number' => 'min:12|max:18|unique:users',
+            'nic' => 'unique:users',
             'basic_salary' => 'numeric|min:0',
             'status' => 'required',
             'password' => 'required|string|min:8|confirmed',
@@ -109,6 +108,7 @@ class AdminController extends Controller
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
         $data['user_type'] = 1;
+        $data['status'] = 1;
         $user = Admin::create($data);
 
         return redirect()->route('admins.index')->with('success','Admin created successfully');

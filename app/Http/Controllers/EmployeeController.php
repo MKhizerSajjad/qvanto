@@ -85,6 +85,7 @@ class EmployeeController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
             'mobile_number' => 'min:12|max:18|unique:users',
+            'nic' => 'unique:users',
             'basic_salary' => 'numeric|min:0',
             'status' => 'required',
             'password' => 'required|string|min:8|confirmed',
@@ -109,6 +110,7 @@ class EmployeeController extends Controller
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
         $data['user_type'] = 2;
+        $data['status'] = 1;
         $user = Employee::create($data);
 
         return redirect()->route('employee.index')->with('success','Employee created successfully');
@@ -145,6 +147,7 @@ class EmployeeController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email,'.$employee->id,
             'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$employee->id,
+            'nic' => 'unique:users,nic,'.$employee->nic,
             'status' => 'required',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
