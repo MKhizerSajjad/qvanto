@@ -29,8 +29,12 @@
     function getCaseTypes($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Loan Company', '<span class="badge bg-primary-light">Loan Company</span>'],
-            '2' => ['Employment Case', '<span class="badge bg-warning-light">Employment Case</span>'],
+            '1' => ['Ah Long', '<span class="badge bg-primary-light">Ah Long</span>'],
+            '2' => ['Pinjaman Berlesen', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
+            '3' => ['Penipuan Siber', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
+            '4' => ['Dadah', '<span class="badge bg-warning-light">Dadah</span>'],
+            '5' => ['Hak Masyarkat Setempat', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
+            '6' => ['Others', '<span class="badge bg-warning-light">Others</span>'],
         ];
 
         return 
