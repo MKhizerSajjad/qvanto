@@ -145,7 +145,7 @@ class AdminController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email,'.$admin->id,
             'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$admin->id,
-            'nic' => 'unique:users,nic,'.$admin->nic,
+            'nic' => 'unique:users,nic,'.$admin->id,
             'status' => 'required',
             'password' => 'nullable|string|min:8|confirmed',
         ]);

@@ -139,7 +139,7 @@ class CustomerController extends Controller
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email,'.$customer->id,
             'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$customer->id,
-            'nic' => 'unique:users,nic,'.$customer->nic,
+            'nic' => 'unique:users,nic,'.$customer->id,
             'status' => 'required',
             'password' => 'nullable|string|min:8|confirmed',
         ]);
