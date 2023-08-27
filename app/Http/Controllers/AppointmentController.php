@@ -60,6 +60,7 @@ class AppointmentController extends Controller
             ]);
         } else {
             $this->validate($request, [
+                'status' => 'required',
                 'customer' => 'required',
                 'case_type' => 'required',
                 'datetime' => 'required',
@@ -131,6 +132,7 @@ class AppointmentController extends Controller
             ]);
         } else {
             $this->validate($request, [
+                'status' => 'required',
                 'customer' => 'required',
                 'case_type' => 'required',
                 'datetime' => 'required',
