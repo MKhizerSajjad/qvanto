@@ -12,4 +12,8 @@ class Employee extends Model
     public static $snakeAttributes = false;
 
     protected $guarded;
+    
+    public function cases() {
+        return $this->hasMany(Cases::class);
+    }
 }
