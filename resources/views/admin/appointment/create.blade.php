@@ -40,7 +40,8 @@
                                             <select class="form-control" id="case_type" name="case_type">
                                                 <option>Select Case Type</option>
                                                 @foreach (getCaseTypes() as $key => $label)
-                                                    <option {{ (old('case_type') == $key) ? 'selected="selected"' : '' }} value="{{ ++$key }}">{{ $label }}</option>
+                                                    @php $key = ++$key; @endphp
+                                                    <option {{ (old('case_type') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,7 +51,7 @@
                                         <input type="datetime-local" class="form-control" id="datetime" name="datetime" placeholder="Date Tine" value="{{ old('datetime') }}">
                                     </div>
                                     @if (Auth::user()->user_type == 1)
-                                        <div class="form-group col-sm-6" bis_skin_checked="1">
+                                        <div class="form-group col-sm-4" bis_skin_checked="1">
                                             <label>Employee <span class="text text-danger">*</span></label>
                                             <div class="dropdown" bis_skin_checked="1">
                                                 <select class="form-control" id="employee" name="employee">
@@ -61,6 +62,30 @@
                                                 </select>
                                             </div>
                                         </div>
+                                        <div class="form-group col-sm-4" bis_skin_checked="1">
+                                            <label>Customer <span class="text text-danger">*</span></label>
+                                            <div class="dropdown" bis_skin_checked="1">
+                                                <select class="form-control" id="customer" name="customer">
+                                                    <option>Select Customer</option>
+                                                    @foreach ($customers as $key => $customer)
+                                                        <option {{ (old('customer') == $customer->id) ? 'selected="selected"' : '' }} value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="form-group col-sm-4" bis_skin_checked="1">
+                                            <label>Status <span class="text text-danger">*</span></label>
+                                            <div class="dropdown" bis_skin_checked="1">
+                                                <select class="form-control" id="status" name="status">
+                                                    <option>Select Status</option>
+                                                    @foreach (getAppointmentStatus() as $key => $label)
+                                                        @php $key = ++$key; @endphp
+                                                        <option {{ (old('status') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @elseif(Auth::user()->user_type == 2)
                                         <div class="form-group col-sm-6" bis_skin_checked="1">
                                             <label>Customer <span class="text text-danger">*</span></label>
                                             <div class="dropdown" bis_skin_checked="1">
@@ -72,14 +97,14 @@
                                                 </select>
                                             </div>
                                         </div>
-                                    @elseif(Auth::user()->user_type == 2)
-                                        <div class="form-group col-sm-12" bis_skin_checked="1">
-                                            <label>Customer <span class="text text-danger">*</span></label>
+                                        <div class="form-group col-sm-6" bis_skin_checked="1">
+                                            <label>Status <span class="text text-danger">*</span></label>
                                             <div class="dropdown" bis_skin_checked="1">
-                                                <select class="form-control" id="customer" name="customer">
-                                                    <option>Select Customer</option>
-                                                    @foreach ($customers as $key => $customer)
-                                                        <option {{ (old('customer') == $customer->id) ? 'selected="selected"' : '' }} value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                                <select class="form-control" id="status" name="status">
+                                                    <option>Select Status</option>
+                                                    @foreach (getAppointmentStatus() as $key => $label)
+                                                        @php $key = ++$key; @endphp
+                                                        <option {{ (old('status') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

@@ -61,10 +61,11 @@
         $statuses = [
             '1' => ['Requested', '<span class="badge bg-info-light">Requested</span>'],
             '2' => ['Scheduled', '<span class="badge bg-primary-light">Scheduled</span>'],
-            '3' => ['Rescheduled', '<span class="badge bg-primary-light">Process start</span>'],
-            '4' => ['Pending', '<span class="badge bg-warning-light">Pending</span>'],
-            '5' => ['Completed with 3rd party', '<span class="badge bg-success-light">Completed with 3rd party</span>'],
-            '6' => ['Rejected', '<span class="badge bg-danger-light">Rejected</span>'],
+            '3' => ['Case Proceed', '<span class="badge bg-success-light">Case Proceed</span>'],
+            '4' => ['Rescheduled', '<span class="badge bg-primary-light">Rescheduled</span>'],
+            '5' => ['Pending', '<span class="badge bg-warning-light">Pending</span>'],
+            '6' => ['Withdrawed', '<span class="badge bg-success-light">Withdrawed</span>'],
+            '7' => ['Rejected', '<span class="badge bg-danger-light">Rejected</span>'],
         ];
 
         return 
