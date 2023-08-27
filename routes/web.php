@@ -6,6 +6,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\SalaryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -40,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::resource('employee', EmployeeController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('appointment', AppointmentController::class);
+    Route::resource('salary', SalaryController::class);
+    Route::get('/get-salary-detail/{employee}', [SalaryController::class, 'getSalaryDetail'])->name('get-salary-detail');
+
 
 });
 

@@ -54,6 +54,11 @@
                             <i class="fa fa-users"></i><span>Customers</span>
                         </a>
                     </li>
+                    <li class="">
+                        <a href="{{route('salary.index')}}">
+                            <i class="fa fa-users"></i><span>Salary</span>
+                        </a>
+                    </li>
                 @elseif(Auth::user()->user_type == 2)
                     <li class="">
                         <a href="{{route('customer.index')}}">
