@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->tinyInteger('status')->unsigned()->default(1);
             $table->tinyInteger('case_type_id')->unsigned()->indexed();
+            $table->tinyInteger('case_id')->unsigned()->indexed();
             $table->foreignId('appointment_id')->constrained()->onDelete('cascade');
             // $table->unsignedBigInteger('appointment_id');
             // $table->foreign('appointment_id')->references('id')->on('appointments')->onDelete('CASCADE');
@@ -24,8 +25,8 @@ return new class extends Migration
             $table->foreign('employee_id')->references('id')->on('users')->onDelete('CASCADE');
             $table->decimal('total_amount',20,2);
             $table->decimal('paid_amount',20,2);
-            $table->decimal('discount',20,2);
-            $table->decimal('commission_percentage',20,2);
+            $table->decimal('discounted_amount',20,2);
+            $table->decimal('commission_amount',20,2);
             $table->text('note')->nullable();
             $table->timestamps();
         });
