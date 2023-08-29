@@ -18,11 +18,11 @@
 
 
     <div class="wrapper">
-        <div class="content-page rtl-page">
-            <h5 class="">Welcome To Rights Associations..!</h5>
-        </div>
-
         {{-- <div class="content-page rtl-page">
+            <h5 class="">Welcome To Rights Associations..!</h5>
+        </div> --}}
+
+        <div class="content-page rtl-page">
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12 mb-3">
@@ -30,16 +30,16 @@
                             <div class="navbar-breadcrumb">
                                 <h4 class="mb-0">Welcome To Dashboard</h4>
                             </div>
-                            <div class="">
+                            {{-- <div class="">
                                 <a class="button btn btn-skyblue button-icon" href="#">Facebook<i
                                         class="ml-2 ri-arrow-down-s-fill"></i></a>
                                 <a class="button btn btn-primary ml-2 button-icon rounded-small rtl-mr-2 rtl-ml-0"
                                     href="#"><i class="ri-add-line m-0"></i></a>
 
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
-                    <div class="col-lg-4">
+                    {{-- <div class="col-lg-4">
                         <div class="card card-block card-stretch card-height">
                             <div class="card-header border-none">
                                 <div class="header-title">
@@ -168,12 +168,12 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                     <div class="col-lg-4">
                         <div class="card">
                             <div class="card-header border-none">
                                 <div class="header-title">
-                                    <h4 class="card-title">Conversation(6 days)</h4>
+                                    <h4 class="card-title">Cases Status </h4>
                                 </div>
                             </div>
                             <div class="card-body">
@@ -181,32 +181,32 @@
                                 <div class="row mt-4">
                                     <div class="col-md-6 mb-md-0 mb-3 text-center">
                                         <div class="progress progress-round mx-auto primary conversation-bar"
-                                            data-percent="76">
+                                            data-percent="{{$totalCases}}">
                                             <span class="progress-left">
                                                 <span class="progress-bar"></span>
                                             </span>
                                             <span class="progress-right">
                                                 <span class="progress-bar"></span>
                                             </span>
-                                            <div class="progress-value text-primary">76%</div>
+                                            <div class="progress-value text-primary">{{$totalCases}}%</div>
                                         </div>
                                         <div class="progress-value mt-4">
-                                            <h4>Impressions</h4>
+                                            <h4>Total Cases</h4>
                                         </div>
                                     </div>
                                     <div class="col-md-6 text-center">
                                         <div class="progress progress-round goal-progress mx-auto orange conversation-bar"
-                                            data-percent="82">
+                                            data-percent="{{$resolvedCases}}">
                                             <span class="progress-left">
                                                 <span class="progress-bar"></span>
                                             </span>
                                             <span class="progress-right">
                                                 <span class="progress-bar"></span>
                                             </span>
-                                            <div class="progress-value text-orange">92%</div>
+                                            <div class="progress-value text-orange">{{$resolvedCases}}%</div>
                                         </div>
                                         <div class="progress-value mt-4">
-                                            <h4>Total Clicks</h4>
+                                            <h4>Resolved Cases</h4>
                                         </div>
                                     </div>
                                 </div>
@@ -225,7 +225,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-8">
+                    {{-- <div class="col-lg-8">
                         <div class="card card-block card-stretch card-height">
                             <div class="card-body">
                                 <div id="layout-1-chart-04"></div>
@@ -306,10 +306,10 @@
                                 <div id="layout-1-chart-06"></div>
                             </div>
                         </div>
-                    </div>
+                    </div> --}}
                 </div>
                 <!-- Page end  -->
             </div>
-        </div> --}}
+        </div>
     </div>
 </x-app-layout>

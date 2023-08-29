@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
@@ -20,18 +21,23 @@ use App\Http\Controllers\SalaryController;
 */
 
 
-Route::get('/dashboard', function () {
-    return view('admin/dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('admin/dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
-    Route::get('/dashboard', function () {
-        return view('admin/dashboard');
-    })->name('index');
+    // Route::get('/dashboard', function () {
+    //     return view('admin/dashboard');
+    // })->name('index');
     
-    Route::get('/', function () {
-        return view('admin/dashboard');
-    });
+    // Route::get('/', function () {
+    //     return view('admin/dashboard');
+    // });
+
+    
+    Route::get('/', [DashboardController::class, 'index'])->name('index');
+    Route::get('/home', [DashboardController::class, 'index'])->name('home');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
