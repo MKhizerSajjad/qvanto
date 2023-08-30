@@ -27,6 +27,10 @@ return new class extends Migration
             $table->decimal('paid_amount',20,2);
             $table->decimal('discounted_amount',20,2);
             $table->decimal('commission_amount',20,2);
+            $table->tinyInteger('start_by');
+            $table->foreign('start_by')->references('id')->on('users')->onDelete('CASCADE')->nullable();;
+            $table->datetime('start_datetime')->nullable();
+            $table->datetime('end_datetime')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });

@@ -11,10 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('case_detail', function (Blueprint $table) {
+        Schema::create('case_details', function (Blueprint $table) {
             $table->id();
-            $table->tinyInteger('case_type_id')->unsigned()->indexed();
             $table->foreignId('case_id')->constrained()->onDelete('cascade');
+            $table->tinyInteger('case_type_id')->unsigned()->indexed();
+            $table->tinyInteger('question_id')->unsigned()->indexed();
+            $table->longText('detail')->nullable;
+            $table->longText('note')->nullable;
             // $table->unsignedBigInteger('case_id');
             // $table->foreign('case_id')->references('id')->on('cases')->onDelete('CASCADE');
             $table->timestamps();
@@ -26,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('case_detail');
+        Schema::dropIfExists('case_details');
     }
 };
