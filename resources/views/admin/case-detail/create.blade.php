@@ -40,14 +40,13 @@
 
                                     @foreach (getCaseQuestions($case->case_type_id) as $key => $label)
                                         {{-- @php $key = ++$key; @endphp --}}
-                                        <div class="form-group col-md-6" bis_skin_checked="1">
+                                        {{-- <div class="form-group col-md-6" bis_skin_checked="1">
                                             <label for="detail">{{$label}}</label>
                                             <input type="hidden" id="question_id" name="question_id[]" value="{{ old('question_id', $key) }}">
                                             <textarea type="text" class="form-control" id="detail" name="detail[]" placeholder="Type your answer">{{ old('detail') }}</textarea>
-                                        </div>
+                                        </div> --}}
                                         @php
-                                            $withoutInc = $key;
-                                            $key = ++$key;
+                                            $withoutInc = $key - 1;
                                         @endphp
                                         <div class="form-group col-md-6" bis_skin_checked="1">
                                             <label for="detail">{{$label}}</label>
@@ -57,7 +56,7 @@
                                     @endforeach
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Update</button>
-                                <a href="{{route('appointment.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
+                                <a href="{{route('case.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
                             </form>
                         </div>
                     </div>

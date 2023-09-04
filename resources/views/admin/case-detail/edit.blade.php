@@ -37,16 +37,14 @@
                                 <div class="row" bis_skin_checked="1">
                                     <input type="hidden" id="case_id" name="case_id" value="{{ old('case_id', $caseDetails[0]->case_id) }}">
                                     <input type="hidden" id="case_type" name="case_type" value="{{ old('case_type', $caseDetails[0]->case_type_id) }}">
-                                    {{-- {{getCaseQuestions()}} --}}
-                                    @foreach (getCaseQuestions() as $key => $label)
-                                        @php 
-                                            $withoutInc = $key;
-                                            $key = ++$key; 
+                                    @foreach (getCaseQuestions($caseDetails[0]->case_type_id) as $key => $label)
+                                        @php
+                                            $decKey = $key - 1;
                                         @endphp
                                         <div class="form-group col-md-6" bis_skin_checked="1">
                                             <label for="detail">{{$label}}</label>
                                             <input type="text" id="question_id" name="question_id[]" value="{{ old('question_id', $key) }}">
-                                            <textarea type="text" class="form-control" id="detail" name="detail[]" placeholder="Type your answer">{{ old('detail', $caseDetails[$withoutInc]->detail) }}</textarea>
+                                            <textarea type="text" class="form-control" id="detail" name="detail[]" placeholder="Type your answer">{{ old('detail', $caseDetails[$decKey]->detail) }}</textarea>
                                         </div>
                                     @endforeach
                                 </div>
