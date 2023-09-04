@@ -48,7 +48,7 @@
                                     </div>
                                     <div class="form-group col-md-6" bis_skin_checked="1">
                                         <label for="datetime">Date Time <span class="text text-danger">*</span></label>
-                                        <input type="datetime-local" class="form-control" id="datetime" name="datetime" placeholder="Date Tine" value="{{ old('datetime') }}">
+                                        <input type="datetime-local" class="form-control" id="datetime" name="datetime" placeholder="Date Time" value="{{ old('datetime') }}">
                                     </div>
                                     @if (Auth::user()->user_type == 1)
                                         <div class="form-group col-sm-4" bis_skin_checked="1">

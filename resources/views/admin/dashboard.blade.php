@@ -176,7 +176,7 @@
                                     <h4 class="card-title">Cases Status </h4>
                                 </div>
                             </div>
-                            <div class="card-body">
+                            {{-- <div class="card-body">
                                 <div id="layout-1-chart-02"></div>
                                 <div class="row mt-4">
                                     <div class="col-md-6 mb-md-0 mb-3 text-center">
@@ -210,7 +210,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> --}}
                         </div>
                     </div>
                     <div class="col-lg-8">

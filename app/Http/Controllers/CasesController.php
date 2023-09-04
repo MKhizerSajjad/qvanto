@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cases;
+use App\Models\Employee;
+use App\Models\Customer;
 use App\Models\Appointment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -43,18 +45,17 @@ class CasesController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Appointment $appointment)
+    public function create(Appointment $appointment, Request $request)
     {
-        // $appiontments = Appointment::orderBy('dated','DESC')->where('status', 2);
-        
+        $appointment = Appointment::where('id', $request->app)->first();
+        $employees = Employee::where('status', 1)->whereIn('user_type', [1,2])->select('id', 'first_name', 'last_name')->get();
+        $customers = Customer::where('status', 1)->where('user_type', 3)->select('id', 'first_name', 'last_name')->get();
         if(Auth::user()->user_type == 3) {
             return redirect('case');
         // } else if(Auth::user()->user_type == 2) {
         } else {
-            return view('admin.appointment.create', compact('appiontments'));
+            return view('admin.case.create', compact('appointment','employees', 'customers'));
         }
-
-
     }
 
     /**
@@ -64,11 +65,9 @@ class CasesController extends Controller
     {
 
         $this->validate($request, [
-            'total_amount' => 'required',
-            'commission_amount' => 'required',
+            'comission_percentge' => 'required|integer|min:1|max:100',
+            'total_amount' => 'required|integer|min:1'
         ]);
-
-        Auth::user()->id;
 
         // // Customer
         // if (Auth::user()->user_type != 3 && isset($request->customer)) {
@@ -88,15 +87,17 @@ class CasesController extends Controller
         // }
 
         // dd($request->datetime);
+
+        $comissionAmount = ($request->comission_percentge * $request->total_amount) / 100;
         $data = [
             'status' => 1,
-            'case_type_id' => $appiontment->note,
-            // 'case_id' => $appiontment->case_id,
-            'appointment_id' => $appiontment->id,
-            'customer_id' => $appiontment->customer_id,
-            'employee_id' => $appiontment->employee_id,
+            'case_type_id' => $request->case_type,
+            // 'case_id' => $request->case_id,
+            'appointment_id' => $request->appointment_id,
+            'customer_id' => $request->customer,
+            'employee_id' => $request->employee,
             'total_amount' => $request->total_amount,
-            'commission_amount' => $request->commission_amount,
+            'commission_amount' => $comissionAmount,
             'start_by' => Auth::user()->id,
             'start_datetime' => now(),
             'note' => $request->note
@@ -118,17 +119,35 @@ class CasesController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Cases $cases)
+    public function edit(Cases $case)
     {
-        return view('admin.case.view', compact('case'));
+        $employees = Employee::where('status', 1)->whereIn('user_type', [1,2])->select('id', 'first_name', 'last_name')->get();
+        $customers = Customer::where('status', 1)->where('user_type', 3)->select('id', 'first_name', 'last_name')->get();
+        
+        return view('admin.case.edit', compact('case', 'employees', 'customers'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cases $cases)
+    public function update(Request $request, Cases $case)
     {
-        //
+        $comissionAmount = ($request->comission_percentge * $request->total_amount) / 100;
+
+        $data = [
+            'status' => $request->status,
+            // 'case_type_id' => $request->case_type,
+            // // 'case_id' => $request->case_id,
+            // 'customer_id' => $request->customer,
+            // 'employee_id' => $request->employee,
+            'total_amount' => $request->total_amount,
+            'commission_amount' => $comissionAmount,
+            'note' => $request->note
+        ];
+
+        $updated = Cases::find($case->id)->update($data);
+
+        return redirect()->route('case.index')->with('success','Case updated successfully');
     }
 
     /**

@@ -59,7 +59,7 @@
                                     </div>
                                     <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="month">Month <span class="text text-danger">*</span></label>
-                                        <input type="month" class="form-control" id="month" name="month" placeholder="Date Tine" value="{{ old('month') }}">
+                                        <input type="month" class="form-control" id="month" name="month" placeholder="Date Time" value="{{ old('month') }}">
                                     </div>
                                     <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="basic_salary">Basic Salary <span class="text text-danger">*</span></label>
