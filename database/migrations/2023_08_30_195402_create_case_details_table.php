@@ -16,8 +16,8 @@ return new class extends Migration
             $table->foreignId('case_id')->constrained()->onDelete('cascade');
             $table->tinyInteger('case_type_id')->unsigned()->indexed();
             $table->tinyInteger('question_id')->unsigned()->indexed();
-            $table->longText('detail')->nullable;
-            $table->longText('note')->nullable;
+            $table->longText('detail')->nullable();
+            $table->longText('note')->nullable();
             // $table->unsignedBigInteger('case_id');
             // $table->foreign('case_id')->references('id')->on('cases')->onDelete('CASCADE');
             $table->timestamps();

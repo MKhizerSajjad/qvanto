@@ -8,4 +8,5 @@ use Illuminate\Database\Eloquent\Model;
 class CaseDetail extends Model
 {
     use HasFactory;
+    protected $guarded;
 }

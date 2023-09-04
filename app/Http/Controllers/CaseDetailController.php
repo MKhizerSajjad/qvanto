@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cases;
 use App\Models\CaseDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,9 +20,13 @@ class CaseDetailController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
-        //
+        $case = Cases::where('id', $request->case)->first();
+        $caseDetails = CaseDetail::where('case_id', $request->case)->orderBy('question_id')->get();
+        // $caseDetails = count($caseDetails > 0)
+        // return view('admin.case-detail.edit', compact('caseDetails'));
+        return view('admin.case-detail.create', compact('case', 'caseDetails'));
     }
 
     /**
@@ -29,27 +34,40 @@ class CaseDetailController extends Controller
      */
     public function store(Request $request)
     {
+        // $this->validate($request, [
+        //     'case_id' => 'required',
+        // ]);
+
+        // foreach ($request->question_id as $key => $question) {
+        //     $data = [
+        //         'case_id' => $request->case_id,
+        //         'case_type_id' => $request->case_type,
+        //         'question_id' => $question,
+        //         'detail' => $request->detail[$key],
+        //         'note' => isset($request->note[$key]) ? $request->note[$key] : "" //
+        //     ];
+        //     $added = CaseDetail::create($data);
+        // }
         $this->validate($request, [
             'case_id' => 'required',
         ]);
 
-        Auth::user()->id;
-
-            foreach ($request->questions as $question) {
-                $data = [
-                    'case_id' => $request->case_id,
-                    'case_type_id' => $request->case_type,
-                    'question_id' => $question->question,
-                    'detail' => $question->detail,
-                    'note' => $question->note
-                ];
-                
-                $added = CaseDetail::create($data);
-            }
-
-        $added = Cases::create($data);
-
-        return view('admin.case.index')->with('success','Case questions added successfully');
+        foreach ($request->question_id as $key => $question) {
+            $data = [
+                'case_id' => $request->case_id,
+                'case_type_id' => $request->case_type,
+                'question_id' => $question,
+                'detail' => $request->detail[$key],
+                'note' => isset($request->note[$key]) ? $request->note[$key] : ""
+            ];
+            
+            CaseDetail::updateOrCreate(
+                ['case_id' => $request->case_id, 'case_type_id' => $request->case_type, 'question_id' => $question],
+                $data
+            );
+            // $added = CaseDetail::create($data);
+        }
+        return redirect('case')->with('success','Case questions added successfully');
     }
 
     /**
@@ -63,9 +81,10 @@ class CaseDetailController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(CaseDetail $caseDetails)
+    public function edit(CaseDetail $caseDetail)
     {
-        return view('admin.casedetail.edit', compact('caseDetails'));
+        $caseDetails = CaseDetail::where('case_id', $caseDetail->case_id)->orderBy('question_id')->get();
+        return view('admin.case-detail.edit', compact('caseDetails'));
     }
 
     /**
@@ -77,23 +96,23 @@ class CaseDetailController extends Controller
             'case_id' => 'required',
         ]);
 
-        Auth::user()->id;
-
-        foreach ($request->questions as $question) {
-            $caseDetailData = [
+        foreach ($request->question_id as $key => $question) {
+            $data = [
+                'case_id' => $request->case_id,
                 'case_type_id' => $request->case_type,
-                'question_id' => $question->question,
-                'detail' => $question->detail,
-                'note' => $question->note
+                'question_id' => $question,
+                'detail' => $request->detail[$key],
+                'note' => isset($request->note[$key]) ? $request->note[$key] : ""
             ];
-        
+            
             CaseDetail::updateOrCreate(
-                ['question_id' => $question->question],
-                $caseDetailData
+                ['case_id' => $request->case_id, 'case_type_id' => $request->case_type, 'question_id' => $question],
+                $data
             );
+            // $added = CaseDetail::create($data);
         }
 
-        return view('admin.case.index')->with('success','Case questions updated successfully');
+        return redirect('case')->with('success','Case questions updated successfully');
     }
 
     /**

@@ -71,6 +71,11 @@
                         <i class="fa fa-calendar"></i><span>Appointment</span>
                     </a>
                 </li>
+                <li class="">
+                    <a href="{{route('case.index')}}">
+                        <i class="fa fa-calendar"></i><span>Case</span>
+                    </a>
+                </li>
             </ul>
         </nav>
         <div id="sidebar-bottom" class="position-relative sidebar-bottom">

@@ -108,4 +108,29 @@
             ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
     } 
+    
+    function getCaseQuestions($type = null)
+    {
+                
+        $questions = [
+            '1' => [
+                '1' => 'Please explain',
+                '2' => 'Please explain',
+                '3' => 'Please explain',
+                '4' => 'Please explain',
+            ],
+            '2' => [
+                '1' => 'Please explain',
+                '2' => 'Please explain',
+                '3' => 'Please explain',
+                '4' => 'Please explain',
+            ],
+        ];
+
+        return
+            isset($questions[$type])
+            ? $questions[$type]
+            : $questions;
+    } 
+
 ?>

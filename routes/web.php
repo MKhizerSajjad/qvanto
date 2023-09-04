@@ -7,6 +7,8 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\CasesController;
+use App\Http\Controllers\CaseDetailController;
 use App\Http\Controllers\SalaryController;
 
 /*
@@ -43,10 +45,14 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    // validations according to loggedin user type
     Route::resource('admins', AdminController::class);
     Route::resource('employee', EmployeeController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('appointment', AppointmentController::class);
+    // Route::get('/case/{appiontment}', [CasesController::class, 'create'])->name('casreStart');
+    Route::resource('case', CasesController::class);
+    Route::resource('case-detail', CaseDetailController::class);
     Route::resource('salary', SalaryController::class);
     Route::get('/get-salary-detail/{employee}', [SalaryController::class, 'getSalaryDetail'])->name('get-salary-detail');
 
