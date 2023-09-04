@@ -20,4 +20,8 @@ class Appointment extends Model
     public function employee() {
         return $this->hasOne(User::class, 'id', 'employee_id');
     }
+    
+    public function case() {
+        return $this->hasOne(Cases::class);
+    }
 }
