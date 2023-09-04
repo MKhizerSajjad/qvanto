@@ -15,7 +15,7 @@ class AppointmentController extends Controller
      */
     public function index(Request $request)
     {        
-        $appiontments = Appointment::orderBy('dated','DESC');
+        $appiontments = Appointment::with('case:id,appointment_id')->orderBy('dated','DESC');
         
         if(Auth::user()->user_type == 3) {
             $appiontments = $appiontments->with('employee:id,first_name,last_name')->where('customer_id', Auth::user()->id);

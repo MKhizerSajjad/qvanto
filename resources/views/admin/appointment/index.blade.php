@@ -79,11 +79,32 @@
                                                     <td>{!! getAppointmentStatus($appointment->status, 'badge') !!}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center list-action">
-                                                            <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
-                                                                data-placement="top" title="" data-original-title="Edit"
-                                                                href="{{ route('appointment.edit', $appointment->id) }}">
-                                                                <i class="fa fa-pen"></i>
-                                                            </a>
+                                                            @if (   Auth::user()->user_type != 3
+                                                                    || 
+                                                                    (   Auth::user()->user_type == 3 
+                                                                        && 
+                                                                        ($appointment->status == 1 || $appointment->status == 4)
+                                                                    )
+                                                                )
+                                                                <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Edit"
+                                                                    href="{{ route('appointment.edit', $appointment->id) }}">
+                                                                    <i class="fa fa-pen"></i>
+                                                                </a>
+                                                            @endif
+                                                            @if(isset($appointment->case->id) && $appointment->status == 3)
+                                                                <a class="badge bg-success-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Start Case"
+                                                                    href="{{ route('case.edit', $appointment) }}">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            @elseif (Auth::user()->user_type != 3 && $appointment->status == 3)
+                                                                <a class="badge bg-success-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Start Case"
+                                                                    href="{{ route('case.create', ['app' => $appointment]) }}">
+                                                                    <i class="fa fa-play"></i>
+                                                                </a>
+                                                            @endif
                                                         </div>
                                                     </td>
                                                 </tr>

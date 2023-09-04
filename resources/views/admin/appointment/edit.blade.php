@@ -49,7 +49,7 @@
                                     </div>
                                     <div class="form-group col-md-6" bis_skin_checked="1">
                                         <label for="datetime">Date Time <span class="text text-danger">*</span></label>
-                                        <input type="datetime-local" class="form-control" id="datetime" name="datetime" placeholder="Date Tine" value="{{ old('datetime', $appointment->dated) }}">
+                                        <input type="datetime-local" class="form-control" id="datetime" name="datetime" placeholder="Date Time" value="{{ old('datetime', $appointment->dated) }}">
                                     </div>
                                     @if (Auth::user()->user_type == 1)
                                         <div class="form-group col-md-4" bis_skin_checked="1">
@@ -117,7 +117,7 @@
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Update</button>
-                                <a href="{{route('customer.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
+                                <a href="{{route('appointment.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
                             </form>
                         </div>
                     </div>
