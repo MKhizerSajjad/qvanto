@@ -42,12 +42,20 @@
     function getCaseTypes($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Ah Long', '<span class="badge bg-primary-light">Ah Long</span>'],
-            '2' => ['Pinjaman Berlesen', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
-            '3' => ['Penipuan Siber', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
-            '4' => ['Dadah', '<span class="badge bg-warning-light">Dadah</span>'],
-            '5' => ['Hak Masyarkat Setempat', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
+            '1' => ['Loan shark', '<span class="badge bg-primary-light">Ah Long</span>'],
+            '2' => ['Licensed Lending', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
+            '3' => ['Cyber fruad', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
+            '4' => ['Drugs', '<span class="badge bg-warning-light">Dadah</span>'],
+            '5' => ['Local community rights', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
             '6' => ['Others', '<span class="badge bg-warning-light">Others</span>'],
+
+            
+            // '1' => ['Ah Long', '<span class="badge bg-primary-light">Ah Long</span>'],
+            // '2' => ['Pinjaman Berlesen', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
+            // '3' => ['Penipuan Siber', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
+            // '4' => ['Dadah', '<span class="badge bg-warning-light">Dadah</span>'],
+            // '5' => ['Hak Masyarkat Setempat', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
+            // '6' => ['Others', '<span class="badge bg-warning-light">Others</span>'],
         ];
 
         return 
@@ -114,17 +122,54 @@
                 
         $questions = [
             '1' => [
-                '1' => 'Please explain',
-                '2' => 'Please explain',
-                '3' => 'Please explain',
-                '4' => 'Please explain',
+                '1' => 'Type of loan',
+                '2' => 'Date fo loan',
+                '3' => 'Actual loan amount',
+                '4' => 'Premimum Amount',
+                '5' => 'Total Amount',
+                '6' => 'Victims',
+                '7' => 'Official detail',
+                '8' => 'Your job',
+                '9' => 'Husband / Wife job',
+                '10' => 'Father / Mother job',
+                '11' => 'Your Salary',
+                '12' => 'Number of sibilings',
+                '13' => 'Loan borrowed before',
+                '14' => 'Loan purpose',
+                '15' => 'Bad effects after loan',
+                '16' => 'DO you follow any of our instruction during negotiations?',
             ],
             '2' => [
-                '1' => 'Please explain',
-                '2' => 'Please explain',
-                '3' => 'Please explain',
-                '4' => 'Please explain',
+                '1' => 'Your job',
+                '2' => 'Husband / Wife job',
+                '3' => 'Father / Mother job',
+                '4' => 'Your Salary',
+                '5' => 'Number of sibilings',
+                '5' => 'Loan borrowed before',
+                '5' => 'Loan purpose',
+                '5' => 'Bad effects after loan',
+                '5' => 'DO you follow any of our instruction during negotiations?',
             ],
+            '3' => [
+                '1' => 'Berief of complaint',
+            ],
+            '4' => [
+                '1' => 'Berief of complaint',
+            ],
+            '5' => [
+                '1' => 'Your job',
+                '2' => 'Husband / Wife job',
+                '3' => 'Father / Mother job',
+                '4' => 'Your Salary',
+                '5' => 'Number of sibilings',
+                '5' => 'Loan borrowed before',
+                '5' => 'Loan purpose',
+                '5' => 'Bad effects after loan',
+                '5' => 'DO you follow any of our instruction during negotiations?',
+            ],
+            '6' => [
+                '1' => 'Berief of complaint',
+            ]
         ];
 
         return
