@@ -31,12 +31,15 @@
                             if (Auth::user()->user_type == 3) {
                                 $hideCustomer = true;
                                 $hideEmployee = false;
+                                $hideCommission = true;
                             } elseif(Auth::user()->user_type == 2) {
                                 $hideCustomer = false;
                                 $hideEmployee = true;
+                                $hideCommission = false;
                             } else {
                                 $hideCustomer = false;
                                 $hideEmployee = false;
+                                $hideCommission = false;
                             }                         
                         @endphp
 
@@ -57,6 +60,10 @@
                                                     <th>Employee</th>
                                                 @endif
                                                 <th>Start Date</th>
+                                                @if($hideCommission == false) 
+                                                    <th>Commission Amount</th>
+                                                @endif
+                                                <th>Total Amount</th>
                                                 <th>Payment</th>
                                                 <th>Status</th>
                                                 <th>Action</th>
@@ -72,9 +79,12 @@
                                                     @endif
                                                     @if($hideEmployee == false) 
                                                         <td>{{isset($case->employee->first_name) ? $case->employee->first_name : ''}} {{isset($case->employee->last_name) ? $case->employee->last_name : ''}}</td>
-                                                    
                                                     @endif
                                                     <td>{{$case->start_datetime}}</td>
+                                                    @if($hideCommission == false) 
+                                                        <td>{{isset($case->commission_amount) ? $case->commission_amount : ''}}</td>
+                                                    @endif
+                                                    <td>{{$case->total_amount ?? ''}}</td>
                                                     <td>{!! getPaymentStatus($case->payment_status, 'badge') !!}</td>
                                                     <td>{!! getCaseStatus($case->status, 'badge') !!}</td>
                                                     <td>
