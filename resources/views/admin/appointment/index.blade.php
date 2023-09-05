@@ -44,7 +44,7 @@
                             @if (count($data) > 0)
                                 <div class="table-responsive">
                                     {{--  data-table --}}
-                                    <table class="table" style="width:100%">
+                                    <table class="table data-table" style="width:100%">
                                         {{-- data-tables  --}}
                                         <thead>
                                             <tr>
