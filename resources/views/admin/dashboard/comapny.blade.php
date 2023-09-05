@@ -160,10 +160,10 @@
                 format: 'dd/MM/yy',
             },
         },
-        title: {
-            text: 'Monthly Cases',
-            align: 'left'
-        },
+        // title: {
+        //     text: 'Monthly Cases',
+        //     align: 'left'
+        // },
     };
 
     var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
