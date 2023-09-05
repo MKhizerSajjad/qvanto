@@ -29,6 +29,8 @@
         <link rel='stylesheet' href="{{ asset('admin/vendor/fullcalendar/list/main.css') }}"/>
         <link rel="stylesheet" href="{{ asset('admin/vendor/mapbox/mapbox-gl.css') }}">
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
 
     </head>
     <body class="font-sans antialiased">
