@@ -1,10 +1,12 @@
 <div class="iq-sidebar  rtl-iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{route('index')}}" class="header-logo">
-            <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
+            {{-- <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
                 alt="logo">
             <img src="{{ asset('admin/images/logo-white.png') }}" class="img-fluid rounded-normal darkmode-logo"
-                alt="logo">
+                alt="logo"> --}}
+
+                {{config('app.name');}}
         </a>
         <div class="iq-menu-bt-sidebar">
             <i class="las la-bars wrapper-menu"></i>

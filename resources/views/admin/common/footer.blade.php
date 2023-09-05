@@ -8,7 +8,7 @@
                 </ul>
             </div>
             <div class="col-lg-6 text-right ">
-                Copyright @php date('Y') @endphp <a href="#">Rights Association</a> All Rights Reserved.
+                Copyright @php date('Y') @endphp <a href="#">{{config('app.name');}}</a> All Rights Reserved.
             </div>
         </div>
     </div>
