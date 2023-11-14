@@ -1,12 +1,12 @@
 <div class="iq-sidebar  rtl-iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{route('index')}}" class="header-logo">
-            {{-- <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
+            <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
                 alt="logo">
-            <img src="{{ asset('admin/images/logo-white.png') }}" class="img-fluid rounded-normal darkmode-logo"
-                alt="logo"> --}}
+            <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal darkmode-logo"
+                alt="logo">
 
-                {{config('app.name');}}
+                {{-- {{config('app.name');}} --}}
         </a>
         <div class="iq-menu-bt-sidebar">
             <i class="las la-bars wrapper-menu"></i>
@@ -56,11 +56,11 @@
                             <i class="fa fa-users"></i><span>Customers</span>
                         </a>
                     </li>
-                    <li class="">
+                    {{-- <li class="">
                         <a href="{{route('salary.index')}}">
                             <i class="fa fa-users"></i><span>Salary</span>
                         </a>
-                    </li>
+                    </li> --}}
                 @elseif(Auth::user()->user_type == 2)
                     <li class="">
                         <a href="{{route('customer.index')}}">
@@ -73,14 +73,14 @@
                         <i class="fa fa-calendar"></i><span>Appointment</span>
                     </a>
                 </li>
-                <li class="">
+                {{-- <li class="">
                     <a href="{{route('case.index')}}">
                         <i class="fa fa-calendar"></i><span>Case</span>
                     </a>
-                </li>
+                </li> --}}
             </ul>
         </nav>
-        <div id="sidebar-bottom" class="position-relative sidebar-bottom">
+        {{-- <div id="sidebar-bottom" class="position-relative sidebar-bottom">
             <div class="card bg-primary rounded">
                 <div class="card-body">
                     <div class="sidebarbottom-content">
@@ -93,7 +93,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> --}}
         <div class="p-3"></div>
     </div>
 </div>
