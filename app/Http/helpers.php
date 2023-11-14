@@ -42,12 +42,12 @@
     function getCaseTypes($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Loan shark', '<span class="badge bg-primary-light">Ah Long</span>'],
-            '2' => ['Licensed Lending', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
-            '3' => ['Cyber fruad', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
-            '4' => ['Drugs', '<span class="badge bg-warning-light">Dadah</span>'],
-            '5' => ['Local community rights', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
-            '6' => ['Others', '<span class="badge bg-warning-light">Others</span>'],
+            '1' => ['BAI', '<span class="badge bg-primary-light">BAI</span>'],
+            '2' => ['BDI-II', '<span class="badge bg-warning-light">BDI-II</span>'],
+            '3' => ['MSI-BPD', '<span class="badge bg-warning-light">MSI-BPD</span>'],
+            '4' => ['DAST', '<span class="badge bg-warning-light">DAST</span>'],
+            '5' => ['PCL-5', '<span class="badge bg-warning-light">PCL-5</span>'],
+            '6' => ['ASRS', '<span class="badge bg-warning-light">ASRS</span>'],
 
             
             // '1' => ['Ah Long', '<span class="badge bg-primary-light">Ah Long</span>'],
