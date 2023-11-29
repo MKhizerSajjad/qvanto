@@ -113,7 +113,7 @@ class EmployeeController extends Controller
         $data['status'] = 1;
         $user = Employee::create($data);
 
-        return redirect()->route('employee.index')->with('success','Employee created successfully');
+        return redirect()->route('employee.index')->with('success','Examinar created successfully');
     }
 
     /**
@@ -179,7 +179,7 @@ class EmployeeController extends Controller
         $user = Employee::find($employee->id);
         $user->update($data);
 
-        return redirect()->route('employee.index')->with('success','Employee updated successfully');
+        return redirect()->route('employee.index')->with('success','Examinar updated successfully');
     }
 
     /**
@@ -188,6 +188,6 @@ class EmployeeController extends Controller
     public function destroy(Employee $employee)
     {
         $employee->delete();
-        return redirect()->route('employee.index')->with('success','Employee deleted successfully');
+        return redirect()->route('employee.index')->with('success','Examinar deleted successfully');
     }
 }

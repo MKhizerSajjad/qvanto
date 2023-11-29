@@ -6,7 +6,7 @@
                     <div class="card" bis_skin_checked="1">
                     <div class="card-header d-flex justify-content-between" bis_skin_checked="1">
                         <div class="header-title" bis_skin_checked="1">
-                            <h4 class="card-title">Add New Employee</h4>
+                            <h4 class="card-title">Add New Examinar</h4>
                         </div>
                     </div>
                     <div class="card-body" bis_skin_checked="1">
@@ -55,12 +55,28 @@
                                         <input type="tel" class="form-control" id="mobile_number" name="mobile_number" placeholder="Mobile Number" value="{{ old('mobile_number') }}">
                                     </div>
                                     <div class="form-group col-md-4" bis_skin_checked="1">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date Of Birth" value="{{ old('dob') }}">
+                                    </div>
+                                    {{-- <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="nic">NIC <span class="text text-danger">*</span></label>
                                         <input type="text" class="form-control" id="nic" name="nic" placeholder="NIC" value="{{ old('nic') }}">
-                                    </div>
-                                    <div class="form-group col-md-4" bis_skin_checked="1">
+                                    </div> --}}
+                                    {{-- <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="basic_salary">Basic Salary <span class="text text-danger">*</span></label>
                                         <input type="number" class="form-control" id="basic_salary" name="basic_salary" placeholder="Basic Salary" value="{{ old('basic_salary') }}">
+                                    </div> --}}
+                                    <div class="form-group col-md-4" bis_skin_checked="1">
+                                        <label>Designation <span class="text text-danger">*</span></label>
+                                        <div class="dropdown" bis_skin_checked="1">
+                                            <select class="form-control" id="designation" name="designation">
+                                                <option>Select Designation</option>
+                                                @foreach (getDesignation() as $key => $label)
+                                                    @php $key = ++$key; @endphp
+                                                    <option {{ (old('designation') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
                                     </div>
                                     <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="zipcode">Zip Code</label>
