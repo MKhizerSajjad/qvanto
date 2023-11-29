@@ -38,7 +38,7 @@
                                     <div class="form-group col-md-6" bis_skin_checked="1">
                                         <label>Case Type <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
-                                            <select class="form-control" id="case_type" name="case_type">
+                                            <select class="form-control" id="case_type" name="case_type" multiple>
                                                 <option>Select Case Type</option>
                                                 @foreach (getCaseTypes() as $key => $label)
                                                     @php $key = ++$key @endphp

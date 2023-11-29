@@ -14,23 +14,23 @@ class AppointmentController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {        
+    {
         $appiontments = Appointment::with('case:id,appointment_id')->orderBy('dated','DESC');
-        
-        if(Auth::user()->user_type == 3) {
+
+        if(Auth::user()->user_type == 4) {
             $appiontments = $appiontments->with('employee:id,first_name,last_name')->where('customer_id', Auth::user()->id);
         } else if(Auth::user()->user_type == 2) {
             $appiontments = $appiontments->with('customer:id,first_name,last_name')->where('employee_id', Auth::user()->id);
         } else {
             $appiontments = $appiontments->with('employee:id,first_name,last_name')->with('customer:id,first_name,last_name');
         }
-        
+
         if ($request->has('date') && $request->date != '') {
             $date = $request->date;
             $appiontments = $appiontments->where('date', 'LIKE', $date.'%');
         }
 
-        
+
         $data = $appiontments->paginate(100);
 
         return view('admin.appointment.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 1);
@@ -53,7 +53,7 @@ class AppointmentController extends Controller
      */
     public function store(Request $request)
     {
-        if(Auth::user()->user_type == 3) {
+        if(Auth::user()->user_type == 4) {
             $this->validate($request, [
                 'case_type' => 'required',
                 'datetime' => 'required',
@@ -70,7 +70,7 @@ class AppointmentController extends Controller
         // Customer
         if (Auth::user()->user_type != 3 && isset($request->customer)) {
             $customer = $request->customer;
-        } else if (Auth::user()->user_type == 3) {
+        } else if (Auth::user()->user_type == 4) {
             $customer = Auth::user()->id;
         } else {
             $customer = Null;
@@ -125,7 +125,7 @@ class AppointmentController extends Controller
      */
     public function update(Request $request, Appointment $appointment)
     {
-        if(Auth::user()->user_type == 3) {
+        if(Auth::user()->user_type == 4) {
             $this->validate($request, [
                 'case_type' => 'required',
                 'datetime' => 'required',
@@ -142,7 +142,7 @@ class AppointmentController extends Controller
         // Customer
         if (Auth::user()->user_type != 3 && isset($request->customer)) {
             $customer = $request->customer;
-        } else if (Auth::user()->user_type == 3) {
+        } else if (Auth::user()->user_type == 4) {
             $customer = Auth::user()->id;
         } else {
             $customer = Null;

@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content-page rtl-page">
         <div class="container-fluid">
-            
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
                     {{-- <div class="iq-alert-icon"> --}}
@@ -28,7 +28,7 @@
                         </div>
 
                         @php
-                            if (Auth::user()->user_type == 3) {
+                            if (Auth::user()->user_type == 4) {
                                 $hideCustomer = true;
                                 $hideEmployee = false;
                             } elseif(Auth::user()->user_type == 2) {
@@ -37,7 +37,7 @@
                             } else {
                                 $hideCustomer = false;
                                 $hideEmployee = false;
-                            }                         
+                            }
                         @endphp
 
                         <div class="card-body">
@@ -50,10 +50,10 @@
                                             <tr>
                                                 <th>Sr#</th>
                                                 <th>Case Type</th>
-                                                @if($hideCustomer == false) 
+                                                @if($hideCustomer == false)
                                                     <th>Customer</th>
                                                 @endif
-                                                @if($hideEmployee == false) 
+                                                @if($hideEmployee == false)
                                                     <th>Employee</th>
                                                 @endif
                                                 <th>Date</th>
@@ -67,12 +67,12 @@
                                                 <tr>
                                                     <td>{{++$key}}</td>
                                                     <td>{{getCaseTypes($appointment->case_type_id)}}</td>
-                                                    @if($hideCustomer == false) 
+                                                    @if($hideCustomer == false)
                                                         <td>{{$appointment->customer->first_name}} {{$appointment->customer->last_name}}</td>
                                                     @endif
-                                                    @if($hideEmployee == false) 
+                                                    @if($hideEmployee == false)
                                                         <td>{{isset($appointment->employee->first_name) ? $appointment->employee->first_name : ''}} {{isset($appointment->employee->last_name) ? $appointment->employee->last_name : ''}}</td>
-                                                    
+
                                                     @endif
                                                     <td>{{$appointment->dated}}</td>
                                                     {{-- <td>{{$appointment->is_accepted}}</td> --}}
@@ -80,9 +80,9 @@
                                                     <td>
                                                         <div class="d-flex align-items-center list-action">
                                                             @if (   Auth::user()->user_type != 3
-                                                                    || 
-                                                                    (   Auth::user()->user_type == 3 
-                                                                        && 
+                                                                    ||
+                                                                    (   Auth::user()->user_type == 4
+                                                                        &&
                                                                         ($appointment->status == 1 || $appointment->status == 4)
                                                                     )
                                                                 )
@@ -124,7 +124,7 @@
                                     @endif
                                 </div>
                             @else
-                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>    
+                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>
                             @endif
                         </div>
                     </div>
