@@ -4,9 +4,11 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\CounselorController;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\ExaminationController;
 use App\Http\Controllers\CasesController;
 use App\Http\Controllers\CaseDetailController;
 use App\Http\Controllers\SalaryController;
@@ -31,12 +33,12 @@ Route::middleware('auth')->group(function () {
     // Route::get('/dashboard', function () {
     //     return view('admin/dashboard');
     // })->name('index');
-    
+
     // Route::get('/', function () {
     //     return view('admin/dashboard');
     // });
 
-    
+
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
@@ -48,8 +50,10 @@ Route::middleware('auth')->group(function () {
     // validations according to loggedin user type
     Route::resource('admins', AdminController::class);
     Route::resource('employee', EmployeeController::class);
+    Route::resource('counselor', CounselorController::class);
     Route::resource('customer', CustomerController::class);
     Route::resource('appointment', AppointmentController::class);
+    Route::resource('examination', ExaminationController::class);
     // Route::get('/case/{appiontment}', [CasesController::class, 'create'])->name('casreStart');
     Route::resource('case', CasesController::class);
     Route::resource('case-detail', CaseDetailController::class);
