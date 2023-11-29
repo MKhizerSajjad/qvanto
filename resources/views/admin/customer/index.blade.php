@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content-page rtl-page">
         <div class="container-fluid">
-            
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
                     {{-- <div class="iq-alert-icon"> --}}
@@ -21,7 +21,7 @@
                         {{--  card-block card-stretch card-height --}}
                         <div class="card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title mb-0">Customers List</h4>
+                                <h4 class="card-title mb-0">Clients List</h4>
                             </div>
                             <a href="{{route('customer.create')}}" class="btn btn-primary">Add New</a>
                             {{-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addContact">Add New</a> --}}
@@ -62,8 +62,8 @@
                                                                 <i class="fa fa-pen"></i>
                                                             </a>
                                                             {{-- <a class="badge bg-danger-light mr-2 rtl-ml-2" data-toggle="modal tooltip"
-                                                                data-target=".deleteModal" data-placement="top" title="" 
-                                                                data-original-title="Delete" 
+                                                                data-target=".deleteModal" data-placement="top" title=""
+                                                                data-original-title="Delete"
                                                                 href="#deleteRecord{{$customer->id}}"
                                                                 href="#" id="deleteOrder" delete-id="{{$customer->id}}">
                                                                     <i class="lar la-eye"></i>
@@ -86,8 +86,8 @@
                                                                 </div>
                                                             </span> --}}
 
-                                                                                
-                                                            <!-- Delete Modal -->  
+
+                                                            <!-- Delete Modal -->
                                                             {{-- show --}}
                                                             {{-- <div class="modal fade bd-example-modal-sm" id="deleteOrder" tabindex="-1" role="dialog" bis_skin_checked="1" style="padding-right: 4px; display: block;" aria-modal="true">
                                                                 <div class="modal-dialog modal-sm" bis_skin_checked="1">
@@ -134,7 +134,7 @@
                                     @endif
                                 </div>
                             @else
-                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>    
+                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>
                             @endif
                         </div>
                     </div>

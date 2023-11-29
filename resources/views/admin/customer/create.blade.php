@@ -6,7 +6,7 @@
                     <div class="card" bis_skin_checked="1">
                     <div class="card-header d-flex justify-content-between" bis_skin_checked="1">
                         <div class="header-title" bis_skin_checked="1">
-                            <h4 class="card-title">Add New Customer</h4>
+                            <h4 class="card-title">Add New Client</h4>
                         </div>
                     </div>
                     <div class="card-body" bis_skin_checked="1">
@@ -58,11 +58,15 @@
                                         <label for="nic">NIC <span class="text text-danger">*</span></label>
                                         <input type="text" class="form-control" id="nic" name="nic" placeholder="NIC" value="{{ old('nic') }}">
                                     </div>
-                                    <div class="form-group col-md-6" bis_skin_checked="1">
+                                    <div class="form-group col-md-4" bis_skin_checked="1">
+                                        <label for="dob">Date of Birth</label>
+                                        <input type="date" class="form-control" id="dob" name="dob" placeholder="Date Of Birth" value="{{ old('dob') }}">
+                                    </div>
+                                    <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label for="zipcode">Zip Code</label>
                                         <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip Code" value="{{ old('zipcode') }}">
                                     </div>
-                                    <div class="form-group col-sm-6" bis_skin_checked="1">
+                                    <div class="form-group col-md-4" bis_skin_checked="1">
                                         <label>Status <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
@@ -79,7 +83,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <h5 class="mb-3">Security</h5>
+                                {{-- <h5 class="mb-3">Security</h5>
                                 <div class="row" bis_skin_checked="1">
                                     <div class="form-group col-md-6" bis_skin_checked="1">
                                         <label for="pass">Password <span class="text text-danger">*</span></label>
@@ -89,7 +93,7 @@
                                         <label for="rpass">Repeat Password <span class="text text-danger">*</span></label>
                                         <input type="password" class="form-control" id="rpass" name="password_confirmation" placeholder="Repeat Password ">
                                     </div>
-                                </div>
+                                </div> --}}
                                 <button type="submit" class="btn btn-primary float-right">Add</button>
                                 <a href="{{route('customer.index')}}" class="btn btn-secondary float-right mr-1">Cancel</a>
                             </form>

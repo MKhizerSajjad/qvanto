@@ -16,7 +16,7 @@ class CustomerController extends Controller
      */
     public function index(Request $request)
     {
-        $users = Customer::where('id', '!=', Auth::user()->id)->where('user_type', 3)->orderBy('first_name','DESC');
+        $users = Customer::where('id', '!=', Auth::user()->id)->where('user_type', 4)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
             $first_name = $request->first_name;
@@ -80,7 +80,8 @@ class CustomerController extends Controller
             'mobile_number' => 'min:12|max:18|unique:users',
             'nic' => 'unique:users',
             'status' => 'required',
-            'password' => 'required|string|min:8|confirmed',
+            'dob' => 'required',
+            // 'password' => 'required|string|min:8|confirmed',
         ]);
 
         $data = $request->all();
@@ -99,13 +100,14 @@ class CustomerController extends Controller
             }
         }
 
-        $data['password'] = Hash::make($data['password']);
+        // $data['password'] = Hash::make($data['password']);
+        $data['password'] = Hash::make('default');
         unset($data['password_confirmation']);
-        $data['user_type'] = 3;
+        $data['user_type'] = 4;
         $data['status'] = 1;
         $user = Customer::create($data);
 
-        return redirect()->route('customer.index')->with('success','Customer created successfully');
+        return redirect()->route('customer.index')->with('success','Client created successfully');
     }
 
     /**
@@ -141,7 +143,8 @@ class CustomerController extends Controller
             'mobile_number' => 'min:12|max:18|unique:users,mobile_number,'.$customer->id,
             'nic' => 'unique:users,nic,'.$customer->id,
             'status' => 'required',
-            'password' => 'nullable|string|min:8|confirmed',
+            'dob' => 'required',
+            // 'password' => 'nullable|string|min:8|confirmed',
         ]);
 
         $data = $request->all();
@@ -171,7 +174,7 @@ class CustomerController extends Controller
         $user = Customer::find($customer->id);
         $user->update($data);
 
-        return redirect()->route('customer.index')->with('success','Customer updated successfully');
+        return redirect()->route('customer.index')->with('success','Client updated successfully');
     }
 
     /**
@@ -180,6 +183,6 @@ class CustomerController extends Controller
     public function destroy(Customer $customer)
     {
         $customer->delete();
-        return redirect()->route('customer.index')->with('success','Customer deleted successfully');
+        return redirect()->route('customer.index')->with('success','Client deleted successfully');
     }
 }
