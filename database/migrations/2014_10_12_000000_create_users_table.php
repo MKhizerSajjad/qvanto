@@ -13,16 +13,21 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->integer('status')->default(1);
-            $table->integer('user_type')->default(3)->indexed(); // admin, staff or customer
+            $table->tinyInteger('status')->default(1);
+            $table->tinyInteger('user_type')->default(4)->indexed(); // admin, staff, customer or consular
             $table->string('first_name', 20);
             $table->string('last_name', 15);
             $table->string('picture')->nullable();
             $table->string('nic', 30)->unique()->nullable();
             $table->string('mobile_number', 20)->nullable();
+            $table->string('fax', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->decimal('basic_salary',20,2)->nullable();
+            $table->tinyInteger('designation')->nullable();
+            $table->tinyInteger('gender')->nullable();
+            $table->tinyInteger('pronounce')->nullable();
+            $table->date('dob')->nullable();
             $table->string('zipcode', 50)->nullable();
             $table->string('address')->nullable();
             $table->foreignId('city_id')->nullable()->constrained()->onDelete('cascade');
