@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content-page rtl-page">
         <div class="container-fluid">
-            
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
                     {{-- <div class="iq-alert-icon"> --}}
@@ -51,7 +51,7 @@
                                                     <td>{{ date('M Y', strtotime($salary->year_month)) }}</td>
                                                     <td>{{$salary->employee->first_name}} {{$salary->employee->last_name}}</td>
                                                     <td>{{$salary->total_amount}}</td>
-                                                    <td>{!! getYesNo($salary->is_published, 'badge') !!}</td>
+                                                    <td>{!! getBoolStatus($salary->is_published, 'badge') !!}</td>
                                                     <td>{!! getPaymentStatus($salary->status, 'badge') !!}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center list-action">
@@ -79,7 +79,7 @@
                                     @endif
                                 </div>
                             @else
-                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>    
+                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>
                             @endif
                         </div>
                     </div>

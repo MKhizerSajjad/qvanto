@@ -50,7 +50,7 @@
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="published" name="published">
                                                 <option>Select Option</option>
-                                                @foreach (getYesNo() as $key => $status)
+                                                @foreach (getBoolStatus() as $key => $status)
                                                     @php $key = ++$key @endphp
                                                     <option {{ (old('published') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $status }}</option>
                                                 @endforeach
@@ -96,7 +96,7 @@
         var basicSalaryInput = $('#basic_salary');
         var commissionInput = $('#case_comission');
         var totalInput = $('#total_amount');
-        
+
         // Attach an event listener to the employee select input
         $('#employee').on('change', function() {
             var selectedEmployeeId = $(this).val();

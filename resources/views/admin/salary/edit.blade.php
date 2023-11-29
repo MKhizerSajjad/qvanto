@@ -63,7 +63,7 @@
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="published" name="published">
                                                 <option>Select Option</option>
-                                                @foreach (getYesNo() as $key => $status)
+                                                @foreach (getBoolStatus() as $key => $status)
                                                     @php $key = ++$key @endphp
                                                     <option {{ (old('published', $salary->is_published) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $status }}</option>
                                                 @endforeach
