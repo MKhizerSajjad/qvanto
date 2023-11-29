@@ -83,13 +83,45 @@
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
     }
 
-    function getEvaluationTypes($status = null, $type = null)
+    function getExamTypes($status = null, $type = null)
     {
         $statuses = [
             '1' => ['Psycho-Educational Evaluation', '<span class="badge bg-primary-light">Psycho-Educational Evaluation</span>'],
             '2' => ['Psychological Evaluation', '<span class="badge bg-warning-light">Psychological Evaluation</span>'],
             '3' => ['Substance Abuse Evlauation', '<span class="badge bg-warning-light">Substance Abuse Evlauation</span>'],
             '4' => ['Psychotherapy', '<span class="badge bg-warning-light">Psychotherapy</span>'],
+        ];
+
+        return
+            isset($statuses[$status])
+            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
+            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
+    }
+
+    function getSubExamTypes($status = null, $type = null)
+    {
+        $statuses = [
+            '1' => ['BAI', '<span class="badge bg-primary-light">BAI</span>'],
+            '2' => ['BDI-II', '<span class="badge bg-warning-light">BDI-II</span>'],
+            '3' => ['MSI-BPD', '<span class="badge bg-warning-light">MSI-BPD</span>'],
+            '4' => ['DAST', '<span class="badge bg-warning-light">DAST</span>'],
+            '5' => ['PCL-5', '<span class="badge bg-warning-light">PCL-5</span>'],
+            '6' => ['ASRS', '<span class="badge bg-warning-light">ASRS</span>'],
+        ];
+
+        return
+            isset($statuses[$status])
+            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
+            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
+    }
+
+    function getQuestionTypes($status = null, $type = null)
+    {
+        $statuses = [
+            '1' => ['Rating', '<span class="badge bg-primary-light">Rating</span>'],
+            '2' => ['True False', '<span class="badge bg-warning-light">True False</span>'],
+            '3' => ['Multiple Choice', '<span class="badge bg-warning-light">Multiple Choice</span>'],
+            '4' => ['Detail', '<span class="badge bg-warning-light">Detail</span>'],
         ];
 
         return

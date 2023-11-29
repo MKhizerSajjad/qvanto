@@ -76,7 +76,7 @@
                                             @foreach ($data as $key => $appointment)
                                                 <tr>
                                                     <td>{{++$key}}</td>
-                                                    <td>{{getEvaluationTypes($appointment->case_type_id)}}</td>
+                                                    <td>{{getExamTypes($appointment->case_type_id)}}</td>
                                                     @if($hideCustomer == false)
                                                         <td>{{$appointment->customer->first_name}} {{$appointment->customer->last_name}}</td>
                                                     @endif

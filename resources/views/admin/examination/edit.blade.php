@@ -40,7 +40,7 @@
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="case_type" name="case_type" multiple>
                                                 <option>Select Examination Type</option>
-                                                @foreach (getEvaluationTypes() as $key => $label)
+                                                @foreach (getExamTypes() as $key => $label)
                                                     @php $key = ++$key @endphp
                                                     <option {{ (old('case_type', $examination->case_type_id) == $key) ? 'selected="selected"' : '' }} value="{{ ++$key }}">{{ $label }}</option>
                                                 @endforeach
