@@ -1,7 +1,7 @@
 <x-app-layout>
     <div class="content-page rtl-page">
         <div class="container-fluid">
-            
+
             @if ($message = Session::get('success'))
                 <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
                     {{-- <div class="iq-alert-icon"> --}}
@@ -28,7 +28,7 @@
                         </div>
 
                         @php
-                            if (Auth::user()->user_type == 3) {
+                            if (Auth::user()->user_type == 4) {
                                 $hideCustomer = true;
                                 $hideEmployee = false;
                                 $hideCommission = true;
@@ -40,7 +40,7 @@
                                 $hideCustomer = false;
                                 $hideEmployee = false;
                                 $hideCommission = false;
-                            }                         
+                            }
                         @endphp
 
                         <div class="card-body">
@@ -53,14 +53,14 @@
                                             <tr>
                                                 <th>Sr#</th>
                                                 <th>Case Type</th>
-                                                @if($hideCustomer == false) 
+                                                @if($hideCustomer == false)
                                                     <th>Customer</th>
                                                 @endif
-                                                @if($hideEmployee == false) 
+                                                @if($hideEmployee == false)
                                                     <th>Employee</th>
                                                 @endif
                                                 <th>Start Date</th>
-                                                @if($hideCommission == false) 
+                                                @if($hideCommission == false)
                                                     <th>Commission Amount</th>
                                                 @endif
                                                 <th>Total Amount</th>
@@ -74,14 +74,14 @@
                                                 <tr>
                                                     <td>{{++$key}}</td>
                                                     <td>{{getCaseTypes($case->case_type_id)}}</td>
-                                                    @if($hideCustomer == false) 
+                                                    @if($hideCustomer == false)
                                                         <td>{{$case->customer->first_name}} {{$case->customer->last_name}}</td>
                                                     @endif
-                                                    @if($hideEmployee == false) 
+                                                    @if($hideEmployee == false)
                                                         <td>{{isset($case->employee->first_name) ? $case->employee->first_name : ''}} {{isset($case->employee->last_name) ? $case->employee->last_name : ''}}</td>
                                                     @endif
                                                     <td>{{$case->start_datetime}}</td>
-                                                    @if($hideCommission == false) 
+                                                    @if($hideCommission == false)
                                                         <td>{{isset($case->commission_amount) ? $case->commission_amount : ''}}</td>
                                                     @endif
                                                     <td>{{$case->total_amount ?? ''}}</td>
@@ -120,7 +120,7 @@
                                     @endif
                                 </div>
                             @else
-                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>    
+                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>
                             @endif
                         </div>
                     </div>
