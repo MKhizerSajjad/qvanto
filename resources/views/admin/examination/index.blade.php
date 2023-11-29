@@ -1,0 +1,147 @@
+<x-app-layout>
+    <div class="content-page rtl-page">
+        <div class="container-fluid">
+
+            @if ($message = Session::get('success'))
+                <div class="alert alert-success auto-colse-3" role="alert" bis_skin_checked="1">
+                    {{-- <div class="iq-alert-icon"> --}}
+                        <i class="ri-check-double-line"></i>
+                    {{-- </div> --}}
+                    <div class="iq-alert-text" bis_skin_checked="1">
+                        <b>Success!</b> {{ $message }}
+                    </div>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <i class="ri-close-line"></i>
+                    </button>
+                </div>
+            @endif
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        {{--  card-block card-stretch card-height --}}
+                        <div class="card-header d-flex justify-content-between">
+                            <div class="iq-header-title">
+                                <h4 class="card-title mb-0">Examinations List</h4>
+                            </div>
+                            <a href="{{route('examination.create')}}" class="btn btn-primary">Add New</a>
+                            {{-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addContact">Add New</a> --}}
+                        </div>
+
+                        @php
+                            if (Auth::user()->user_type == 4) {
+                                $hideCustomer = true;
+                                $hideEmployee = false;
+                                $hideCounselor = false;
+                            } elseif(Auth::user()->user_type == 3) {
+                                $hideCustomer = false;
+                                $hideEmployee = false;
+                                $hideCounselor = true;
+                            } elseif(Auth::user()->user_type == 2) {
+                                $hideCustomer = false;
+                                $hideEmployee = true;
+                                $hideCounselor = false;
+                            } else {
+                                $hideCustomer = false;
+                                $hideEmployee = false;
+                                $hideCounselor = false;
+                            }
+                        @endphp
+
+                        <div class="card-body">
+                            @if (count($data) > 0)
+                                <div class="table-responsive">
+                                    {{--  data-table --}}
+                                    <table class="table data-table" style="width:100%">
+                                        {{-- data-tables  --}}
+                                        <thead>
+                                            <tr>
+                                                <th>Sr#</th>
+                                                <th>Examination Type</th>
+                                                @if($hideCustomer == false)
+                                                    <th>Customer</th>
+                                                @endif
+                                                @if($hideEmployee == false)
+                                                    <th>Employee</th>
+                                                @endif
+                                                @if($hideCounselor == false)
+                                                    <th>Counselor</th>
+                                                @endif
+                                                <th>Date</th>
+                                                {{-- <th>Is Accepted</th> --}}
+                                                <th>Status</th>
+                                                <th>Action</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach ($data as $key => $appointment)
+                                                <tr>
+                                                    <td>{{++$key}}</td>
+                                                    <td>{{getEvaluationTypes($appointment->case_type_id)}}</td>
+                                                    @if($hideCustomer == false)
+                                                        <td>{{$appointment->customer->first_name}} {{$appointment->customer->last_name}}</td>
+                                                    @endif
+                                                    @if($hideEmployee == false)
+                                                        <td>{{isset($appointment->employee->first_name) ? $appointment->employee->first_name : ''}} {{isset($appointment->employee->last_name) ? $appointment->employee->last_name : ''}}</td>
+                                                    @endif
+                                                    @if($hideCounselor == false)
+                                                        <td>{{isset($appointment->counselor->first_name) ? $appointment->counselor->first_name : ''}} {{isset($appointment->counselor->last_name) ? $appointment->counselor->last_name : ''}}</td>
+                                                    @endif
+                                                    <td>{{$appointment->dated}}</td>
+                                                    {{-- <td>{{$appointment->is_accepted}}</td> --}}
+                                                    <td>{!! getAppointmentStatus($appointment->status, 'badge') !!}</td>
+                                                    <td>
+                                                        <div class="d-flex align-items-center list-action">
+                                                            @if (   Auth::user()->user_type != 3
+                                                                    ||
+                                                                    (   Auth::user()->user_type == 4
+                                                                        &&
+                                                                        ($appointment->status == 1 || $appointment->status == 4)
+                                                                    )
+                                                                )
+                                                                <a class="badge bg-warning-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Edit"
+                                                                    href="{{ route('examination.edit', $appointment->id) }}">
+                                                                    <i class="fa fa-pen"></i>
+                                                                </a>
+                                                            @endif
+                                                            @if(isset($appointment->case->id) && $appointment->status == 3)
+                                                                <a class="badge bg-success-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Start Case"
+                                                                    href="{{ route('case.edit', $appointment) }}">
+                                                                    <i class="fa fa-eye"></i>
+                                                                </a>
+                                                            @elseif (Auth::user()->user_type != 3 && $appointment->status == 3)
+                                                                <a class="badge bg-success-light mr-2" data-toggle="tooltip"
+                                                                    data-placement="top" title="" data-original-title="Start Case"
+                                                                    href="{{ route('case.create', ['app' => $appointment]) }}">
+                                                                    <i class="fa fa-play"></i>
+                                                                </a>
+                                                            @endif
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        </tbody>
+                                    </table>
+                                    @if ($data->hasPages())
+                                    <div class="d-flex justify-content-end  mt-3 me-3">
+                                        <div class="pagination-wrap">
+                                    {{-- <div class="row justify-content-between mt-3">
+                                        <div class="col-md-6" bis_skin_checked="1"> --}}
+                                            <div class="pagination  justify-content-end mb-0">
+                                                {{ $data->onEachSide(5)->links() }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                    @endif
+                                </div>
+                            @else
+                                <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-app-layout>
