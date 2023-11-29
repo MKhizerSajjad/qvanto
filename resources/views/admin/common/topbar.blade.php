@@ -14,12 +14,12 @@
 
                 </a>
             </div>
-            {{-- <div class="iq-search-bar device-search">
-                <form action="#" class="searchbox">
+            <div class="iq-search-bar device-search">
+                {{-- <form action="#" class="searchbox">
                     <a class="search-link" href="#"><i class="ri-search-line"></i></a>
                     <input type="text" class="text search-input" placeholder="Search here...">
-                </form>
-            </div> --}}
+                </form> --}}
+            </div>
             <div class="d-flex align-items-center">
                 {{-- <div class="change-mode">
                     <div class="custom-control custom-switch custom-switch-icon custom-control-inline">
@@ -222,10 +222,10 @@
                                         </a>
                                     </div>
                                 </div>
-                            </div>
-                        </li> --}}
+                            </div> --}}
+                        </li>
                         <li class="nav-item iq-full-screen"><a href="#" class="" id="btnFullscreen"><i class="ri-fullscreen-line"></i></a></li>
-                        
+
                         @php
                             $type = Auth::user() ? getUserType(Auth::user()->user_type) : '';
                         @endphp
@@ -261,9 +261,9 @@
                                                             <h3>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
                                                             <div class="d-flex flex-wrap">
                                                                 <p class="mb-1">{{getUserType(Auth::user()->user_type)}}</p>
-                                                                
+
                                                                 <a class="dropdown-item" href="{{ route('index') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                                                                    <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i> 
+                                                                    <i class="mdi mdi-logout text-muted fs-16 align-middle me-1"></i>
                                                                     <span class="align-middle" data-key="t-logout">Logout</span>
                                                                 </a>
                                                                 {{-- <a href="auth-sign-in.html" class=" ml-3 rtl-mr-3 rtl-ml-0">

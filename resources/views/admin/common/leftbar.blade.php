@@ -3,8 +3,8 @@
         <a href="{{route('index')}}" class="header-logo">
             <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
                 alt="logo">
-            <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal darkmode-logo"
-                alt="logo">
+            {{-- <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal darkmode-logo"
+                alt="logo"> --}}
 
                 {{-- {{config('app.name');}} --}}
         </a>
@@ -48,12 +48,17 @@
                     </li>
                     <li class="">
                         <a href="{{route('employee.index')}}">
-                            <i class="fa fa-users"></i><span>Employees</span>
+                            <i class="fa fa-users"></i><span>Examinars</span>
+                        </a>
+                    </li>
+                    <li class="">
+                        <a href="{{route('counselor.index')}}">
+                            <i class="fa fa-users"></i><span>Counselor</span>
                         </a>
                     </li>
                     <li class="">
                         <a href="{{route('customer.index')}}">
-                            <i class="fa fa-users"></i><span>Customers</span>
+                            <i class="fa fa-users"></i><span>Clients</span>
                         </a>
                     </li>
                     {{-- <li class="">
@@ -64,13 +69,13 @@
                 @elseif(Auth::user()->user_type == 2)
                     <li class="">
                         <a href="{{route('customer.index')}}">
-                            <i class="fa fa-users"></i><span>Customers</span>
+                            <i class="fa fa-users"></i><span>Clients</span>
                         </a>
                     </li>
                 @endif
                 <li class="">
-                    <a href="{{route('appointment.index')}}">
-                        <i class="fa fa-calendar"></i><span>Appointment</span>
+                    <a href="{{route('examination.index')}}">
+                        <i class="fa fa-calendar"></i><span>Examinations</span>
                     </a>
                 </li>
                 {{-- <li class="">
