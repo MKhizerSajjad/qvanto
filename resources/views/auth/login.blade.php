@@ -1,4 +1,4 @@
-<x-guest-layout>    
+<x-guest-layout>
     {{-- <div id="loading">
         <div id="loading-center">
         </div>
@@ -40,18 +40,18 @@
                                                 <label class="custom-control-label" for="remember_me">{{ __('Remember me') }}</label>
                                             </div>
                                         </div>
-                                        <div class="col-lg-6 rtl-left">
+                                        {{-- <div class="col-lg-6 rtl-left">
                                             @if (Route::has('password.request'))
                                                 <a href="{{ route('password.request') }}" class="text-primary float-right">{{ __('Forgot your password?') }}</a>
                                             @endif
-                                        </div>
+                                        </div> --}}
                                     </div>
                                     <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
                                     <p class="mt-3">
-                                        
-                                        @if (Route::has('register'))    
+
+                                        {{-- @if (Route::has('register'))
                                             Create an Account <a href="{{ route('register') }}" class="text-primary">{{ __('Sign Up') }}</a>
-                                        @endif
+                                        @endif --}}
                                     </p>
                                 </form>
                             </div>
