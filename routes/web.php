@@ -32,7 +32,6 @@ use Illuminate\Support\Facades\Auth;
 //     return view('admin/dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
 
-Auth::routes(['register' => false]);
 Route::middleware('auth')->group(function () {
     Route::get('/', [DashboardController::class, 'index'])->name('index');
     Route::get('/home', [DashboardController::class, 'index'])->name('home');
