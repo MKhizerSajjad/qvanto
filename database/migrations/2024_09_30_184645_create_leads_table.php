@@ -11,13 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('appointments', function (Blueprint $table) {
+        Schema::create('leads', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('status')->unsigned()->default(1);
-            $table->unsignedBigInteger('customer_id');
-            $table->foreign('customer_id')->references('id')->on('users')->onDelete('CASCADE');
-            $table->tinyInteger('case_type_id')->unsigned()->indexed();
-            $table->datetime('dated')->nullable();
+            $table->foreignId('vendor_id')->references('id')->on('users')->indexed()->nullable()->onDelete('no action');
+            $table->tinyInteger('lead_type')->unsigned()->indexed();
+            $table->date('dated');
+            $table->string('first_name', 20);
+            $table->string('last_name', 15);
+            $table->string('mobile_number', 20)->nullable();
+            $table->string('email')->nullable();
             $table->text('note')->nullable();
             $table->timestamps();
         });
@@ -28,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('appointments');
+        Schema::dropIfExists('leads');
     }
 };

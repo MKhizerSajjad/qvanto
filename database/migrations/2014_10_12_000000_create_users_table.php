@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('status')->default(1);
-            $table->tinyInteger('user_type')->default(4)->indexed(); // admin, staff, customer or consular
+            $table->tinyInteger('user_type')->default(2)->indexed(); // admin and vendor
             $table->string('first_name', 20);
             $table->string('last_name', 15);
             $table->string('picture')->nullable();
@@ -23,10 +23,6 @@ return new class extends Migration
             $table->string('fax', 20)->nullable();
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
-            $table->decimal('basic_salary',20,2)->nullable();
-            $table->tinyInteger('designation')->nullable();
-            $table->tinyInteger('gender')->nullable();
-            $table->tinyInteger('pronounce')->nullable();
             $table->date('dob')->nullable();
             $table->string('zipcode', 50)->nullable();
             $table->string('address')->nullable();

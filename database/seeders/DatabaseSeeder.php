@@ -20,13 +20,13 @@ class DatabaseSeeder extends Seeder
         // ]);
 
         $this->call([
-            CountriesTableSeeder::class,
-            StatesTableSeeder::class,
-            CitiesTableChunkOneSeeder::class,
-            CitiesTableChunkTwoSeeder::class,
-            CitiesTableChunkThreeSeeder::class,
-            CitiesTableChunkFourSeeder::class,
-            CitiesTableChunkFiveSeeder::class,
+            // CountriesTableSeeder::class,
+            // StatesTableSeeder::class,
+            // CitiesTableChunkOneSeeder::class,
+            // CitiesTableChunkTwoSeeder::class,
+            // CitiesTableChunkThreeSeeder::class,
+            // CitiesTableChunkFourSeeder::class,
+            // CitiesTableChunkFiveSeeder::class,
             UserSeeder::class,
         ]);
     }

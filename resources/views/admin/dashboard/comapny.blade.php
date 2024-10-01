@@ -37,7 +37,7 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-12">
+    {{-- <div class="col-lg-12">
         <div class="card card-block card-stretch card-height">
             <div class="card-header border-none">
                 <div class="header-title">
@@ -48,13 +48,13 @@
                 <div id="accountsChart"></div>
             </div>
         </div>
-    </div>
+    </div> --}}
 </div>
 
 
 
 <script>
-    
+
     // Case Status wise chart - Multiple Radialbars
     // Extract the 'count' values from the $2 result
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
@@ -91,7 +91,7 @@
 
     var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
     chart.render();
-      
+
     // Line Chart
     // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('status')->toArray()) !!};
 
@@ -123,7 +123,7 @@
 
     // var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
     // chart.render();
-    
+
     var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
 
     var options = {
@@ -170,7 +170,7 @@
     chart.render();
 
 
-    // Accounts Chart 
+    // Accounts Chart
     var casesAmounts = @json($casesAmounts);
     var options = {
     series: [{

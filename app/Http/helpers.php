@@ -29,39 +29,7 @@
     {
         $statuses = [
             '1' => ['Admin', '<span class="badge bg-primary-light">Admin</span>'],
-            '2' => ['Employee', '<span class="badge bg-warning-light">Employee</span>'],
-            '3' => ['Consular', '<span class="badge bg-success-light">Consular</span>'],
-            '4' => ['Customer', '<span class="badge bg-warning-light">Customer</span>']
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getDesignation($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['Technician', '<span class="badge bg-primary-light">Technician</span>'],
-            '2' => ['Testing Technician', '<span class="badge bg-warning-light">Testing Technician</span>'],
-            '3' => ['Physiological Intern', '<span class="badge bg-success-light">Physiological Intern</span>'],
-            '4' => ['Psychosomatic', '<span class="badge bg-warning-light">Psychosomatic</span>']
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getLanguages($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['English', '<span class="badge bg-primary-light">English</span>'],
-            '2' => ['French', '<span class="badge bg-warning-light">French</span>'],
-            '3' => ['ASL', '<span class="badge bg-warning-light">ASL</span>'],
-            '0' => ['Other', '<span class="badge bg-warning-light">Other</span>'],
+            '2' => ['Vendor', '<span class="badge bg-warning-light">Vendor</span>'],
         ];
 
         return
@@ -83,125 +51,31 @@
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
     }
 
-    function getExamTypes($status = null, $type = null)
+    function getLeadStatus($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Psycho-Educational Evaluation', '<span class="badge bg-primary-light">Psycho-Educational Evaluation</span>'],
-            '2' => ['Psychological Evaluation', '<span class="badge bg-warning-light">Psychological Evaluation</span>'],
-            '3' => ['Substance Abuse Evlauation', '<span class="badge bg-warning-light">Substance Abuse Evlauation</span>'],
-            '4' => ['Psychotherapy', '<span class="badge bg-warning-light">Psychotherapy</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getSubExamTypes($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['BAI', '<span class="badge bg-primary-light">BAI</span>'],
-            '2' => ['BDI-II', '<span class="badge bg-warning-light">BDI-II</span>'],
-            '3' => ['MSI-BPD', '<span class="badge bg-warning-light">MSI-BPD</span>'],
-            '4' => ['DAST', '<span class="badge bg-warning-light">DAST</span>'],
-            '5' => ['PCL-5', '<span class="badge bg-warning-light">PCL-5</span>'],
-            '6' => ['ASRS', '<span class="badge bg-warning-light">ASRS</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getQuestionTypes($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['Rating', '<span class="badge bg-primary-light">Rating</span>'],
-            '2' => ['True False', '<span class="badge bg-warning-light">True False</span>'],
-            '3' => ['Multiple Choice', '<span class="badge bg-warning-light">Multiple Choice</span>'],
-            '4' => ['Detail', '<span class="badge bg-warning-light">Detail</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getCaseTypes($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['BAI', '<span class="badge bg-primary-light">BAI</span>'],
-            '2' => ['BDI-II', '<span class="badge bg-warning-light">BDI-II</span>'],
-            '3' => ['MSI-BPD', '<span class="badge bg-warning-light">MSI-BPD</span>'],
-            '4' => ['DAST', '<span class="badge bg-warning-light">DAST</span>'],
-            '5' => ['PCL-5', '<span class="badge bg-warning-light">PCL-5</span>'],
-            '6' => ['ASRS', '<span class="badge bg-warning-light">ASRS</span>'],
-
-
-            // '1' => ['Ah Long', '<span class="badge bg-primary-light">Ah Long</span>'],
-            // '2' => ['Pinjaman Berlesen', '<span class="badge bg-warning-light">Pinjaman Berlesen</span>'],
-            // '3' => ['Penipuan Siber', '<span class="badge bg-warning-light">Penipuan Siber</span>'],
-            // '4' => ['Dadah', '<span class="badge bg-warning-light">Dadah</span>'],
-            // '5' => ['Hak Masyarkat Setempat', '<span class="badge bg-warning-light">Hak Masyarkat Setempat</span>'],
-            // '6' => ['Others', '<span class="badge bg-warning-light">Others</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getExaminationStatus($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['Requested', '<span class="badge bg-info-light">Requested</span>'],
-            '2' => ['Scheduled', '<span class="badge bg-primary-light">Scheduled</span>'],
-            '3' => ['Case Proceed', '<span class="badge bg-success-light">Case Proceed</span>'],
-            '4' => ['Rescheduled', '<span class="badge bg-primary-light">Rescheduled</span>'],
-            '5' => ['Pending', '<span class="badge bg-warning-light">Pending</span>'],
-            '6' => ['Withdrawed', '<span class="badge bg-success-light">Withdrawed</span>'],
-            '7' => ['Rejected', '<span class="badge bg-danger-light">Rejected</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getAppointmentStatus($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['Requested', '<span class="badge bg-info-light">Requested</span>'],
-            '2' => ['Scheduled', '<span class="badge bg-primary-light">Scheduled</span>'],
-            '3' => ['Case Proceed', '<span class="badge bg-success-light">Case Proceed</span>'],
-            '4' => ['Rescheduled', '<span class="badge bg-primary-light">Rescheduled</span>'],
-            '5' => ['Pending', '<span class="badge bg-warning-light">Pending</span>'],
-            '6' => ['Withdrawed', '<span class="badge bg-success-light">Withdrawed</span>'],
-            '7' => ['Rejected', '<span class="badge bg-danger-light">Rejected</span>'],
-        ];
-
-        return
-            isset($statuses[$status])
-            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
-            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getCaseStatus($status = null, $type = null)
-    {
-        $statuses = [
-            '1' => ['Process Start', '<span class="badge bg-info-light">Process Start</span>'],
-            '2' => ['Under observation', '<span class="badge bg-secondary-light">Under observation</span>'],
+            '1' => ['Made', '<span class="badge bg-info-light">Made</span>'],
+            '2' => ['Made & Assigned', '<span class="badge bg-secondary-light">Made & Assigned</span>'],
             '3' => ['Negotiating', '<span class="badge bg-info-light">Negotiating</span>'],
             '4' => ['Waiting for customer response', '<span class="badge bg-warning-light">Waiting for customer response</span>'],
-            '6' => ['Waiting for 3rd party response', '<span class="badge bg-warning-light">Waiting for 3rd party response</span>'],
-            '7' => ['Suspended', '<span class="badge bg-danger-light">Suspended</span>'],
-            '8' => ['Withdrawed', '<span class="badge bg-primary-light">Withdrawed</span>'],
-            '9' => ['Resolved', '<span class="badge bg-success-light">Resolved</span>'],
+            '5' => ['Suspended', '<span class="badge bg-danger-light">Suspended</span>'],
+            '6' => ['Withdrawed', '<span class="badge bg-primary-light">Withdrawed</span>'],
+            '7' => ['Resolved', '<span class="badge bg-success-light">Resolved</span>'],
+        ];
+
+        return
+            isset($statuses[$status])
+            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
+            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
+    }
+
+    function getLeadType($status = null, $type = null)
+    {
+        $statuses = [
+            '1' => ['Meta', '<span class="badge bg-info-light">Meta</span>'],
+            '2' => ['Linkedin', '<span class="badge bg-secondary-light">Linkedin</span>'],
+            '3' => ['Direct', '<span class="badge bg-info-light">Direct</span>'],
+            '4' => ['Walkin', '<span class="badge bg-warning-light">Walkin</span>'],
         ];
 
         return
@@ -224,67 +98,6 @@
             isset($statuses[$status])
             ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
-    }
-
-    function getCaseQuestions($type = null)
-    {
-
-        $questions = [
-            '1' => [
-                '1' => 'Type of loan',
-                '2' => 'Date fo loan',
-                '3' => 'Actual loan amount',
-                '4' => 'Premimum Amount',
-                '5' => 'Total Amount',
-                '6' => 'Victims',
-                '7' => 'Official detail',
-                '8' => 'Your job',
-                '9' => 'Husband / Wife job',
-                '10' => 'Father / Mother job',
-                '11' => 'Your Salary',
-                '12' => 'Number of sibilings',
-                '13' => 'Loan borrowed before',
-                '14' => 'Loan purpose',
-                '15' => 'Bad effects after loan',
-                '16' => 'DO you follow any of our instruction during negotiations?',
-            ],
-            '2' => [
-                '1' => 'Your job',
-                '2' => 'Husband / Wife job',
-                '3' => 'Father / Mother job',
-                '4' => 'Your Salary',
-                '5' => 'Number of sibilings',
-                '5' => 'Loan borrowed before',
-                '5' => 'Loan purpose',
-                '5' => 'Bad effects after loan',
-                '5' => 'DO you follow any of our instruction during negotiations?',
-            ],
-            '3' => [
-                '1' => 'Berief of complaint',
-            ],
-            '4' => [
-                '1' => 'Berief of complaint',
-            ],
-            '5' => [
-                '1' => 'Your job',
-                '2' => 'Husband / Wife job',
-                '3' => 'Father / Mother job',
-                '4' => 'Your Salary',
-                '5' => 'Number of sibilings',
-                '5' => 'Loan borrowed before',
-                '5' => 'Loan purpose',
-                '5' => 'Bad effects after loan',
-                '5' => 'DO you follow any of our instruction during negotiations?',
-            ],
-            '6' => [
-                '1' => 'Berief of complaint',
-            ]
-        ];
-
-        return
-            isset($questions[$type])
-            ? $questions[$type]
-            : $questions;
     }
 
 ?>

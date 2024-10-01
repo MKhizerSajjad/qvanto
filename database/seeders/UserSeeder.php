@@ -20,11 +20,11 @@ class UserSeeder extends Seeder
                 'user_type'      => 1,
                 'first_name'   => 'Super',
                 'last_name'    => 'Admin',
-                'email'        => 'admin@admin.com',
-                'city_id'      => 1,
-                'state_id'     => 2,
-                'country_id'   => 3,
-                'password'     => bcrypt('password'),
+                'email'        => 'mkhizersajjad@gmail.com',
+                'city_id'      => null,
+                'state_id'     => null,
+                'country_id'   => null,
+                'password'     => bcrypt('12345678'),
             ];
             User::create($data);
         }

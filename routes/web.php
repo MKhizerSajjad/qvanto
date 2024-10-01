@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\VednorController;
+use App\Http\Controllers\LeadController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CounselorController;
 use App\Http\Controllers\EmployeeController;
@@ -48,6 +50,13 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // validations according to loggedin user type
+    Route::resource('vendor', VednorController::class);
+    Route::resource('lead', LeadController::class);
+
+    Route::prefix('lead')->group(function () {
+        Route::get('{lead}/comment', [LeadController::class, 'comment'])->name('lead.comment');
+        Route::put('{lead}/comment-update', [LeadController::class, 'commentUpdate'])->name('lead.commentUpdate');
+    });
     Route::resource('admins', AdminController::class);
     Route::resource('employee', EmployeeController::class);
     Route::resource('counselor', CounselorController::class);
