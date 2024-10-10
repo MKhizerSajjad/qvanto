@@ -13,6 +13,81 @@
             </div> --}}
         </div>
     </div>
+
+    <div class="container-fluid pt-4">
+        <div class="col-12">
+            <div class="row">
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-11 card bg-secondary w-25 p-3 mx-2">
+                            <div class="row">
+                                <div class="text-white col-12">
+                                    <i class="fas fa-users fa-3x"></i>
+                                </div>
+                                <div class="text-white col-8">
+                                    Vendors
+                                </div>
+                                <div class="text-white col-4 text-right">
+                                    {{$count->vendor}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-11 card bg-info w-25 p-3 mx-2">
+                            <div class="row">
+                                <div class="text-white col-12">
+                                    <i class="fas fa-bullhorn fa-3x"></i>
+                                </div>
+                                <div class="text-white col-8">
+                                    Total
+                                </div>
+                                <div class="text-white col-4 text-right">
+                                    {{$count->leadTotal}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-11 card bg-success w-25 p-3 mx-2">
+                            <div class="row">
+                                <div class="text-white col-12">
+                                    <i class="fas fa-check fa-3x"></i>
+                                </div>
+                                <div class="text-white col-8">
+                                    Resolved
+                                </div>
+                                <div class="text-white col-4 text-right">
+                                    {{$count->leadResolved}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-3">
+                    <div class="row">
+                        <div class="col-11 card bg-warning w-25 p-3 mx-2">
+                            <div class="row">
+                                <div class="text-white col-12">
+                                    <i class="fas fa-retweet fa-3x"></i>
+                                </div>
+                                <div class="text-white col-8">
+                                    Pending
+                                </div>
+                                <div class="text-white col-4 text-right">
+                                    {{$count->leadPeding}}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     <div class="col-lg-4">
         <div class="card">
             <div class="card-header border-none">
@@ -49,6 +124,58 @@
             </div>
         </div>
     </div> --}}
+
+
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="iq-header-title">
+                        <h4 class="card-title mb-0">Top Vendors</h4>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (count($topVendors) > 0)
+                        <div class="table-responsive">
+                            <table class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr#</th>
+                                        <th>Photo</th>
+                                        <th>Success (%)</th>
+                                        <th>Failure (%)</th>
+                                        <th>Total</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                        <th>Phone No.</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($topVendors as $key => $vendor)
+                                        <tr>
+                                            <td>{{++$key}}</td>
+                                            <td>
+                                                <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}"  class="rounded avatar-40 img-fluid" >
+                                            </td>
+                                            <td>{{isset($vendor->leads[0]) ? ($vendor->leads[0]->Resolved / $vendor->leads[0]->total) * 100 : '-'}}</td>
+                                            <td>{{isset($vendor->leads[0]) ?($vendor->leads[0]->Withdrawed / $vendor->leads[0]->total) * 100 : '-'}}</td>
+                                            <td>{{isset($vendor->leads[0]) ? $vendor->leads[0]->total : '-'}}</td>
+                                            <td>{{$vendor->first_name}} {{$vendor->last_name}}</td>
+                                            <td>{{$vendor->email}}</td>
+                                            <td>{{$vendor->mobile_number}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <h4 class="text text-center text-danger font-weight-bold p-5">No Vednors Found</h4>
+                    @endif
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 

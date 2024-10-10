@@ -25,9 +25,9 @@ class LeadController extends Controller
             $leads = $leads->where('date', 'LIKE', $date.'%');
         }
 
-        $data = $leads->paginate(20);
+        $data = $leads->get();
 
-        return view('admin.lead.index',compact('data'))->with('i', ($request->input('page', 1) - 1) * 1);
+        return view('admin.lead.index',compact('data'));
     }
 
     public function create()

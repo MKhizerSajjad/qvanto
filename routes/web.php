@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     // validations according to loggedin user type
     Route::resource('vendor', VednorController::class);
+    Route::get('stats', [VednorController::class, 'stats'])->name('stats');
     Route::resource('lead', LeadController::class);
 
     Route::prefix('lead')->group(function () {

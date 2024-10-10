@@ -38,9 +38,7 @@
                         <div class="card-body">
                             @if (count($data) > 0)
                                 <div class="table-responsive">
-                                    {{--  data-table --}}
                                     <table class="table data-table" style="width:100%">
-                                        {{-- data-tables  --}}
                                         <thead>
                                             <tr>
                                                 <th>Sr#</th>
@@ -77,17 +75,6 @@
                                             @endforeach
                                         </tbody>
                                     </table>
-                                    @if ($data->hasPages())
-                                    <div class="d-flex justify-content-end  mt-3 me-3">
-                                        <div class="pagination-wrap">
-                                    {{-- <div class="row justify-content-between mt-3">
-                                        <div class="col-md-6" bis_skin_checked="1"> --}}
-                                            <div class="pagination  justify-content-end mb-0">
-                                                {{ $data->onEachSide(5)->links() }}
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endif
                                 </div>
                             @else
                                 <h4 class="text text-center text-danger font-weight-bold p-5">No Record Found</h4>

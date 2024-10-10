@@ -6,6 +6,7 @@ use App\Models\Vendor;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -13,8 +14,6 @@ class VednorController extends Controller
 {
     public function index(Request $request)
     {
-        $data = Vendor::orderBy('first_name', 'DESC')->paginate(1);
-
         $users = Vendor::where('id', '!=', Auth::user()->id)->where('user_type', 2)->orderBy('first_name','DESC');
 
         if ($request->has('first_name') && $request->first_name != '') {
@@ -52,10 +51,32 @@ class VednorController extends Controller
             $users = $users->where('zipcode', 'LIKE', '%'.$zipcode.'%');
         }
 
-        $data = $users->paginate(20);
+        $data = $users->get();
 
-        return view('admin.vendor.index',compact('data'))
-            ->with('i', ($request->input('page', 1) - 1) * 1);
+        return view('admin.vendor.index',compact('data'));
+        // ->with('i', ($request->input('page', 1) - 1) * 1
+    }
+
+    public function stats(Request $request)
+    {
+        $statusMappings = getLeadStatus(null, null);
+        $caseStatements = [];
+        foreach ($statusMappings as $status => $label) {
+            $caseStatements[] = "SUM(CASE WHEN leads.status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
+        }
+        $caseSql = implode(", ", $caseStatements);
+
+        $data = Vendor::with(['leads' => function($q) use ($caseSql) {
+            $q->select('vendor_id', DB::raw("
+                COUNT(*) as total,
+                {$caseSql}
+            "))
+            ->groupBy('vendor_id');
+        }])
+        ->where('id', '!=', Auth::user()->id)
+        ->where('user_type', 2)->get();
+
+        return view('admin.vendor.stats', compact('data'));
     }
 
     public function create()

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cases;
+use App\Models\Lead;
+use App\Models\Vendor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -18,6 +20,12 @@ class DashboardController extends Controller
             if(Auth::user()->user_type ==2) {
                 $vendorID = Auth::user()->id;
             }
+
+            $count = json_decode('{}');
+            $count->vendor = Vendor::count();
+            $count->leadTotal = Lead::count();
+            $count->leadPeding = Lead::where('status', '!=', 7)->count();
+            $count->leadResolved = Lead::where('status', 7)->count();
 
             // Get from helper to make cases status dynamic
             $statusMappings = getLeadStatus(null, null);
@@ -90,7 +98,29 @@ class DashboardController extends Controller
             ->orderBy('date')
             ->get();
 
-            return view('admin.dashboard', compact('caseStatusCounts', 'caseStatusCounts2', 'caseStatusCounts3', 'casesAmounts'));
+
+            $statusMappings = getLeadStatus(null, null);
+            $caseStatements = [];
+            foreach ($statusMappings as $status => $label) {
+                $caseStatements[] = "SUM(CASE WHEN leads.status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
+            }
+            $caseSql = implode(", ", $caseStatements);
+
+            $topVendors = Vendor::with(['leads' => function($q) use ($caseSql) {
+                $q->select('vendor_id', DB::raw("
+                    COUNT(*) as total,
+                    {$caseSql}
+                "))
+                ->groupBy('vendor_id');
+            }])
+            ->where('id', '!=', Auth::user()->id)
+            ->where('user_type', 2)
+            ->withCount('leads') // Add this line to count leads
+            ->orderBy('leads_count', 'desc') // Order by the count of leads
+            ->take(10) // Limit to the top 10
+            ->get();
+
+            return view('admin.dashboard', compact('count', 'caseStatusCounts', 'caseStatusCounts2', 'caseStatusCounts3', 'casesAmounts', 'topVendors'));
 
         } else {
             return view('admin.dashboard');

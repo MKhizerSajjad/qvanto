@@ -25,6 +25,11 @@
                             <i class="fa fa-users"></i><span>Vendors</span>
                         </a>
                     </li>
+                    <li class="{{ request()->is('stats') ? 'active' : '' }}">
+                        <a href="{{route('stats')}}">
+                            <i class="fa fa-hourglass-start"></i><span>Stats</span>
+                        </a>
+                    </li>
                 @endif
                 <li class="{{ request()->is('lead*') ? 'active' : '' }}">
                     <a href="{{route('lead.index')}}">

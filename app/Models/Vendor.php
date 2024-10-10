@@ -13,4 +13,9 @@ class Vendor extends Model
     public static $snakeAttributes = false;
 
     protected $guarded;
+
+    public function leads()
+    {
+        return $this->hasMany(Lead::class);
+    }
 }
