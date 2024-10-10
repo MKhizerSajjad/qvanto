@@ -20,7 +20,7 @@
                     <div class="card">
                         <div class="card-header d-flex justify-content-between">
                             <div class="iq-header-title">
-                                <h4 class="card-title mb-0">Vednors List</h4>
+                                <h4 class="card-title mb-0">Lista Associati</h4>
                             </div>
                             <a href="{{route('vendor.create')}}" class="btn btn-primary">Add New</a>
                         </div>
@@ -31,13 +31,13 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr#</th>
-                                                <th>Photo</th>
-                                                <th>Success (%)</th>
-                                                <th>Failure (%)</th>
+                                                <th>Foto</th>
+                                                <th>Conversioni (%)</th>
+                                                <th>Non Convertiti (%)</th>
                                                 <th>Total</th>
-                                                <th>Name</th>
+                                                <th>Nome</th>
                                                 <th>Email</th>
-                                                <th>Phone No.</th>
+                                                <th>Cellulare</th>
                                             </tr>
                                         </thead>
                                         <tbody>

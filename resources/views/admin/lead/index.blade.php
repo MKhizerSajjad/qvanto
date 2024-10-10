@@ -42,12 +42,12 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr#</th>
-                                                <th>Examination Type</th>
+                                                <th>Tipologia leads</th>
                                                 @if($restricted == false)
-                                                    <th>Vendor</th>
+                                                    <th>Associato</th>
                                                 @endif
-                                                <th>Date</th>
-                                                <th>Status</th>
+                                                <th>Data</th>
+                                                <th>Stato</th>
                                                 <th>Action</th>
                                             </tr>
                                         </thead>

@@ -22,12 +22,12 @@
                 @if(Auth::user()->user_type == 1)
                     <li class="{{ request()->is('vendor*') ? 'active' : '' }}">
                         <a href="{{route('vendor.index')}}">
-                            <i class="fa fa-users"></i><span>Vendors</span>
+                            <i class="fa fa-users"></i><span>Associati</span>
                         </a>
                     </li>
                     <li class="{{ request()->is('stats') ? 'active' : '' }}">
                         <a href="{{route('stats')}}">
-                            <i class="fa fa-hourglass-start"></i><span>Stats</span>
+                            <i class="fa fa-hourglass-start"></i><span>Statistiche</span>
                         </a>
                     </li>
                 @endif
