@@ -21,7 +21,7 @@ class DashboardController extends Controller
 
             $count->vendor = Vendor::when($vendorID, function ($query) use ($vendorID) {
                 return $query->where('id', $vendorID);
-            })->count();
+            })->where('user_type', 2)->count();
 
             $count->leadTotal = Lead::when($vendorID, function ($query) use ($vendorID) {
                 return $query->where('vendor_id', $vendorID);
