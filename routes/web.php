@@ -42,10 +42,11 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     // validations according to loggedin user type
-    Route::resource('vendor', VednorController::class);
-    Route::get('stats', [VednorController::class, 'stats'])->name('stats');
-    Route::resource('lead', LeadController::class);
+    Route::resource('vendor', VednorController::class)->middleware('checkUserType');
+    Route::get('stats', [VednorController::class, 'stats'])->name('stats')->middleware('checkUserType');
 
+    Route::get('lead', [LeadController::class, 'index'])->name('lead.index');
+    Route::resource('lead', LeadController::class)->middleware('checkUserType')->except(['index']);
     Route::prefix('lead')->group(function () {
         Route::get('{lead}/comment', [LeadController::class, 'comment'])->name('lead.comment');
         Route::put('{lead}/comment-update', [LeadController::class, 'commentUpdate'])->name('lead.commentUpdate');

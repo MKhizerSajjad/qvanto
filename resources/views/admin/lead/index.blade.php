@@ -15,25 +15,25 @@
                     </button>
                 </div>
             @endif
+            @php
+                if (Auth::user()->user_type == 1) {
+                    $restricted = false;
+                } else {
+                    $restricted = true;
+                }
+            @endphp
             <div class="row">
                 <div class="col-lg-12">
                     <div class="card">
-                        {{--  card-block card-stretch card-height --}}
                         <div class="card-header d-flex justify-content-between">
                             <div class="iq-header-title">
                                 <h4 class="card-title mb-0">Leads List</h4>
                             </div>
-                            <a href="{{route('lead.create')}}" class="btn btn-primary">Add New</a>
-                            {{-- <a href="#" class="btn btn-primary" data-toggle="modal" data-target="#addContact">Add New</a> --}}
-                        </div>
 
-                        @php
-                            if (Auth::user()->user_type == 1) {
-                                $hideVendor = false;
-                            } else {
-                                $hideVendor = true;
-                            }
-                        @endphp
+                            @if($restricted == false)
+                                <a href="{{route('lead.create')}}" class="btn btn-primary">Add New</a>
+                            @endif
+                        </div>
 
                         <div class="card-body">
                             @if (count($data) > 0)
@@ -43,7 +43,7 @@
                                             <tr>
                                                 <th>Sr#</th>
                                                 <th>Examination Type</th>
-                                                @if($hideVendor == false)
+                                                @if($restricted == false)
                                                     <th>Vendor</th>
                                                 @endif
                                                 <th>Date</th>
@@ -56,16 +56,18 @@
                                                 <tr>
                                                     <td>{{++$key}}</td>
                                                     <td>{{getLeadType($lead->lead_type)}}</td>
-                                                    @if($hideVendor == false)
+                                                    @if($restricted == false)
                                                         <td>{{$lead->vendor->first_name ?? ''}} {{$lead->vendor->last_name ?? ''}}</td>
                                                     @endif
                                                     <td>{{$lead->dated}}</td>
                                                     <td>{!! getLeadStatus($lead->status, 'badge') !!}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center list-action">
-                                                            <a class="badge bg-warning-light mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="{{ route('lead.edit', $lead->id) }}">
-                                                                <i class="fa fa-pen"></i>
-                                                            </a>
+                                                            @if($restricted == false)
+                                                                <a class="badge bg-warning-light mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Edit" href="{{ route('lead.edit', $lead->id) }}">
+                                                                    <i class="fa fa-pen"></i>
+                                                                </a>
+                                                            @endif
                                                             <a class="badge bg-primary-light mr-2" data-toggle="tooltip" data-placement="top" title="" data-original-title="Comment" href="{{ route('lead.comment', $lead->id) }}">
                                                                 <i class="fa fa-comment"></i>
                                                             </a>

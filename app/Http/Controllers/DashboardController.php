@@ -15,17 +15,25 @@ class DashboardController extends Controller
     {
         if(Auth::user()->user_type != 3) {
 
-            $vendorID = null; // Initialize the variable
+            $vendorID = Auth::user()->user_type == 2 ? Auth::user()->id : null;
 
-            if(Auth::user()->user_type ==2) {
-                $vendorID = Auth::user()->id;
-            }
+            $count = new \stdClass();
 
-            $count = json_decode('{}');
-            $count->vendor = Vendor::count();
-            $count->leadTotal = Lead::count();
-            $count->leadPeding = Lead::where('status', '!=', 7)->count();
-            $count->leadResolved = Lead::where('status', 7)->count();
+            $count->vendor = Vendor::when($vendorID, function ($query) use ($vendorID) {
+                return $query->where('id', $vendorID);
+            })->count();
+
+            $count->leadTotal = Lead::when($vendorID, function ($query) use ($vendorID) {
+                return $query->where('vendor_id', $vendorID);
+            })->count();
+
+            $count->leadPending = Lead::when($vendorID, function ($query) use ($vendorID) {
+                return $query->where('vendor_id', $vendorID);
+            })->where('status', '!=', 7)->count();
+
+            $count->leadResolved = Lead::when($vendorID, function ($query) use ($vendorID) {
+                return $query->where('vendor_id', $vendorID);
+            })->where('status', 7)->count();
 
             // Get from helper to make cases status dynamic
             $statusMappings = getLeadStatus(null, null);

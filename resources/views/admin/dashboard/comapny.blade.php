@@ -27,7 +27,7 @@
                                 <div class="text-white col-8">
                                     Vendors
                                 </div>
-                                <div class="text-white col-4 text-right">
+                                <div class="text-white col-4 text-right font-size-20">
                                     {{$count->vendor}}
                                 </div>
                             </div>
@@ -44,7 +44,7 @@
                                 <div class="text-white col-8">
                                     Total
                                 </div>
-                                <div class="text-white col-4 text-right">
+                                <div class="text-white col-4 text-right font-size-20">
                                     {{$count->leadTotal}}
                                 </div>
                             </div>
@@ -61,7 +61,7 @@
                                 <div class="text-white col-8">
                                     Resolved
                                 </div>
-                                <div class="text-white col-4 text-right">
+                                <div class="text-white col-4 text-right font-size-20">
                                     {{$count->leadResolved}}
                                 </div>
                             </div>
@@ -78,8 +78,8 @@
                                 <div class="text-white col-8">
                                     Pending
                                 </div>
-                                <div class="text-white col-4 text-right">
-                                    {{$count->leadPeding}}
+                                <div class="text-white col-4 text-right font-size-20">
+                                    {{$count->leadPending}}
                                 </div>
                             </div>
                         </div>
