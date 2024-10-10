@@ -16,7 +16,7 @@ class CheckUserType
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (Auth::check() && Auth::user()->user_type === 1) {
+        if (Auth::check() && Auth::user()->user_type == 1) {
             return $next($request);
         }
         return redirect()->back()->with('error', 'You do not have access to this resource.');
