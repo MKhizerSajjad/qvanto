@@ -1,10 +1,10 @@
-<div class="iq-sidebar  rtl-iq-sidebar sidebar-default ">
+<div class="iq-sidebar rtl-iq-sidebar sidebar-default ">
     <div class="iq-sidebar-logo d-flex align-items-center justify-content-between">
         <a href="{{route('index')}}" class="header-logo">
-            <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
+            <img src="{{ asset('admin/images/logo-light.png') }}" class="img-fluid rounded-normal light-logo"
                 alt="logo">
-            {{-- <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal darkmode-logo"
-                alt="logo"> --}}
+            <img src="{{ asset('admin/images/logo-light.png') }}" class="img-fluid rounded-normal darkmode-logo"
+                alt="logo">
         </a>
         <div class="iq-menu-bt-sidebar">
             <i class="fa fa-bars wrapper-menu"></i>

@@ -33,7 +33,7 @@
                         <div class="new-user-info" bis_skin_checked="1">
                             <form method="POST" action="{{ route('case.store') }}" enctype="multipart/form-data">
                                 @csrf
-                                
+
                                 <div class="row" bis_skin_checked="1">
 
                                     <input type="hidden" id="appointment_id" name="appointment_id" placeholder="Date Time" value="{{ old('appointment_id', $appointment->id) }}">

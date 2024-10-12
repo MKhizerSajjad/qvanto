@@ -44,11 +44,11 @@
                                                 <th>Sr#</th>
                                                 <th>Tipologia leads</th>
                                                 @if($restricted == false)
-                                                    <th>Associato</th>
+                                                    <th>Nome</th>
                                                 @endif
                                                 <th>Data</th>
                                                 <th>Stato</th>
-                                                <th>Action</th>
+                                                <th>Note</th>
                                             </tr>
                                         </thead>
                                         <tbody>

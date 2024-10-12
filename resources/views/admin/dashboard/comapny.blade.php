@@ -25,7 +25,7 @@
                                     <i class="fas fa-users fa-3x"></i>
                                 </div>
                                 <div class="text-white col-8">
-                                    Vendors
+                                    Associati
                                 </div>
                                 <div class="text-white col-4 text-right font-size-20">
                                     {{$count->vendor}}
@@ -42,7 +42,7 @@
                                     <i class="fas fa-bullhorn fa-3x"></i>
                                 </div>
                                 <div class="text-white col-8">
-                                    Total
+                                    Leads Totali
                                 </div>
                                 <div class="text-white col-4 text-right font-size-20">
                                     {{$count->leadTotal}}
@@ -59,7 +59,7 @@
                                     <i class="fas fa-check fa-3x"></i>
                                 </div>
                                 <div class="text-white col-8">
-                                    Resolved
+                                    Convertiti
                                 </div>
                                 <div class="text-white col-4 text-right font-size-20">
                                     {{$count->leadResolved}}
@@ -76,7 +76,7 @@
                                     <i class="fas fa-retweet fa-3x"></i>
                                 </div>
                                 <div class="text-white col-8">
-                                    Pending
+                                    In Corso
                                 </div>
                                 <div class="text-white col-4 text-right font-size-20">
                                     {{$count->leadPending}}
@@ -92,7 +92,7 @@
         <div class="card">
             <div class="card-header border-none">
                 <div class="header-title">
-                    <h4 class="card-title">Cases Status </h4>
+                    <h4 class="card-title">Stato </h4>
                 </div>
             </div>
             <div class="card-body">
@@ -143,12 +143,12 @@
                                     <tr>
                                         <th>Sr#</th>
                                         <th>Photo</th>
-                                        <th>Success (%)</th>
-                                        <th>Failure (%)</th>
+                                        <th>Conversioni (%)</th>
+                                        <th>Non Convertiti (%)</th>
                                         <th>Total</th>
-                                        <th>Name</th>
+                                        <th>Nome</th>
                                         <th>Email</th>
-                                        <th>Phone No.</th>
+                                        <th>Cellulare</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -243,7 +243,7 @@
     //     },
     //     tooltip: {
     //         x: {
-    //             format: 'dd/MM/yy HH:mm',
+    //             format: 'dd/TMM/yy HH:mm',
     //         },
     //     },
     // };
@@ -256,11 +256,11 @@
     var options = {
         series: [
             {
-                name: 'Total Cases',
+                name: 'Leads Totali',
                 data: Object.values(seriesData).map((data) => data[0].total_cases),
             },
             {
-                name: 'Resolved Cases',
+                name: 'Conversioni',
                 data: Object.values(seriesData).map((data) => data[0].resolved_cases),
             },
         ],

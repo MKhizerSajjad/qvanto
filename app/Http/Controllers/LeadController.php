@@ -47,7 +47,7 @@ class LeadController extends Controller
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255',
-            'mobile_number' => 'min:11|max:18|unique:users',
+            'mobile_number' => 'min:10|max:18|unique:users',
         ]);
 
         $data = [
@@ -97,7 +97,7 @@ class LeadController extends Controller
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255',
-            'mobile_number' => 'min:11|max:18|unique:users',
+            'mobile_number' => 'min:10|max:18|unique:users',
         ]);
 
         $data = [

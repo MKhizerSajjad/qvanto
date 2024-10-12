@@ -6,7 +6,7 @@
                     <div class="card" bis_skin_checked="1">
                     <div class="card-header d-flex justify-content-between" bis_skin_checked="1">
                         <div class="header-title" bis_skin_checked="1">
-                            <h4 class="card-title">Lead Status Update</h4>
+                            <h4 class="card-title">Lead Stato Update</h4>
                         </div>
                     </div>
                     <div class="card-body" bis_skin_checked="1">
@@ -36,10 +36,10 @@
                                 @csrf
                                 <div class="row" bis_skin_checked="1">
                                     <div class="form-group col-md-12" bis_skin_checked="1">
-                                        <label>Status <span class="text text-danger">*</span></label>
+                                        <label>Stato <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
-                                                <option>Select Status</option>
+                                                <option>Select Stato</option>
                                                 @foreach (getLeadStatus() as $key => $label)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('status', $lead->status) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
@@ -48,8 +48,8 @@
                                         </div>
                                     </div>
                                     <div class="form-group col-md-12" bis_skin_checked="1">
-                                        <label for="note">Note <span class="text text-danger">*</span></label>
-                                        <textarea type="text" class="form-control" id="note" name="note" placeholder="Note" rows="1">{{ old('note') }}</textarea>
+                                        <label for="note">Nota <span class="text text-danger">*</span></label>
+                                        <textarea type="text" class="form-control" id="note" name="note" placeholder="Nota" rows="1">{{ old('note') }}</textarea>
                                     </div>
                                 </div>
                                 <button type="submit" class="btn btn-primary float-right">Update</button>

@@ -39,8 +39,8 @@
                                                 <th>Nome</th>
                                                 <th>Email</th>
                                                 <th>Cellulare</th>
-                                                <th>Status</th>
-                                                <th>Action</th>
+                                                <th>Stato</th>
+                                                <th>Note</th>
                                             </tr>
                                         </thead>
                                         <tbody>

@@ -54,13 +54,13 @@
     function getLeadStatus($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Made', '<span class="badge bg-info-light">Made</span>'],
-            '2' => ['Made & Assigned', '<span class="badge bg-secondary-light">Made & Assigned</span>'],
-            '3' => ['Negotiating', '<span class="badge bg-info-light">Negotiating</span>'],
-            '4' => ['Waiting for customer response', '<span class="badge bg-warning-light">Waiting for customer response</span>'],
-            '5' => ['Suspended', '<span class="badge bg-danger-light">Suspended</span>'],
-            '6' => ['Withdrawed', '<span class="badge bg-primary-light">Withdrawed</span>'],
-            '7' => ['Resolved', '<span class="badge bg-success-light">Resolved</span>'],
+            '1' => ['Chiuso Spark 1up', '<span class="badge bg-info-light">Chiuso Spark 1up</span>'],
+            '2' => ['Fatto Watt', '<span class="badge bg-secondary-light">Fatto Watt</span>'],
+            '3' => ['In Chiusura', '<span class="badge bg-info-light">In Chiusura</span>'],
+            '4' => ['Non Risponde', '<span class="badge bg-warning-light">Non Risponde</span>'],
+            '5' => ['Mi Ha Bloccato', '<span class="badge bg-danger-light">Mi Ha Bloccato</span>'],
+            '6' => ['Rimandato', '<span class="badge bg-primary-light">Rimandato</span>'],
+            '7' => ['Chiuso Spark 2up', '<span class="badge bg-success-light">Chiuso Spark 2up</span>'],
         ];
 
         return

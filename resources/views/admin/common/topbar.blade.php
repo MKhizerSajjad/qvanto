@@ -1,13 +1,13 @@
 
 <div class="iq-top-navbar rtl-iq-top-navbar ">
     <div class="iq-navbar-custom">
-        <nav class="navbar navbar-expand-lg navbar-light p-0">
+        <nav class="navbar navbar-expand-lg p-0">
             <div class="iq-navbar-logo d-flex align-items-center justify-content-between">
                 <i class="ri-menu-line wrapper-menu"></i>
                 <a href="{{route('index')}}" class="header-logo">
-                    <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal light-logo"
+                    <img src="{{ asset('admin/images/logo-light.png') }}" class="img-fluid rounded-normal light-logo"
                         alt="logo">
-                    <img src="{{ asset('admin/images/logo.png') }}" class="img-fluid rounded-normal darkmode-logo"
+                    <img src="{{ asset('admin/images/logo-light.png') }}" class="img-fluid rounded-normal darkmode-logo"
                         alt="logo">
 
                         {{-- {{config('app.name');}} --}}
