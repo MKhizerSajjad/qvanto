@@ -203,7 +203,7 @@
                     },
                     total: {
                         show: true,
-                        label: 'Total',
+                        label: 'Totali',
                         formatter: function (w) {
                             // Calculate the sum of all 'count' values
                             var total = seriesData.reduce((a, b) => a + b, 0);
