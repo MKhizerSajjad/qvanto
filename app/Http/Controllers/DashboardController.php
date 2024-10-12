@@ -17,8 +17,8 @@ class DashboardController extends Controller
 
             $vendorID = Auth::user()->user_type == 2 ? Auth::user()->id : null;
 
+            // Tiles Counts
             $count = new \stdClass();
-
             $count->vendor = Vendor::when($vendorID, function ($query) use ($vendorID) {
                 return $query->where('id', $vendorID);
             })->where('user_type', 2)->count();
@@ -38,8 +38,9 @@ class DashboardController extends Controller
             // Get from helper to make cases status dynamic
             $statusMappings = getLeadStatus(null, null);
             $caseStatements = [];
-            foreach ($statusMappings as $status => $label) {
-                $caseStatements[] = "WHEN status = {$status} THEN '{$label}'";
+            foreach ($statusMappings as $key => $label) {
+                ++$key;
+                $caseStatements[] = "WHEN status = {$key} THEN '{$label}'";
             }
             $caseSql = implode(" ", $caseStatements);
 
