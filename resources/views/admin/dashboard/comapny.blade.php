@@ -92,14 +92,6 @@
         <div class="card">
             <div class="card-header border-none">
                 <div class="header-title">
-                    <h3 class="card-title">Welcome! </h3>
-                    <h3>{{Auth::user()->first_name}} {{Auth::user()->last_name}}</h3>
-                </div>
-            </div>
-        </div>
-        <div class="card">
-            <div class="card-header border-none">
-                <div class="header-title">
                     <h4 class="card-title">Stato </h4>
                 </div>
             </div>
@@ -193,6 +185,52 @@
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
     var labelsData = {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!};
 
+    var options = {
+        series: seriesData,
+        labels: labelsData,
+        chart: {
+          type: 'polarArea',
+        },
+        stroke: {
+          colors: ['#fff']
+        },
+        theme: {
+            mode: 'dark',
+            palette: 'palette1',
+            monochrome: {
+                enabled: false
+            }
+        },
+        legend: {
+            position: 'top',
+            horizontalAlign: 'center',
+            floating: false,
+            fontSize: '14px',
+            // fontFamily: undefined,
+            fontWeight: 400,
+            color: '#fff', // set font color to white
+            // offsetY: 0,
+            // offsetX: 0
+        },
+        fill: {
+          opacity: 0.8
+        },
+        responsive: [{
+          breakpoint: 480,
+          options: {
+            chart: {
+              width: 200
+            },
+            legend: {
+              position: 'bottom'
+            }
+          }
+        }]
+    };
+
+    var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
+    chart.render();
+
     // var options = {
     //       series: seriesData,
     //       labels: labelsData,
@@ -216,38 +254,38 @@
     // var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
     // chart.render();
 
-    var options = {
-        series: seriesData, // Use the 'count' values as the series data
-        chart: {
-            height: 350,
-            type: 'radialBar',
-        },
-        plotOptions: {
-            radialBar: {
-                dataLabels: {
-                    name: {
-                        fontSize: '22px',
-                    },
-                    value: {
-                        fontSize: '16px',
-                    },
-                    total: {
-                        show: true,
-                        label: 'Totali',
-                        formatter: function (w) {
-                            // Calculate the sum of all 'count' values
-                            var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
-                            return total;
-                        }
-                    }
-                }
-            }
-        },
-        labels: {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!} // Use the 'label' values as labels
-    };
+    // var options = {
+    //     series: seriesData, // Use the 'count' values as the series data
+    //     chart: {
+    //         height: 350,
+    //         type: 'radialBar',
+    //     },
+    //     plotOptions: {
+    //         radialBar: {
+    //             dataLabels: {
+    //                 name: {
+    //                     fontSize: '22px',
+    //                 },
+    //                 value: {
+    //                     fontSize: '16px',
+    //                 },
+    //                 total: {
+    //                     show: true,
+    //                     label: 'Totali',
+    //                     formatter: function (w) {
+    //                         // Calculate the sum of all 'count' values
+    //                         var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
+    //                         return total;
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     },
+    //     labels: {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!} // Use the 'label' values as labels
+    // };
 
-    var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
-    chart.render();
+    // var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
+    // chart.render();
 
     // Line Chart
     // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('status')->toArray()) !!};
