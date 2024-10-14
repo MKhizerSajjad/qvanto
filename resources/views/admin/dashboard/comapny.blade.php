@@ -204,7 +204,7 @@
                         label: 'Totali',
                         formatter: function (w) {
                             // Calculate the sum of all 'count' values
-                            var total = seriesData.reduce((a, b) => a + b, 0);
+                            var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
                             return total;
                         }
                     }
