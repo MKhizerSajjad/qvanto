@@ -193,61 +193,61 @@
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
     var labelsData = {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!};
 
-    var options = {
-          series: seriesData,
-          labels: labelsData,
-          chart: {
-          type: 'donut',
-        },
-        responsive: [{
-          breakpoint: 480,
-          options: {
-            chart: {
-                height: 350,
-            //   width: 200
-            },
-            legend: {
-              position: 'bottom'
-            }
-          }
-        }]
-    };
-
-    var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
-    chart.render();
-
     // var options = {
-    //     series: seriesData, // Use the 'count' values as the series data
-    //     chart: {
-    //         height: 350,
-    //         type: 'radialBar',
+    //       series: seriesData,
+    //       labels: labelsData,
+    //       chart: {
+    //       type: 'donut',
     //     },
-    //     plotOptions: {
-    //         radialBar: {
-    //             dataLabels: {
-    //                 name: {
-    //                     fontSize: '22px',
-    //                 },
-    //                 value: {
-    //                     fontSize: '16px',
-    //                 },
-    //                 total: {
-    //                     show: true,
-    //                     label: 'Totali',
-    //                     formatter: function (w) {
-    //                         // Calculate the sum of all 'count' values
-    //                         var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
-    //                         return total;
-    //                     }
-    //                 }
-    //             }
+    //     responsive: [{
+    //       breakpoint: 480,
+    //       options: {
+    //         chart: {
+    //             height: 350,
+    //         //   width: 200
+    //         },
+    //         legend: {
+    //           position: 'bottom'
     //         }
-    //     },
-    //     labels: {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!} // Use the 'label' values as labels
+    //       }
+    //     }]
     // };
 
     // var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
     // chart.render();
+
+    var options = {
+        series: seriesData, // Use the 'count' values as the series data
+        chart: {
+            height: 350,
+            type: 'radialBar',
+        },
+        plotOptions: {
+            radialBar: {
+                dataLabels: {
+                    name: {
+                        fontSize: '22px',
+                    },
+                    value: {
+                        fontSize: '16px',
+                    },
+                    total: {
+                        show: true,
+                        label: 'Totali',
+                        formatter: function (w) {
+                            // Calculate the sum of all 'count' values
+                            var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
+                            return total;
+                        }
+                    }
+                }
+            }
+        },
+        labels: {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!} // Use the 'label' values as labels
+    };
+
+    var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
+    chart.render();
 
     // Line Chart
     // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('status')->toArray()) !!};
