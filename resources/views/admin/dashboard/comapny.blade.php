@@ -190,6 +190,7 @@
         labels: labelsData,
         chart: {
           type: 'polarArea',
+          background: 'transparent',
         },
         stroke: {
           colors: ['#fff']
@@ -208,9 +209,7 @@
             fontSize: '14px',
             // fontFamily: undefined,
             fontWeight: 400,
-            color: '#fff', // set font color to white
-            // offsetY: 0,
-            // offsetX: 0
+            color: '#fff',
         },
         fill: {
           opacity: 0.8
@@ -335,9 +334,17 @@
         chart: {
             height: 350,
             type: 'area',
+            background: 'transparent',
         },
         dataLabels: {
             enabled: false,
+        },
+        theme: {
+            mode: 'dark',
+            palette: 'palette4',
+            monochrome: {
+                enabled: false
+            }
         },
         stroke: {
             curve: 'smooth',
