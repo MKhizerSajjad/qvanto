@@ -53,7 +53,7 @@
             $('#dark-mode').prop('checked', false).attr('data-active', 'true');
             $('.light-logo').removeClass('d-none')
             $('.darkmode-logo').addClass('d-none')
-            body.removeClass('dark')
+            // body.removeClass('dark')
             dark = false
         }
         updateSessionStorage(dark)
@@ -66,5 +66,5 @@
     function updateSessionStorage(dark) {
         sessionStorage.setItem('dark', dark)
     }
-    
+
 })(jQuery)
