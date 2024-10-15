@@ -302,7 +302,7 @@
 
     var options = {
         series: percentageData, // Use percentage data
-        // series: seriesData, // use count
+        series: seriesData, // use count
         labels: labelsData,
         chart: {
           type: 'polarArea',
@@ -333,7 +333,7 @@
         tooltip: {
             y: {
                 formatter: function(val) {
-                    return val + "%"; // Add percentage sign
+                    return val; //+ "%"; // Add percentage sign
                 }
             }
         },
