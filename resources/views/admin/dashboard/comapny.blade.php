@@ -295,8 +295,14 @@
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
     var labelsData = {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!};
 
+    // Calculate total count
+    var total = seriesData.reduce((acc, val) => acc + val, 0);
+    // Calculate percentages
+    var percentageData = seriesData.map(count => ((count / total) * 100).toFixed(2)); // Two decimal places
+
     var options = {
-        series: seriesData,
+        series: percentageData, // Use percentage data
+        // series: seriesData, // use count
         labels: labelsData,
         chart: {
           type: 'polarArea',
