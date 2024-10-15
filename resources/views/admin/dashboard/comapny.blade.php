@@ -294,16 +294,11 @@
     // Extract the 'count' values from the $2 result
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
     var labelsData = {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!};
+
     // Calculate total count
     var total = seriesData.reduce((acc, val) => acc + val, 0);
-
-    // Calculate percentages, handle division by zero
-    var percentageData = total > 0 ? seriesData.map(count => ((count / total) * 100).toFixed(2)) : [];
-
-    // Set default percentage data if total is zero
-    if (total === 0) {
-        percentageData = seriesData.map(() => "0.00");
-    }
+    // Calculate percentages
+    var percentageData = seriesData.map(count => ((count / total) * 100).toFixed(2)); // Two decimal places
 
     var options = {
         series: percentageData, // Use percentage data
@@ -328,6 +323,7 @@
             horizontalAlign: 'center',
             floating: false,
             fontSize: '14px',
+            // fontFamily: undefined,
             fontWeight: 400,
             color: '#fff',
         },
@@ -344,7 +340,7 @@
         // dataLabels: {
         //     enabled: true,
         //     formatter: function(val) {
-        //         return val !== null ? val + "%" : "0.00%"; // Add percentage sign to data labels, handle null
+        //         return val + "%"; // Add percentage sign to data labels
         //     }
         // },
         responsive: [{
