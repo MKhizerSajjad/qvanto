@@ -68,7 +68,8 @@
                                             <select class="form-control" id="status" name="status">
                                                 <option value="">Select Stato</option>
                                                 @foreach (getGeneralStatus() as $statusKey => $statusLabel)
-                                                    <option {{ (old('status') == $statusKey) ? 'selected="selected"' : '' }} value="{{ ++$statusKey }}">{{ $statusLabel }}</option>
+                                                @php $key = ++$statusKey @endphp
+                                                    <option {{ (old('status') == $statusKey) ? 'selected="selected"' : '' }} value="{{ $statusKey }}">{{ $statusLabel }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

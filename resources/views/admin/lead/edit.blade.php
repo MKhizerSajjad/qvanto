@@ -51,6 +51,7 @@
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="lead_type" name="lead_type">
                                                 <option value="">Select Tipologia Lead</option>
+                                                @php $key = 0; @endphp
                                                 @foreach (getLeadType() as $key => $type)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('lead_type', $lead->lead_type) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $type }}</option>
@@ -67,6 +68,7 @@
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
                                                 <option value="">Select Stato</option>
+                                                @php $key = 0; @endphp
                                                 @foreach (getLeadStatus() as $key => $label)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('status', $lead->status) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>

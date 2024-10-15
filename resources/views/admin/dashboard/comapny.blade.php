@@ -5,16 +5,48 @@
             <div class="navbar-breadcrumb">
                 <h4 class="mb-0">Welcome To Dashboard</h4>
             </div>
-            {{-- <div class="">
-                <a class="button btn btn-skyblue button-icon" href="#">Facebook<i
-                        class="ml-2 ri-arrow-down-s-fill"></i></a>
-                <a class="button btn btn-primary ml-2 button-icon rounded-small rtl-mr-2 rtl-ml-0"
-                    href="#"><i class="ri-add-line m-0"></i></a>
-            </div> --}}
+
+            <div class="">
+                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#filters" title="Filters">
+                    <i class="fa fa-search"></i>
+                </button>
+                <a href="{{route('dashboard')}}" type="button" class="btn btn-secondary" title="Remove Filters">
+                    <i class="fa">&#xf00d;</i>
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="container-fluid px-4" style="display: {{ request()->has('vendor') || request()->has('lead_type') || request()->has('status') || request()->has('from') || request()->has('to') ? 'block' : 'none' }};">
+        <div class="alert alert-info pb-0" role="alert" bis_skin_checked="1">
+            <i class="fa fa-search pt-1"></i>
+
+            <div class="iq-alert-text" bis_skin_checked="1">
+                <ul class="row">
+                    <strong>Applied Filters:</strong>
+                    @if(request()->get('vendor'))
+                        <li class="ml-4">Vendor: {{ $vendors->where('id', request()->get('vendor'))->first()->first_name ?? '' }}</li>
+                    @endif
+                    @if(request()->get('lead_type'))
+                        <li class="ml-4">Lead Type: {{ getLeadType(request()->get('lead_type')) }}</li>
+                    @endif
+                    @if(request()->get('status'))
+                        <li class="ml-4">Status: {{ getLeadStatus(request()->get('status')) }}</li>
+                    @endif
+                    @if(request()->get('from'))
+                        <li class="ml-4">From Date: {{ request()->get('from') }}</li>
+                    @endif
+                    @if(request()->get('to'))
+                        <li class="ml-4">To Date: {{ request()->get('to') }}</li>
+                    @endif
+                </ul>
+            </div>
+            <button type="button" class="close pb-2 text text-info" data-dismiss="alert" aria-label="Close">
+                <i class="ri-close-line"></i>
+            </button>
         </div>
     </div>
 
-    <div class="container-fluid pt-4">
+    <div class="container-fluid pt-2">
         <div class="col-12">
             <div class="row">
                 <div class="col-3">
@@ -126,51 +158,129 @@
     </div> --}}
 
 
-    <div class="col-lg-12">
-        <div class="card">
-            <div class="card-header d-flex justify-content-between">
-                <div class="iq-header-title">
-                    <h4 class="card-title mb-0">Top Associati</h4>
+    @if (Auth::user()->user_type == 1)
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-header d-flex justify-content-between">
+                    <div class="iq-header-title">
+                        <h4 class="card-title mb-0">Top Associati</h4>
+                    </div>
+                </div>
+
+                <div class="card-body">
+                    @if (count($topVendors) > 0)
+                        <div class="table-responsive">
+                            <table class="table" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Sr#</th>
+                                        <th>Photo</th>
+                                        <th>Conversioni (%)</th>
+                                        <th>Non Convertiti (%)</th>
+                                        <th>Total</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Cellulare</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($topVendors as $key => $vendor)
+                                        <tr>
+                                            <td>{{++$key}}</td>
+                                            <td>
+                                                <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}"  class="rounded avatar-40 img-fluid" >
+                                            </td>
+                                            <td>{{isset($vendor->leads[0]) ? ($vendor->leads[0]->Resolved / $vendor->leads[0]->total) * 100 : '-'}}</td>
+                                            <td>{{isset($vendor->leads[0]) ?($vendor->leads[0]->Withdrawed / $vendor->leads[0]->total) * 100 : '-'}}</td>
+                                            <td>{{isset($vendor->leads[0]) ? $vendor->leads[0]->total : '-'}}</td>
+                                            <td>{{$vendor->first_name}} {{$vendor->last_name}}</td>
+                                            <td>{{$vendor->email}}</td>
+                                            <td>{{$vendor->mobile_number}}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @else
+                        <h4 class="text text-center text-danger font-weight-bold p-5">No Vednors Found</h4>
+                    @endif
                 </div>
             </div>
+        </div>
+    @endif
 
-            <div class="card-body">
-                @if (count($topVendors) > 0)
-                    <div class="table-responsive">
-                        <table class="table" style="width:100%">
-                            <thead>
-                                <tr>
-                                    <th>Sr#</th>
-                                    <th>Photo</th>
-                                    <th>Conversioni (%)</th>
-                                    <th>Non Convertiti (%)</th>
-                                    <th>Total</th>
-                                    <th>Nome</th>
-                                    <th>Email</th>
-                                    <th>Cellulare</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach ($topVendors as $key => $vendor)
-                                    <tr>
-                                        <td>{{++$key}}</td>
-                                        <td>
-                                            <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}"  class="rounded avatar-40 img-fluid" >
-                                        </td>
-                                        <td>{{isset($vendor->leads[0]) ? ($vendor->leads[0]->Resolved / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                        <td>{{isset($vendor->leads[0]) ?($vendor->leads[0]->Withdrawed / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                        <td>{{isset($vendor->leads[0]) ? $vendor->leads[0]->total : '-'}}</td>
-                                        <td>{{$vendor->first_name}} {{$vendor->last_name}}</td>
-                                        <td>{{$vendor->email}}</td>
-                                        <td>{{$vendor->mobile_number}}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+    <div class="modal fade d-example-modal-lg" id="filters" tabindex="-1" role="dialog" aria-labelledby="filtersLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="filtersLabel">Filter The Stato</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form method="GET" action="{{ route('dashboard') }}">
+                    <div class="modal-body">
+                        <div class="row">
+
+                            @if (Auth::user()->user_type == 1)
+                                @php
+                                    $col = 4;
+                                @endphp
+                                <div class="form-group col-md-{{$col}}">
+                                    <label>Associato</label>
+                                    <select class="form-control" id="vendor" name="vendor">
+                                        <option value="">Select Associato</option>
+                                        @foreach ($vendors as $vendor)
+                                            <option value="{{ $vendor->id }}" {{ request('vendor') == $vendor->id ? 'selected' : '' }}>
+                                                {{ $vendor->first_name }} {{ $vendor->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                            @else
+                                @php
+                                    $col = 6;
+                                @endphp
+                            @endif
+                            <div class="form-group col-md-{{$col}}">
+                                <label>Lead Tipologia</label>
+                                <select class="form-control" id="lead_type" name="lead_type">
+                                    <option value="">Select Tipologia Lead</option>
+                                    @foreach (getLeadType() as $key => $type)
+                                        <option value="{{ ++$key }}" {{ request('lead_type') == $key ? 'selected' : '' }}>
+                                            {{ $type }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                            <div class="form-group col-md-{{$col}}">
+                                <label>Stato</label>
+                                <select class="form-control" id="status" name="status">
+                                    <option value="">Select Stato</option>
+                                    @foreach (getLeadStatus() as $index => $label)
+                                        <option value="{{ ++$index }}" {{ request('status') == $index ? 'selected' : '' }}>
+                                            {{ $label }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-6">
+                                <label for="from">From</label>
+                                <input type="date" class="form-control" id="from" name="from" placeholder="Date Time" value="{{ request('from') }}">
+                            </div>
+                            <div class="form-group col-md-6">
+                                <label for="to">To</label>
+                                <input type="date" class="form-control" id="to" name="to" placeholder="Date Time" value="{{ request('to') }}">
+                            </div>
+                        </div>
                     </div>
-                @else
-                    <h4 class="text text-center text-danger font-weight-bold p-5">No Vednors Found</h4>
-                @endif
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Apply Filters</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
@@ -369,48 +479,6 @@
     };
 
     var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
-    chart.render();
-
-
-    // Accounts Chart
-    var casesAmounts = @json($casesAmounts);
-    var options = {
-    series: [{
-        name: 'Total Amount',
-        type: 'column',
-        data: casesAmounts.map(entry => entry.total_amount),
-    }, {
-        name: 'Commission Amount',
-        type: 'column',
-        data: casesAmounts.map(entry => entry.commission_amount),
-    }, {
-        name: 'Profit Amount',
-        type: 'line',
-        data: casesAmounts.map(entry => entry.profit_amount),
-    }],
-    chart: {
-        height: 350,
-        type: 'line',
-        stacked: false,
-    },
-    dataLabels: {
-        enabled: false,
-    },
-    stroke: {
-        width: [1, 1, 4],
-    },
-    // title: {
-    //     text: 'XYZ - Stock Analysis (2009 - 2016)',
-    //     align: 'left',
-    //     offsetX: 110,
-    // },
-    xaxis: {
-        categories: casesAmounts.map(entry => entry.date), // Use the date from the query result
-    },
-    // ... (rest of your options)
-    };
-
-    var chart = new ApexCharts(document.querySelector("#accountsChart"), options);
     chart.render();
 
 </script>

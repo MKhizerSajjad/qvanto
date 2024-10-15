@@ -118,7 +118,7 @@ class VednorController extends Controller
         $data['password'] = Hash::make($data['password']);
         unset($data['password_confirmation']);
         $data['user_type'] = 2;
-        $data['status'] = 1;
+        // $data['status'] = 1;
         $user = Vendor::create($data);
 
         return redirect()->route('vendor.index')->with('success','Vendor created successfully');
