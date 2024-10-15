@@ -38,7 +38,7 @@
                                         <label>Associato <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="vendor" name="vendor">
-                                                <option>Select Associato</option>
+                                                <option  value="">Select Associato</option>
                                                 @foreach ($vendors as $key => $vendor)
                                                     <option {{ (old('vendor') == $vendor->id) ? 'selected="selected"' : '' }} value="{{ $vendor->id }}">{{ $vendor->first_name }} {{ $vendor->last_name }}</option>
                                                 @endforeach
@@ -49,7 +49,7 @@
                                         <label>Lead Tipologia Lead <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="lead_type" name="lead_type">
-                                                <option>Select Tipologia Lead</option>
+                                                <option value="">Select Tipologia Lead</option>
                                                 @foreach (getLeadType() as $key => $type)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('lead_type') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $type }}</option>
@@ -65,7 +65,7 @@
                                         <label>Stato <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
-                                                <option>Select Stato</option>
+                                                <option  value="">Select Stato</option>
                                                 @foreach (getLeadStatus() as $key => $label)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('status') == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>

@@ -39,7 +39,7 @@
                                         <label>Stato <span class="text text-danger">*</span></label>
                                         <div class="dropdown" bis_skin_checked="1">
                                             <select class="form-control" id="status" name="status">
-                                                <option>Select Stato</option>
+                                                <option value="">Select Stato</option>
                                                 @foreach (getLeadStatus() as $key => $label)
                                                     @php $key = ++$key; @endphp
                                                     <option {{ (old('status', $lead->status) == $key) ? 'selected="selected"' : '' }} value="{{ $key }}">{{ $label }}</option>
