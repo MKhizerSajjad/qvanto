@@ -92,7 +92,7 @@ class VednorController extends Controller
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users',
-            'mobile_number' => 'min:11|max:18|unique:users',
+            'mobile_number' => 'min:10|max:18|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -146,7 +146,7 @@ class VednorController extends Controller
             'first_name' => 'required|regex:/^[\pL\s]+$/u',
             'last_name' => 'required|regex:/^[\pL\s]+$/u',
             'email' => 'required|email|max:255|unique:users,email,'.$vendor->id,
-            'mobile_number' => 'min:11|max:18|unique:users,mobile_number,'.$vendor->id,
+            'mobile_number' => 'min:10|max:18|unique:users,mobile_number,'.$vendor->id,
             'password' => 'nullable|string|min:8|confirmed',
         ]);
 
