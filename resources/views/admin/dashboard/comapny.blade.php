@@ -24,13 +24,13 @@
                 <ul class="row">
                     <strong>Applied Filters:</strong>
                     @if(request()->get('vendor'))
-                        <li class="ml-4">Vendor: {{ $vendors->where('id', request()->get('vendor'))->first()->first_name ?? '' }}</li>
+                        <li class="ml-4">Associati: {{ $vendors->where('id', request()->get('vendor'))->first()->first_name ?? '' }}</li>
                     @endif
                     @if(request()->get('lead_type'))
-                        <li class="ml-4">Lead Type: {{ getLeadType(request()->get('lead_type')) }}</li>
+                        <li class="ml-4">Lead Tipologia: {{ getLeadType(request()->get('lead_type')) }}</li>
                     @endif
                     @if(request()->get('status'))
-                        <li class="ml-4">Status: {{ getLeadStatus(request()->get('status')) }}</li>
+                        <li class="ml-4">Stato: {{ getLeadStatus(request()->get('status')) }}</li>
                     @endif
                     @if(request()->get('from'))
                         <li class="ml-4">From Date: {{ request()->get('from') }}</li>
@@ -185,18 +185,25 @@
                                 </thead>
                                 <tbody>
                                     @foreach ($topVendors as $key => $vendor)
-                                        <tr>
-                                            <td>{{++$key}}</td>
-                                            <td>
-                                                <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}"  class="rounded avatar-40 img-fluid" >
-                                            </td>
-                                            <td>{{isset($vendor->leads[0]) ? ($vendor->leads[0]->Resolved / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                            <td>{{isset($vendor->leads[0]) ?($vendor->leads[0]->Withdrawed / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                            <td>{{isset($vendor->leads[0]) ? $vendor->leads[0]->total : '-'}}</td>
-                                            <td>{{$vendor->first_name}} {{$vendor->last_name}}</td>
-                                            <td>{{$vendor->email}}</td>
-                                            <td>{{$vendor->mobile_number}}</td>
-                                        </tr>
+                                        @php
+                                        $lead = isset($vendor->leads[0]) ? $vendor->leads[0] : null;
+                                        $converted = $lead ? ((int)$lead->{'Fatto Watt'} ?? 0) + ((int)$lead->{'Chiuso Spark 2up'} ?? 0) + ((int)$lead->{'Chiuso Spark 1up'} ?? 0) : 0;
+                                        $notConverted = $lead ? ((int)$lead->{'In Chiusura'} ?? 0) + ((int)$lead->{'Non Risponde'} ?? 0) + ((int)$lead->{'Mi Ha Bloccato'} ?? 0) + ((int)$lead->{'Rimandato'} ?? 0) : 0;
+                                        $convt = $lead && $lead->total ? ($converted / $lead->total) * 100 : 0;
+                                        $notConvt = $lead && $lead->total ? ($notConverted / $lead->total) * 100 : 0;
+                                    @endphp
+                                    <tr>
+                                        <td>{{ ++$key }}</td>
+                                        <td>
+                                            <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}" class="rounded avatar-40 img-fluid">
+                                        </td>
+                                        <td>{{ numberFormat($convt, 'percentage') }} ({{$converted}})</td>
+                                        <td>{{ numberFormat($notConvt, 'percentage') }} ({{$notConverted}})</td>
+                                        <td>{{ isset($lead) ? $lead->total : '-' }}</td>
+                                        <td>{{ $vendor->first_name }} {{ $vendor->last_name }}</td>
+                                        <td>{{ $vendor->email }}</td>
+                                        <td>{{ $vendor->mobile_number }}</td>
+                                    </tr>
                                     @endforeach
                                 </tbody>
                             </table>
@@ -447,19 +454,13 @@
     // var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
     // chart.render();
 
+
+    // The data passed from PHP to JavaScript
     var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
+    var statusLabels = {!! json_encode(array_values($statusMappings)) !!};  // Status labels passed from PHP
 
     var options = {
-        series: [
-            {
-                name: 'Leads Totali',
-                data: Object.values(seriesData).map((data) => data[0].total_cases),
-            },
-            {
-                name: 'Conversioni',
-                data: Object.values(seriesData).map((data) => data[0].resolved_cases),
-            },
-        ],
+        series: [],
         chart: {
             height: 350,
             type: 'area',
@@ -470,7 +471,7 @@
         },
         theme: {
             mode: 'dark',
-            palette: 'palette4',
+            palette: 'palette1',
             monochrome: {
                 enabled: false
             }
@@ -479,25 +480,97 @@
             curve: 'smooth',
         },
         xaxis: {
-            categories: Object.values(seriesData).map((data) => data[0].date),
+            categories: Object.values(seriesData).map((data) => data[0].date), // Dates on the X-axis
             labels: {
                 formatter: function (value) {
-                    return value;
+                    return value; // Optionally format the date
                 }
             }
         },
         tooltip: {
             x: {
-                format: 'dd/MM/yy',
+                format: 'dd/MM/yy', // Tooltip date format
             },
+            y: {
+                formatter: function (value, { seriesIndex, dataPointIndex, w }) {
+                    if (seriesIndex < statusLabels.length) { // For status series
+                        return w.config.series[seriesIndex].data[dataPointIndex]; // Show status count
+                    }
+                    return value; // Show other values (total cases)
+                }
+            }
         },
-        // title: {
-        //     text: 'Monthly Cases',
-        //     align: 'left'
-        // },
     };
 
+    // Add the total cases series (Leads Totali)
+    options.series.push({
+        name: 'Leads Totali',
+        data: Object.values(seriesData).map((data) => data[0].total_cases), // Total cases
+    });
+
+    // Add the status series dynamically based on the statusMappings
+    statusLabels.forEach(function(label) {
+        options.series.push({
+            name: label, // Status name as the series name
+            data: Object.values(seriesData).map((data) => data[0][label]), // Corresponding status count
+        });
+    });
+
+    // Initialize and render the chart
     var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
     chart.render();
+
+    // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
+
+    // var options = {
+    //     series: [
+    //         {
+    //             name: 'Leads Totali',
+    //             data: Object.values(seriesData).map((data) => data[0].total_cases),
+    //         },
+    //         {
+    //             name: 'Conversioni',
+    //             data: Object.values(seriesData).map((data) => data[0].resolved_cases),
+    //         },
+    //     ],
+    //     chart: {
+    //         height: 350,
+    //         type: 'area',
+    //         background: 'transparent',
+    //     },
+    //     dataLabels: {
+    //         enabled: false,
+    //     },
+    //     theme: {
+    //         mode: 'dark',
+    //         palette: 'palette4',
+    //         monochrome: {
+    //             enabled: false
+    //         }
+    //     },
+    //     stroke: {
+    //         curve: 'smooth',
+    //     },
+    //     xaxis: {
+    //         categories: Object.values(seriesData).map((data) => data[0].date),
+    //         labels: {
+    //             formatter: function (value) {
+    //                 return value;
+    //             }
+    //         }
+    //     },
+    //     tooltip: {
+    //         x: {
+    //             format: 'dd/MM/yy',
+    //         },
+    //     },
+    //     // title: {
+    //     //     text: 'Monthly Cases',
+    //     //     align: 'left'
+    //     // },
+    // };
+
+    // var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
+    // chart.render();
 
 </script>

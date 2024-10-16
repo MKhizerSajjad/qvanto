@@ -100,4 +100,17 @@
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
     }
 
+    function numberFormat($amount, $type=null) {
+        $formatted = number_format($amount, 2, '.', ',');
+
+        switch ($type) {
+            case 'euro':
+                return $formatted . '€';
+            case 'percentage':
+                return $formatted . '%';
+            default:
+                return $formatted;
+        }
+    }
+
 ?>

@@ -61,8 +61,9 @@ class VednorController extends Controller
     {
         $statusMappings = getLeadStatus(null, null);
         $caseStatements = [];
-        foreach ($statusMappings as $status => $label) {
-            $caseStatements[] = "SUM(CASE WHEN leads.status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
+        foreach ($statusMappings as $key => $label) {
+            ++$key;
+            $caseStatements[] = "SUM(CASE WHEN leads.status = {$key} THEN 1 ELSE 0 END) as `{$label}`";
         }
         $caseSql = implode(", ", $caseStatements);
 

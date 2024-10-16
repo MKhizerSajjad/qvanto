@@ -42,19 +42,27 @@
                                         </thead>
                                         <tbody>
                                             @foreach ($data as $key => $vendor)
+                                                @php
+                                                    $lead = isset($vendor->leads[0]) ? $vendor->leads[0] : null;
+                                                    $converted = $lead ? ((int)$lead->{'Fatto Watt'} ?? 0) + ((int)$lead->{'Chiuso Spark 2up'} ?? 0) + ((int)$lead->{'Chiuso Spark 1up'} ?? 0) : 0;
+                                                    $notConverted = $lead ? ((int)$lead->{'In Chiusura'} ?? 0) + ((int)$lead->{'Non Risponde'} ?? 0) + ((int)$lead->{'Mi Ha Bloccato'} ?? 0) + ((int)$lead->{'Rimandato'} ?? 0) : 0;
+                                                    $convt = $lead && $lead->total ? ($converted / $lead->total) * 100 : 0;
+                                                    $notConvt = $lead && $lead->total ? ($notConverted / $lead->total) * 100 : 0;
+                                                @endphp
                                                 <tr>
-                                                    <td>{{++$key}}</td>
+                                                    <td>{{ ++$key }}</td>
                                                     <td>
-                                                        <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}"  class="rounded avatar-40 img-fluid" >
+                                                        <img src="{{ asset('images/vendors/'.$vendor->picture) }}" onerror="this.onerror=null;this.src='{{ asset('admin/images/user/user-dummy-img.png') }}';" alt="{{ $vendor->first_name }}" class="rounded avatar-40 img-fluid">
                                                     </td>
-                                                    <td>{{isset($vendor->leads[0]) ? ($vendor->leads[0]->Resolved / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                                    <td>{{isset($vendor->leads[0]) ?($vendor->leads[0]->Withdrawed / $vendor->leads[0]->total) * 100 : '-'}}</td>
-                                                    <td>{{isset($vendor->leads[0]) ? $vendor->leads[0]->total : '-'}}</td>
-                                                    <td>{{$vendor->first_name}} {{$vendor->last_name}}</td>
-                                                    <td>{{$vendor->email}}</td>
-                                                    <td>{{$vendor->mobile_number}}</td>
+                                                    <td>{{ numberFormat($convt, 'percentage') }} ({{$converted}})</td>
+                                                    <td>{{ numberFormat($notConvt, 'percentage') }} ({{$notConverted}})</td>
+                                                    <td>{{ isset($lead) ? $lead->total : '-' }}</td>
+                                                    <td>{{ $vendor->first_name }} {{ $vendor->last_name }}</td>
+                                                    <td>{{ $vendor->email }}</td>
+                                                    <td>{{ $vendor->mobile_number }}</td>
                                                 </tr>
                                             @endforeach
+
                                         </tbody>
                                     </table>
                                 </div>

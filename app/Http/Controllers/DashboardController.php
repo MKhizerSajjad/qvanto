@@ -82,19 +82,48 @@ class DashboardController extends Controller
 
 
 
-            $caseStatusCounts2 = DB::table('leads')
-            ->select(
-                DB::raw('DATE_FORMAT(dated, "%Y-%m-%d") as date'),
-                DB::raw('DATE_FORMAT(dated, "%Y") as year'),
-                DB::raw('DATE_FORMAT(dated, "%m") as month'),
-                DB::raw('count(*) as total_cases'),
-                DB::raw('SUM(CASE WHEN status = 7 THEN 1 ELSE 0 END) as resolved_cases')
-            )
-            ->when($vendorID, function ($query) use ($vendorID) {
-                return $query->where('vendor_id', $vendorID);
-            })
-            ->tap($filters)
-            ->groupBy('year', 'month', 'date')->get();
+            // $caseStatusCounts2 = DB::table('leads')
+            // ->select(
+            //     DB::raw('DATE_FORMAT(dated, "%Y-%m-%d") as date'),
+            //     DB::raw('DATE_FORMAT(dated, "%Y") as year'),
+            //     DB::raw('DATE_FORMAT(dated, "%m") as month'),
+            //     DB::raw('count(*) as total_cases'),
+            //     DB::raw("CASE {$caseSql} ELSE 'Unknown' END as status_label") // Add status label
+            // )
+            // ->when($vendorID, function ($query) use ($vendorID) {
+            //     return $query->where('vendor_id', $vendorID);
+            // })
+            // ->tap($filters)
+            // ->groupBy('year', 'month', 'date', 'status')
+            // ->get();
+
+            // dd($caseStatusCounts2);
+
+         // Generate the dynamic CASE WHEN for status counts
+// Generate the dynamic CASE WHEN for status counts
+// Generate the dynamic CASE WHEN for status counts
+$caseSql = implode(", ", array_map(function ($status, $label) {
+    // For counting statuses using labels as the key
+    return "SUM(CASE WHEN status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
+}, array_keys($statusMappings), $statusMappings));
+
+
+// Query to get total cases and status counts
+$caseStatusCounts2 = DB::table('leads')
+    ->selectRaw(
+        'DATE_FORMAT(dated, "%Y-%m-%d") as date,
+        DATE_FORMAT(dated, "%Y") as year,
+        DATE_FORMAT(dated, "%m") as month,
+        count(*) as total_cases,
+        ' . $caseSql
+    )
+    ->when($vendorID, function ($query) use ($vendorID) {
+        return $query->where('vendor_id', $vendorID);
+    })
+    ->tap($filters)
+    ->groupBy('year', 'month', 'date') // Group by date, year, and month
+    ->orderBy('date', 'asc')
+    ->get();
 
 
             // $caseStatusCounts3 = DB::table('cases')
@@ -137,6 +166,7 @@ class DashboardController extends Controller
             $statusMappings = getLeadStatus(null, null);
             $caseStatements = [];
             foreach ($statusMappings as $status => $label) {
+                ++$status;
                 $caseStatements[] = "SUM(CASE WHEN leads.status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
             }
             $caseSql = implode(", ", $caseStatements);
@@ -155,7 +185,7 @@ class DashboardController extends Controller
             ->take(10) // Limit to the top 10
             ->get();
 
-            return view('admin.dashboard', compact('vendors', 'count', 'caseStatusCounts', 'caseStatusCounts2', 'topVendors'));
+            return view('admin.dashboard', compact('vendors', 'count', 'caseStatusCounts', 'caseStatusCounts2', 'statusMappings', 'topVendors'));
 
         } else {
             return view('admin.dashboard');
