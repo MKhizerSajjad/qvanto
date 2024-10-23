@@ -30,9 +30,9 @@
                                 <h4 class="card-title mb-0">Leads List</h4>
                             </div>
 
-                            @if($restricted == false)
+                            {{-- @if($restricted == false) --}}
                                 <a href="{{route('lead.create')}}" class="btn btn-primary">Add New</a>
-                            @endif
+                            {{-- @endif --}}
                         </div>
 
                         <div class="card-body">

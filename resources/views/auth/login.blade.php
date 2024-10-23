@@ -1,20 +1,15 @@
 <x-guest-layout>
-    {{-- <div id="loading">
-        <div id="loading-center">
-        </div>
-    </div> --}}
-
     <div class="wrapper">
         <section class="login-content">
-            <div class="container h-100">
-                <div class="row align-items-center justify-content-center h-100">
-                    <div class="col-12">
+            <div class="container">
+                <div class="row align-items-center justify-content-center">
+                    <div class="offset-md-2 col-md-8 col-sm-12 mt-5">
                         <div class="row align-items-center">
                             <!-- Session Status -->
                             <x-auth-session-status class="alert alert-success" :status="session('status')" />
-                            <div class="col-lg-6">
+                            <div class="col-md-8 col-sm-12">
                                 <h2 class="mb-2">Sign In</h2>
-                                <p>To Keep connected with us please login with your personal info.</p>
+                                <p>Devi effettuare il login per vedere I lead.</p>
                                 <form method="POST" action="{{ route('login') }}">
                                     @csrf
                                     <div class="row" bis_skin_checked="1">
@@ -47,16 +42,7 @@
                                         </div> --}}
                                     </div>
                                     <button type="submit" class="btn btn-primary">{{ __('Log in') }}</button>
-                                    <p class="mt-3">
-
-                                        {{-- @if (Route::has('register'))
-                                            Create an Account <a href="{{ route('register') }}" class="text-primary">{{ __('Sign Up') }}</a>
-                                        @endif --}}
-                                    </p>
                                 </form>
-                            </div>
-                            <div class="col-lg-6 mb-lg-0 mb-4 mt-lg-0 mt-4">
-                                <img src="{{ asset('admin/images/login/01.png') }}" class="img-fluid w-80" alt="Floating image">
                             </div>
                         </div>
                     </div>
@@ -64,8 +50,4 @@
             </div>
         </section>
     </div>
-
-    {{-- <div class="custom-control-inline change-rtl">
-        <a href="#" class="switch-rtl" data-active="true" for="rtl-mode" data-mode="rtl">RTL</a>
-    </div> --}}
 </x-guest-layout>

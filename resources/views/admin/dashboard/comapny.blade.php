@@ -16,6 +16,15 @@
             </div>
         </div>
     </div>
+    @php
+        if (Auth::user()->user_type == 1) {
+            $show = true;
+            $col = "col-sm-12 col-md-3";
+        } else {
+            $show = false;
+            $col = "col-sm-12 col-md-4";
+        }
+    @endphp
     <div class="container-fluid px-4" style="display: {{ request()->has('vendor') || request()->has('lead_type') || request()->has('status') || request()->has('from') || request()->has('to') ? 'block' : 'none' }};">
         <div class="alert alert-info pb-0" role="alert" bis_skin_checked="1">
             <i class="fa fa-search pt-1"></i>
@@ -49,7 +58,9 @@
     <div class="container-fluid pt-2">
         <div class="col-12">
             <div class="row">
-                <div class="col-3">
+
+                @if ($show)
+                <div class="{{ $col }}">
                     <div class="row">
                         <div class="col-11 card bg-secondary w-25 p-3 mx-2">
                             <div class="row">
@@ -66,7 +77,8 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                @endif
+                <div class="{{ $col }}">
                     <div class="row">
                         <div class="col-11 card bg-info w-25 p-3 mx-2">
                             <div class="row">
@@ -83,7 +95,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="{{ $col }}">
                     <div class="row">
                         <div class="col-11 card bg-success w-25 p-3 mx-2">
                             <div class="row">
@@ -100,7 +112,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-3">
+                <div class="{{ $col }}">
                     <div class="row">
                         <div class="col-11 card bg-warning w-25 p-3 mx-2">
                             <div class="row">
