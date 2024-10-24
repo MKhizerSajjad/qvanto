@@ -32,7 +32,11 @@ class LeadController extends Controller
 
     public function create()
     {
-        $vendors = Vendor::where('status', 1)->whereIn('user_type', [2])->select('id', 'first_name', 'last_name')->get();
+        $vendors = Vendor::where('status', 1)->whereIn('user_type', [2])->select('id', 'first_name', 'last_name');
+        if(Auth::user()->user_type == 2) {
+            $vendors = $vendors->where('id', Auth::user()->id);
+        }
+        $vendors = $vendors->get();
 
         return view('admin.lead.create', compact('vendors'));
     }
