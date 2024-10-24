@@ -54,13 +54,13 @@
     function getLeadStatus($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Chiuso Spark 1up', '<span class="badge bg-success">Chiuso Spark 1up</span>'],
-            '2' => ['Fatto Watt', '<span class="badge bg-success">Fatto Watt</span>'],
+            '1' => ['Chiuso Spark 1up', '<span class="badge bg-success">Chiuso Spark 1up</span>'], //converted
+            '2' => ['Fatto Watt', '<span class="badge bg-success">Fatto Watt</span>'], //converted
             '3' => ['In Chiusura', '<span class="badge bg-info">In Chiusura</span>'],
             '4' => ['Non Risponde', '<span class="badge bg-warning">Non Risponde</span>'],
             '5' => ['Mi Ha Bloccato', '<span class="badge bg-danger">Mi Ha Bloccato</span>'],
             '6' => ['Rimandato', '<span class="badge bg-secondary">Rimandato</span>'],
-            '7' => ['Chiuso Spark 2up', '<span class="badge bg-success">Chiuso Spark 2up</span>'],
+            '7' => ['Chiuso Spark 2up', '<span class="badge bg-success">Chiuso Spark 2up</span>'], //converted
         ];
 
         return

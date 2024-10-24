@@ -58,19 +58,26 @@ class DashboardController extends Controller
 
             $count->leadTotal = Lead::query()->tap($filters)->count();
 
-            $count->leadPending = Lead::query()->tap($filters)->where('status', '!=', 7)->count();
+            $count->leadPending = Lead::query()->tap($filters)->whereNotIn('status', [1,2,7])->count();
 
-            $count->leadResolved = Lead::query()->tap($filters)->where('status', 7)->count();
+            $count->leadResolved = Lead::query()->tap($filters)->whereIn('status', [1,2,7])->count();
 
-
+            // Make status based sql
             $statusMappings = getLeadStatus(null, null);
             $caseStatements = [];
+            $caseStatements2 = [];
+            $topVendorsStat = [];
             foreach ($statusMappings as $key => $label) {
                 ++$key;
                 $caseStatements[] = "WHEN status = {$key} THEN '{$label}'";
+                $caseStatements2[] =  "SUM(CASE WHEN status = {$key} THEN 1 ELSE 0 END) as `{$label}`";
+                $topVendorsStat[] = "SUM(CASE WHEN leads.status = {$key} THEN 1 ELSE 0 END) as `{$label}`";
             }
             $caseSql = implode(" ", $caseStatements);
+            $caseSql2 = implode(", ", $caseStatements2);
+            $topVendorsSql = implode(", ", $topVendorsStat);
 
+            // Round Graph
             $caseStatusCounts = DB::table('leads')
             ->select(
                 'status',
@@ -81,100 +88,24 @@ class DashboardController extends Controller
             ->groupBy('status')->get();
 
 
+            // Query to get total cases and status counts
+            $caseStatusCounts2 = DB::table('leads')
+                ->selectRaw(
+                    'DATE_FORMAT(dated, "%Y-%m-%d") as date,
+                    DATE_FORMAT(dated, "%Y") as year,
+                    DATE_FORMAT(dated, "%m") as month,
+                    count(*) as total_cases,
+                    ' . $caseSql2
+                )
+                ->tap($filters)
+                ->groupBy('year', 'month', 'date') // Group by date, year, and month
+                ->orderBy('date', 'asc')
+                ->get();
 
-            // $caseStatusCounts2 = DB::table('leads')
-            // ->select(
-            //     DB::raw('DATE_FORMAT(dated, "%Y-%m-%d") as date'),
-            //     DB::raw('DATE_FORMAT(dated, "%Y") as year'),
-            //     DB::raw('DATE_FORMAT(dated, "%m") as month'),
-            //     DB::raw('count(*) as total_cases'),
-            //     DB::raw("CASE {$caseSql} ELSE 'Unknown' END as status_label") // Add status label
-            // )
-            // ->when($vendorID, function ($query) use ($vendorID) {
-            //     return $query->where('vendor_id', $vendorID);
-            // })
-            // ->tap($filters)
-            // ->groupBy('year', 'month', 'date', 'status')
-            // ->get();
-
-            // dd($caseStatusCounts2);
-
-         // Generate the dynamic CASE WHEN for status counts
-// Generate the dynamic CASE WHEN for status counts
-// Generate the dynamic CASE WHEN for status counts
-$caseSql = implode(", ", array_map(function ($status, $label) {
-    // For counting statuses using labels as the key
-    return "SUM(CASE WHEN status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
-}, array_keys($statusMappings), $statusMappings));
-
-
-// Query to get total cases and status counts
-$caseStatusCounts2 = DB::table('leads')
-    ->selectRaw(
-        'DATE_FORMAT(dated, "%Y-%m-%d") as date,
-        DATE_FORMAT(dated, "%Y") as year,
-        DATE_FORMAT(dated, "%m") as month,
-        count(*) as total_cases,
-        ' . $caseSql
-    )
-    ->when($vendorID, function ($query) use ($vendorID) {
-        return $query->where('vendor_id', $vendorID);
-    })
-    ->tap($filters)
-    ->groupBy('year', 'month', 'date') // Group by date, year, and month
-    ->orderBy('date', 'asc')
-    ->get();
-
-
-            // $caseStatusCounts3 = DB::table('cases')
-            // ->select(
-            //     DB::raw('DATE_FORMAT(start_datetime, "%Y-%m-%d") as date'),
-            //     DB::raw('DATE_FORMAT(start_datetime, "%Y") as year'),
-            //     DB::raw('DATE_FORMAT(start_datetime, "%m") as month'),
-            //     'status',
-            //     DB::raw('count(*) as count'),
-            //     DB::raw("CASE
-            //         WHEN status = 1 THEN 'Process Start'
-            //         WHEN status = 2 THEN 'Under observation'
-            //         WHEN status = 3 THEN 'Negotiating'
-            //         WHEN status = 4 THEN 'Waiting for customer response'
-            //         WHEN status = 6 THEN 'Waiting for 3rd party response'
-            //         WHEN status = 7 THEN 'Suspended'
-            //         WHEN status = 8 THEN 'Withdrawed'
-            //         WHEN status = 9 THEN 'Resolved'
-            //         ELSE 'Unknown'
-            //     END as label"),
-            // )
-            // ->when(isset($vendorID), function ($query) use ($vendorID) {
-            //     return $query->where('employee_id', $vendorID);
-            // })
-            // ->groupBy('year', 'month', 'date', 'status')
-            // ->get();
-
-            // $casesAmounts = Cases::selectRaw('DATE(start_datetime) as date')
-            // ->selectRaw('SUM(total_amount) as total_amount')
-            // ->selectRaw('SUM(commission_amount) as commission_amount')
-            // ->selectRaw('SUM(total_amount - commission_amount) as profit_amount')
-            // ->when(isset($vendorID), function ($query) use ($vendorID) {
-            //     return $query->where('employee_id', $vendorID);
-            // })
-            // ->groupBy('date')
-            // ->orderBy('date')
-            // ->get();
-
-
-            $statusMappings = getLeadStatus(null, null);
-            $caseStatements = [];
-            foreach ($statusMappings as $status => $label) {
-                ++$status;
-                $caseStatements[] = "SUM(CASE WHEN leads.status = {$status} THEN 1 ELSE 0 END) as `{$label}`";
-            }
-            $caseSql = implode(", ", $caseStatements);
-
-            $topVendors = Vendor::with(['leads' => function($q) use ($caseSql) {
+            $topVendors = Vendor::with(['leads' => function($q) use ($topVendorsSql) {
                 $q->select('vendor_id', DB::raw("
                     COUNT(*) as total,
-                    {$caseSql}
+                    {$topVendorsSql}
                 "))
                 ->groupBy('vendor_id');
             }])
