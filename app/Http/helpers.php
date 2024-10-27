@@ -72,10 +72,11 @@
     function getLeadType($status = null, $type = null)
     {
         $statuses = [
-            '1' => ['Meta', '<span class="badge bg-info-light">Meta</span>'],
-            '2' => ['Linkedin', '<span class="badge bg-secondary-light">Linkedin</span>'],
-            '3' => ['Direct', '<span class="badge bg-info-light">Direct</span>'],
-            '4' => ['Walkin', '<span class="badge bg-warning-light">Walkin</span>'],
+            '1' => ['ALL-IN Meta', '<span class="badge bg-info">ALL-IN Meta</span>'],
+            '2' => ['Normal Meta', '<span class="badge border border-info text-info">Normal Meta</span>'],
+            '3' => ['ALL-IN Tik Tok', '<span class="badge bg-warning">ALL-IN Tik Tok</span>'],
+            '4' => ['Normal Tik-Tok', '<span class="badge border border-warning text-warning">Normal Tik-Tok</span>'],
+            '5' => ['Normal Altro', '<span class="badge bg-secondary">Normal Altro</span>'],
         ];
 
         return

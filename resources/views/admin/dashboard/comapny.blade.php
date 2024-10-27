@@ -309,6 +309,17 @@
 
 <script>
 
+    // Define the colors for each status
+    var statusColors = [
+        '#41d394', // Status 1
+        '#41d394', // Status 2
+        '#836cff', // Status 3
+        '#fdc941', // Status 4
+        '#fe4c4a', // Status 5
+        '#6c757e', // Status 6
+        '#41d394'  // Status 7
+    ];
+
     // Case Status wise chart - Multiple Radialbars
     // Extract the 'count' values from the $2 result
     var seriesData = {!! json_encode($caseStatusCounts->pluck('count')->toArray()) !!};
@@ -372,100 +383,12 @@
               position: 'bottom'
             }
           }
-        }]
+        }],
+        colors: ['#41d394', '#41d394', '#836cff', '#fdc941', '#fe4c4a', '#6c757e', '#41d394'], // Add your colors here
     };
 
     var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
     chart.render();
-
-    // var options = {
-    //       series: seriesData,
-    //       labels: labelsData,
-    //       chart: {
-    //       type: 'donut',
-    //     },
-    //     responsive: [{
-    //       breakpoint: 480,
-    //       options: {
-    //         chart: {
-    //             height: 350,
-    //         //   width: 200
-    //         },
-    //         legend: {
-    //           position: 'bottom'
-    //         }
-    //       }
-    //     }]
-    // };
-
-    // var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
-    // chart.render();
-
-    // var options = {
-    //     series: seriesData, // Use the 'count' values as the series data
-    //     chart: {
-    //         height: 350,
-    //         type: 'radialBar',
-    //     },
-    //     plotOptions: {
-    //         radialBar: {
-    //             dataLabels: {
-    //                 name: {
-    //                     fontSize: '22px',
-    //                 },
-    //                 value: {
-    //                     fontSize: '16px',
-    //                 },
-    //                 total: {
-    //                     show: true,
-    //                     label: 'Totali',
-    //                     formatter: function (w) {
-    //                         // Calculate the sum of all 'count' values
-    //                         var total = seriesData.reduce((a, b) => Number(a) + Number(b), 0);
-    //                         return total;
-    //                     }
-    //                 }
-    //             }
-    //         }
-    //     },
-    //     labels: {!! json_encode($caseStatusCounts->pluck('label')->toArray()) !!} // Use the 'label' values as labels
-    // };
-
-    // var chart = new ApexCharts(document.querySelector("#casesStatusChart"), options);
-    // chart.render();
-
-    // Line Chart
-    // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('status')->toArray()) !!};
-
-    // var options = {
-    //     series: Object.values(seriesData).map((data) => ({
-    //         name: data[0].label,
-    //         data: data.map((item) => item.count),
-    //     })),
-    //     chart: {
-    //         height: 350,
-    //         type: 'area',
-    //     },
-    //     dataLabels: {
-    //         enabled: false,
-    //     },
-    //     stroke: {
-    //         curve: 'smooth',
-    //     },
-    //     xaxis: {
-    //         type: 'datetime',
-    //         categories: seriesData[Object.keys(seriesData)[0]].map((item) => item.date),
-    //     },
-    //     tooltip: {
-    //         x: {
-    //             format: 'dd/TMM/yy HH:mm',
-    //         },
-    //     },
-    // };
-
-    // var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
-    // chart.render();
-
 
     // The data passed from PHP to JavaScript
     var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
@@ -475,7 +398,7 @@
         series: [],
         chart: {
             height: 350,
-            type: 'area',
+            type: 'line',
             background: 'transparent',
         },
         dataLabels: {
@@ -512,6 +435,7 @@
                 }
             }
         },
+        colors: ['#275894', '#41d394', '#41d394', '#836cff', '#fdc941', '#fe4c4a', '#6c757e', '#41d394'], // Add your colors here
     };
 
     // Add the total cases series (Leads Totali)
@@ -532,57 +456,79 @@
     var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
     chart.render();
 
-    // var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
 
-    // var options = {
-    //     series: [
-    //         {
-    //             name: 'Leads Totali',
-    //             data: Object.values(seriesData).map((data) => data[0].total_cases),
-    //         },
-    //         {
-    //             name: 'Conversioni',
-    //             data: Object.values(seriesData).map((data) => data[0].resolved_cases),
-    //         },
-    //     ],
-    //     chart: {
-    //         height: 350,
-    //         type: 'area',
-    //         background: 'transparent',
-    //     },
-    //     dataLabels: {
-    //         enabled: false,
-    //     },
-    //     theme: {
-    //         mode: 'dark',
-    //         palette: 'palette4',
-    //         monochrome: {
-    //             enabled: false
-    //         }
-    //     },
-    //     stroke: {
-    //         curve: 'smooth',
-    //     },
-    //     xaxis: {
-    //         categories: Object.values(seriesData).map((data) => data[0].date),
-    //         labels: {
-    //             formatter: function (value) {
-    //                 return value;
-    //             }
-    //         }
-    //     },
-    //     tooltip: {
-    //         x: {
-    //             format: 'dd/MM/yy',
-    //         },
-    //     },
-    //     // title: {
-    //     //     text: 'Monthly Cases',
-    //     //     align: 'left'
-    //     // },
-    // };
+// // The data passed from PHP to JavaScript
+// var seriesData = {!! json_encode($caseStatusCounts2->groupBy('date')->toArray()) !!};
+// var statusLabels = {!! json_encode(array_values($statusMappings)) !!};  // Status labels passed from PHP
 
-    // var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
-    // chart.render();
+// var options = {
+//     series: [{
+//         name: 'Leads Totali',
+//         data: Object.values(seriesData).map((data) => data[0].total_cases), // Total cases
+//     }],
+//     chart: {
+//         height: 350,
+//         type: 'line',
+//         zoom: {
+//             enabled: false
+//         }
+//     },
+//     dataLabels: {
+//         enabled: false
+//     },
+//     stroke: {
+//         curve: 'straight'
+//     },
+//     title: {
+//         text: 'Case Status Trends',
+//         align: 'left'
+//     },
+//     grid: {
+//         row: {
+//             colors: ['#f3f3f3', 'transparent'],
+//             opacity: 0.5
+//         }
+//     },
+//     xaxis: {
+//         categories: Object.values(seriesData).map((data) => data[0].date),
+//         labels: {
+//             formatter: function (value) {
+//                 return value;
+//             }
+//         }
+//     },
+//     tooltip: {
+//         x: {
+//             format: 'dd/MM/yy',
+//         },
+//         y: {
+//             formatter: function (value, { seriesIndex, dataPointIndex, w }) {
+//                 if (seriesIndex < statusLabels.length + 1) {
+//                     return w.config.series[seriesIndex].data[dataPointIndex]; // Show status count
+//                 }
+//                 return value; // Show other values (total cases)
+//             }
+//         },
+//         style: {
+//             fontSize: '12px', // Adjust font size if needed
+//             background: '#000', // Dark background for tooltip
+//             color: '#000', // White text for better contrast
+//             border: '1px solid red', // Optional: border for better visibility
+//         }
+//     },
+//     colors: ['#275894', '#41d394', '#836cff', '#fdc941', '#fe4c4a', '#6c757e'],
+// };
+
+// // Add the status series dynamically based on the statusMappings
+// statusLabels.forEach(function(label) {
+//     options.series.push({
+//         name: label,
+//         data: Object.values(seriesData).map((data) => data[0][label]),
+//     });
+// });
+
+// // Initialize and render the chart
+// var chart = new ApexCharts(document.querySelector("#caseStatusSplineChart"), options);
+// chart.render();
 
 </script>

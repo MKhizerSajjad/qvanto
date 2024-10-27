@@ -21,11 +21,11 @@
                 @if (Auth::user()->user_type != 3)
                     @include('admin.dashboard.comapny')
                 @else
-                    @include('admin.dashboard.customer')               
+                    @include('admin.dashboard.customer')
                 @endif
             </div>
         </div>
     </div>
 
-    
+
 </x-app-layout>

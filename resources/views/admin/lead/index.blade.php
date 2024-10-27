@@ -42,11 +42,15 @@
                                         <thead>
                                             <tr>
                                                 <th>Sr#</th>
-                                                <th>Tipologia leads</th>
+                                                <th>Nome</th>
+                                                <th>Suriname </th>
+                                                <th>Prone</th>
+                                                <th>Email</th>
                                                 @if($restricted == false)
-                                                    <th>Nome</th>
+                                                <th>Assciati</th>
                                                 @endif
                                                 <th>Data</th>
+                                                <th>Tipologia</th>
                                                 <th>Stato</th>
                                                 <th>Note</th>
                                             </tr>
@@ -55,11 +59,15 @@
                                             @foreach ($data as $key => $lead)
                                                 <tr>
                                                     <td>{{++$key}}</td>
-                                                    <td>{{getLeadType($lead->lead_type)}}</td>
+                                                    <td>{{$lead->first_name ?? ''}}</td>
+                                                    <td>{{$lead->last_name ?? ''}}</td>
+                                                    <td>{{$lead->mobile_number ?? ''}}</td>
+                                                    <td>{{$lead->email ?? ''}}</td>
                                                     @if($restricted == false)
-                                                        <td>{{$lead->vendor->first_name ?? ''}} {{$lead->vendor->last_name ?? ''}}</td>
+                                                        <td>{{$lead->vendor->first_name ?? ''}}</td>
                                                     @endif
                                                     <td>{{$lead->dated}}</td>
+                                                    <td>{!! getLeadType($lead->lead_type, 'badge')  !!}</td>
                                                     <td>{!! getLeadStatus($lead->status, 'badge') !!}</td>
                                                     <td>
                                                         <div class="d-flex align-items-center list-action">
