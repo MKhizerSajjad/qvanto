@@ -14,4 +14,8 @@ class Lead extends Model
     public function vendor() {
         return $this->belongsTo(User::class, 'vendor_id', 'id');
     }
+
+    public function leadStatus() {
+        return $this->hasMany(LeadStatus::class);
+    }
 }

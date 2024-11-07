@@ -12,7 +12,12 @@ class LeadController extends Controller
 {
     public function index(Request $request)
     {
-        $leads = Lead::orderBy('dated','DESC');
+        $leads = Lead::with([
+            'leadStatus' => function ($q) {
+                $q->orderBy('dated', 'DESC')
+                  ->with('user:id,first_name,last_name');
+            }
+        ])->orderBy('dated','DESC');
 
         if(Auth::user()->user_type == 1) {
             $leads = $leads->with(['vendor:id,first_name,last_name']);

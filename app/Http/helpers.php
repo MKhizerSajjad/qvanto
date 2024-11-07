@@ -69,6 +69,24 @@
             : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
     }
 
+    function getTimelineStatus($status = null, $type = null)
+    {
+        $statuses = [
+            '1' => ['Chiuso Spark 1up', '<div class="timeline-marker badge badge-success">✔</div>'], //converted
+            '2' => ['Fatto Watt', '<div class="timeline-marker badge badge-success">✔</div>'], //converted
+            '3' => ['In Chiusura', '<span class="timeline-marker badge bg-info">⏳</span>'],
+            '4' => ['Non Risponde', '<div class="timeline-marker badge badge-warning">✘</div>'],
+            '5' => ['Mi Ha Bloccato', '<div class="timeline-marker badge badge-danger">✘</div>'],
+            '6' => ['Rimandato', '<span class="timeline-marker badge bg-secondary">📅</span>'],
+            '7' => ['Chiuso Spark 2up', '<div class="timeline-marker badge badge-success">✔</div>'], //converted⚙️ 🚫
+        ];
+
+        return
+            isset($statuses[$status])
+            ? ($type === 'badge' ? $statuses[$status][1] : $statuses[$status][0])
+            : ($type === 'badge' ? array_column($statuses, 1) : array_column($statuses, 0));
+    }
+
     function getLeadType($status = null, $type = null)
     {
         $statuses = [
